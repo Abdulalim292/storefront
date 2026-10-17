@@ -1,6 +1,7 @@
 'use client';
 
-import { FormEvent, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import type { FormEvent } from 'react';
 import Link from 'next/link';
 import { Bot, MessageCircle, RotateCcw, Send, X } from 'lucide-react';
 import { BRANCHES } from '@/data/branches';
@@ -15,8 +16,6 @@ type Message = {
 };
 
 const firstSuggestions = ['Find a part', 'Check compatibility', 'Find a branch'];
-const contactSuggestions = ['Where are your branches?', 'How do I check compatibility?', 'Browse all parts'];
-
 function productMatches(question: string) {
   const query = question.toLowerCase();
   const searchableTerms = PRODUCTS.map((product) => ({
@@ -128,7 +127,7 @@ export function StorefrontChatbot() {
   }
 
   return (
-    <div className="fixed right-5 top-20 z-[70] flex flex-col items-end sm:right-6 sm:top-20">
+    <div className="fixed right-5 top-20 z-40 flex flex-col items-end sm:right-6 sm:top-20">
       {isOpen && (
         <section aria-label="Storefront chat" className="mb-3 flex h-[min(36rem,calc(100dvh-10rem))] w-[min(24rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-950/20">
           <header className="flex items-center justify-between bg-slate-950 px-4 py-4 text-white">

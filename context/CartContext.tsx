@@ -14,40 +14,79 @@ interface CartContextType {
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
+const CART_STORAGE_KEY = 'shopping-cart';
+const MAX_ITEM_QUANTITY = 99;
+
+function readCart(value: string | null): CartItem[] {
+  if (!value) return [];
+
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (!Array.isArray(parsed)) return [];
+
+    const productsById = new Map(PRODUCTS.map((product) => [product.id, product]));
+    const quantities = new Map<string, number>();
+
+    for (const item of parsed) {
+      if (!item || typeof item !== 'object' || !('id' in item) || !('quantity' in item)) continue;
+      const id = item.id;
+      const quantity = item.quantity;
+      if (typeof id !== 'string' || typeof quantity !== 'number' || !Number.isInteger(quantity) || quantity < 1) continue;
+      if (!productsById.has(id)) continue;
+      quantities.set(id, Math.min(MAX_ITEM_QUANTITY, (quantities.get(id) ?? 0) + quantity));
+    }
+
+    return [...quantities].flatMap(([id, quantity]) => {
+      const product = productsById.get(id);
+      return product ? [{ ...product, quantity }] : [];
+    });
+  } catch {
+    return [];
+  }
+}
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [isCartLoaded, setIsCartLoaded] = useState(false);
 
   useEffect(() => {
-    const savedCart = localStorage.getItem('shopping-cart');
-    if (savedCart) {
-      try {
-        const parsedCart: unknown = JSON.parse(savedCart);
-        const currentProductIds = new Set(PRODUCTS.map(({ id }) => id));
-        if (Array.isArray(parsedCart)) {
-          setCart(parsedCart.filter((item): item is CartItem =>
-            item && currentProductIds.has(item.id) && Number.isInteger(item.quantity) && item.quantity > 0
-          ));
-        }
-      } catch {
-        localStorage.removeItem('shopping-cart');
-      }
+    try {
+      setCart(readCart(window.localStorage.getItem(CART_STORAGE_KEY)));
+    } catch {
+      // Keep the in-memory cart available when browser storage is disabled.
     }
+    setIsCartLoaded(true);
+
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key !== CART_STORAGE_KEY && event.key !== null) return;
+      setCart(readCart(event.newValue));
+    };
+
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('shopping-cart', JSON.stringify(cart));
-  }, [cart]);
+    if (!isCartLoaded) return;
+    try {
+      window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    } catch {
+      // Storage can be full or unavailable; cart changes still work in memory.
+    }
+  }, [cart, isCartLoaded]);
 
   const addToCart = (product: Product) => {
+    const currentProduct = PRODUCTS.find((item) => item.id === product.id);
+    if (!currentProduct) return;
+
     setCart((prev) => {
-      const existingItem = prev.find((item) => item.id === product.id);
+      const existingItem = prev.find((item) => item.id === currentProduct.id);
       if (existingItem) {
         return prev.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          item.id === currentProduct.id ? { ...item, quantity: Math.min(MAX_ITEM_QUANTITY, item.quantity + 1) } : item
         );
       }
-      return [...prev, { ...product, quantity: 1 }];
+      return [...prev, { ...currentProduct, quantity: 1 }];
     });
   };
 
@@ -56,12 +95,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   };
 
   const updateQuantity = (productId: string, quantity: number) => {
-    if (quantity <= 0) {
+    const nextQuantity = Math.floor(quantity);
+    if (!Number.isFinite(nextQuantity) || nextQuantity <= 0) {
       removeFromCart(productId);
       return;
     }
     setCart((prev) =>
-      prev.map((item) => (item.id === productId ? { ...item, quantity } : item))
+      prev.map((item) => (item.id === productId ? { ...item, quantity: Math.min(MAX_ITEM_QUANTITY, nextQuantity) } : item))
     );
   };
 

@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { Product } from '@/types';
-import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
+import { ResilientImage } from '@/components/ui/ResilientImage';
 import { useCart } from '@/context/CartContext';
 import { ClipboardList, Ruler, Settings2, Ship } from 'lucide-react';
 
@@ -15,10 +15,9 @@ export default function ProductDetailClient({ product }: { product: Product }) {
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
         <div>
           <div className="relative aspect-square overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
-            <Image
+            <ResilientImage
               src={product.images[0]}
               alt={product.name}
-              fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover transition-all duration-300"
             />

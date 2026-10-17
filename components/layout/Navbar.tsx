@@ -15,7 +15,7 @@ export function Navbar({ onCartClick }: { onCartClick?: () => void }) {
       <div className="relative mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex min-w-10 items-center gap-8">
           <div className="hidden 2xl:flex items-center gap-5">
-            <Link href="/#marine-engines" className="text-sm font-medium text-slate-600 hover:text-indigo-600 transition-colors">
+            <Link href="/#marine-engine-models" className="text-sm font-medium text-slate-600 hover:text-indigo-600 transition-colors">
               Marine Engines
             </Link>
             <Link href="/#gearboxes" className="text-sm font-medium text-slate-600 hover:text-indigo-600 transition-colors">
@@ -46,6 +46,8 @@ export function Navbar({ onCartClick }: { onCartClick?: () => void }) {
           <PartSearchForm className="hidden 2xl:flex" />
 
           <button
+            type="button"
+            aria-label={`Open parts inquiry list${cartCount > 0 ? `, ${cartCount} items` : ''}`}
             className="relative p-2 text-slate-600 hover:text-indigo-600 transition-colors"
             onClick={onCartClick}
           >
@@ -74,7 +76,7 @@ export function Navbar({ onCartClick }: { onCartClick?: () => void }) {
       {isMenuOpen && (
         <div id="mobile-navigation" className="2xl:hidden border-t border-slate-200 bg-white p-4 space-y-4">
           <PartSearchForm className="flex 2xl:hidden" />
-          <Link href="/#marine-engines" className="block py-2 text-base font-medium text-slate-600" onClick={() => setIsMenuOpen(false)}>
+          <Link href="/#marine-engine-models" className="block py-2 text-base font-medium text-slate-600" onClick={() => setIsMenuOpen(false)}>
             Marine Engines
           </Link>
           <Link href="/#gearboxes" className="block py-2 text-base font-medium text-slate-600" onClick={() => setIsMenuOpen(false)}>

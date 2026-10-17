@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Product } from '@/types';
 import { Button } from '@/components/ui/Button';
+import { ResilientImage } from '@/components/ui/ResilientImage';
 import { useCart } from '@/context/CartContext';
 import { ClipboardList } from 'lucide-react';
 
@@ -19,10 +19,9 @@ export function ProductCard({ product }: ProductCardProps) {
     <div className="group relative flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-all hover:shadow-lg">
       <Link href={`/products/${product.id}`} className="relative aspect-square overflow-hidden">
         <div className="relative h-full w-full">
-          <Image
+          <ResilientImage
             src={product.images[0]}
             alt={product.name}
-            fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />

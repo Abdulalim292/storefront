@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { X, Trash2, Plus, Minus, ClipboardList, ShoppingBag, Copy, Check } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
+import { ResilientImage } from '@/components/ui/ResilientImage';
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -15,6 +16,28 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   const [engineDetails, setEngineDetails] = useState('');
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    closeButtonRef.current?.focus();
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      if (isInquiryOpen) setIsInquiryOpen(false);
+      else onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, isInquiryOpen, onClose]);
 
   const inquiryText = [
     'Parts inquiry — Noor Alam Machineries',
@@ -35,9 +58,13 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
         textArea.style.position = 'fixed';
         textArea.style.opacity = '0';
         document.body.appendChild(textArea);
-        textArea.select();
-        const didCopy = document.execCommand('copy');
-        document.body.removeChild(textArea);
+        let didCopy = false;
+        try {
+          textArea.select();
+          didCopy = document.execCommand('copy');
+        } finally {
+          document.body.removeChild(textArea);
+        }
         if (!didCopy) throw new Error('Copy command failed');
       }
       setCopied(true);
@@ -53,20 +80,22 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   return (
     <>
       {/* Backdrop */}
-      <div
+      <button
+        type="button"
+        aria-label="Close inquiry list"
         className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       />
 
       {/* Drawer */}
-      <div className={cn(
+      <div role="dialog" aria-modal="true" aria-labelledby="inquiry-drawer-title" className={cn(
         "fixed right-0 top-0 z-50 h-full w-full max-w-md bg-white shadow-2xl transition-transform duration-300 ease-in-out",
         isOpen ? "translate-x-0" : "translate-x-full"
       )}>
         <div className="flex h-full flex-col">
           <div className="flex items-center justify-between border-b border-slate-200 p-4">
-            <h2 className="text-lg font-bold text-slate-900">Parts inquiry list</h2>
-            <button onClick={onClose} className="p-2 text-slate-500 hover:text-slate-900">
+            <h2 id="inquiry-drawer-title" className="text-lg font-bold text-slate-900">Parts inquiry list</h2>
+            <button ref={closeButtonRef} type="button" aria-label="Close inquiry list" onClick={onClose} className="p-2 text-slate-500 hover:text-slate-900">
               <X className="h-5 w-5" />
             </button>
           </div>
@@ -86,8 +115,8 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
               <div className="space-y-4">
                 {cart.map((item) => (
                   <div key={item.id} className="flex gap-4 border-b border-slate-100 pb-4">
-                    <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-slate-200">
-                      <img src={item.images[0]} alt={item.name} className="h-full w-full object-cover" />
+                    <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-slate-200">
+                      <ResilientImage src={item.images[0]} alt={item.name} sizes="80px" className="object-cover" />
                     </div>
                     <div className="flex flex-1 flex-col justify-between">
                       <div className="flex justify-between">
@@ -98,6 +127,8 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                           </a>
                         </div>
                         <button
+                          type="button"
+                          aria-label={`Remove ${item.name} from inquiry list`}
                           onClick={() => removeFromCart(item.id)}
                           className="text-slate-400 hover:text-red-500"
                         >
@@ -107,6 +138,8 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                       <div className="flex items-center justify-between mt-2">
                         <div className="flex items-center border border-slate-200 rounded-md">
                           <button
+                            type="button"
+                            aria-label={`Decrease ${item.name} quantity`}
                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
                             className="p-1 hover:bg-slate-50"
                           >
@@ -114,8 +147,11 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                           </button>
                           <span className="px-2 text-xs font-medium">{item.quantity}</span>
                           <button
+                            type="button"
+                            aria-label={`Increase ${item.name} quantity`}
                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            className="p-1 hover:bg-slate-50"
+                            disabled={item.quantity >= 99}
+                            className="p-1 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
                           >
                             <Plus className="h-3 w-3" />
                           </button>
@@ -146,10 +182,10 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
       {/* Contact Modal */}
       {isInquiryOpen && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+          <div role="dialog" aria-modal="true" aria-labelledby="inquiry-modal-title" className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold text-slate-900">Prepare a parts inquiry</h3>
-              <button onClick={() => setIsInquiryOpen(false)} className="p-1 text-slate-500 hover:text-slate-900">
+              <h3 id="inquiry-modal-title" className="text-xl font-bold text-slate-900">Prepare a parts inquiry</h3>
+              <button type="button" aria-label="Close inquiry form" onClick={() => setIsInquiryOpen(false)} className="p-1 text-slate-500 hover:text-slate-900">
                 <X className="h-5 w-5" />
               </button>
             </div>
