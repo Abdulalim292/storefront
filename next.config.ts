@@ -2,6 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    // Serve compact modern formats when the browser supports them while keeping
+    // the original source format as the compatibility fallback.
+    formats: ['image/avif', 'image/webp'],
+    qualities: [70, 80],
+    minimumCacheTTL: 604800,
     remotePatterns: [
       {
         protocol: 'https',

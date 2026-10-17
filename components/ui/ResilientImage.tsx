@@ -13,6 +13,7 @@ interface ResilientImageProps {
 
 export function ResilientImage({ src, alt, sizes, className = '' }: ResilientImageProps) {
   const [hasFailed, setHasFailed] = useState(false);
+  const [useOriginalSource, setUseOriginalSource] = useState(false);
 
   if (hasFailed) {
     return (
@@ -29,8 +30,17 @@ export function ResilientImage({ src, alt, sizes, className = '' }: ResilientIma
       alt={alt}
       fill
       sizes={sizes}
+      quality={80}
+      unoptimized={useOriginalSource}
       className={className}
-      onError={() => setHasFailed(true)}
+      style={{ objectPosition: 'center' }}
+      onError={() => {
+        if (!useOriginalSource) {
+          setUseOriginalSource(true);
+          return;
+        }
+        setHasFailed(true);
+      }}
     />
   );
 }

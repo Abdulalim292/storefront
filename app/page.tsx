@@ -317,7 +317,7 @@ export default function HomePage() {
               {marineEngineModels.map((model) => (
                 <article key={model.name} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                   <div className="relative aspect-[16/10] bg-slate-100">
-                    <ResilientImage src={model.image} alt={`${model.name} marine diesel engine`} sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover" />
+                    <ResilientImage src={model.image} alt={`${model.name} marine diesel engine`} sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-contain p-2" />
                   </div>
                   <div className="p-6">
                     <h4 className="text-xl font-bold text-slate-950">{model.name}</h4>
@@ -338,7 +338,7 @@ export default function HomePage() {
               {marineGearboxModels.map((model) => (
                 <article key={model.name} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                   <div className="relative aspect-[16/10] bg-slate-100">
-                    <ResilientImage src={model.image} alt={`${model.name} marine gearbox`} sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover" />
+                    <ResilientImage src={model.image} alt={`${model.name} marine gearbox`} sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-contain p-2" />
                   </div>
                   <div className="p-6">
                     <h4 className="text-xl font-bold text-slate-950">{model.name}</h4>
@@ -358,7 +358,7 @@ export default function HomePage() {
               {heavyMachineryModels.map((model) => (
                 <article key={model.name} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                   <div className="relative aspect-[16/10] bg-slate-100">
-                    <ResilientImage src={model.image} alt={`${model.name} photo`} sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover" />
+                    <ResilientImage src={model.image} alt={`${model.name} photo`} sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-contain p-2" />
                   </div>
                   <div className="p-6">
                     <h4 className="text-xl font-bold text-slate-950">{model.name}</h4>

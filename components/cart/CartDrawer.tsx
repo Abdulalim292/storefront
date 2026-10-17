@@ -115,15 +115,15 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
               <div className="space-y-4">
                 {cart.map((item) => (
                   <div key={item.id} className="flex gap-4 border-b border-slate-100 pb-4">
-                    <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-slate-200">
-                      <ResilientImage src={item.images[0]} alt={item.name} sizes="80px" className="object-cover" />
+                    <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-slate-200 bg-slate-50">
+                      <ResilientImage src={item.images[0]} alt={item.name} sizes="80px" className="object-contain p-1" />
                     </div>
                     <div className="flex flex-1 flex-col justify-between">
                       <div className="flex justify-between">
                         <div>
                           <h3 className="text-sm font-semibold text-black">{item.name}</h3>
                           <a href={item.imageSourceUrl} target="_blank" rel="noreferrer" className="text-[10px] text-slate-500 underline underline-offset-2">
-                            Photo: {item.imageCredit} · {item.imageLicense}
+                            {item.imageLicense === 'Original illustration' ? 'Illustration' : 'Photo'}: {item.imageCredit} · {item.imageLicense}
                           </a>
                         </div>
                         <button

@@ -5,7 +5,9 @@ export type ProductCategory =
   | 'valve-train'
   | 'fuel-system'
   | 'engine-components'
-  | 'cooling-system';
+  | 'cooling-system'
+  | 'gearbox-parts'
+  | 'heavy-equipment-parts';
 
 export interface Product {
   id: string;

@@ -9,7 +9,33 @@ export const CATEGORIES: { label: string; value: ProductCategory | 'all' }[] = [
   { label: 'Fuel system', value: 'fuel-system' },
   { label: 'Engine components', value: 'engine-components' },
   { label: 'Cooling system', value: 'cooling-system' },
+  { label: 'Gearbox parts', value: 'gearbox-parts' },
+  { label: 'Heavy equipment parts', value: 'heavy-equipment-parts' },
 ];
+
+const PHOTO_SOURCES: Record<string, { image: string; source: string; credit: string; license: string; licenseUrl: string }> = {
+  'engine-photo': {
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/John_Deere_marine_diesel_engine_%2801%29.jpg/1280px-John_Deere_marine_diesel_engine_%2801%29.jpg',
+    source: 'https://commons.wikimedia.org/wiki/File:John_Deere_marine_diesel_engine_(01).jpg',
+    credit: 'S.J. de Waard / Wikimedia Commons',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+  },
+  'gearbox-photo': {
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Single_speed_reverse_reduction_transmission_with_hydraulic_clutch_make_ZF_Marine_transmission_Model_ZF_1950_A.JPG/1280px-Single_speed_reverse_reduction_transmission_with_hydraulic_clutch_make_ZF_Marine_transmission_Model_ZF_1950_A.JPG',
+    source: 'https://commons.wikimedia.org/wiki/File:Single_speed_reverse_reduction_transmission_with_hydraulic_clutch_make_ZF_Marine_transmission_Model_ZF_1950_A.JPG',
+    credit: 'S.J. de Waard / Wikimedia Commons',
+    license: 'CC BY 2.5',
+    licenseUrl: 'https://creativecommons.org/licenses/by/2.5/',
+  },
+  'heavy-equipment-photo': {
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Entrack%2C_NTP%2C_Undercarriage_Excavator.jpg/1280px-Entrack%2C_NTP%2C_Undercarriage_Excavator.jpg',
+    source: 'https://commons.wikimedia.org/wiki/File:Entrack,_NTP,_Undercarriage_Excavator.jpg',
+    credit: 'Urjamten / Wikimedia Commons',
+    license: 'CC BY 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+  },
+};
 
 export const PRODUCTS: Product[] = [
   {
@@ -144,4 +170,75 @@ export const PRODUCTS: Product[] = [
     imageLicenseUrl: 'https://commons.wikimedia.org/wiki/Template:PD-self',
     images: ['https://upload.wikimedia.org/wikipedia/commons/6/6b/Impellerrad.jpg'],
   },
+  ...[
+    'Engine Block', 'Cylinder Head', 'Cylinder Liner Kit', 'Piston Pin', 'Piston and Ring Kit',
+    'Connecting Rod', 'Crankshaft', 'Camshaft', 'Oversize Main Bearing Set', 'Connecting Rod Bearing Set',
+    'Thrust Washer Set', 'Top Overhaul Gasket Set', 'Oil Pan Gasket', 'Inlet Valve', 'Rocker Shaft',
+    'Valve Bridge', 'Valve Rotator', 'Valve Spring', 'Rocker Arm', 'Push Rod',
+    'Tappet', 'Timing Gear', 'Timing Chain', 'Timing Belt', 'Flywheel',
+    'Flywheel Ring Gear', 'Crankshaft Pulley', 'Vibration Damper', 'Oil Pump', 'Oil Filter',
+    'Oil Cooler', 'Water Pump', 'Water Pump Assembly', 'Thermostat', 'Coolant Hose',
+    'Radiator', 'Fuel Injection Pump', 'Fuel Injector', 'Injector Nozzle', 'Fuel Filter',
+    'Fuel Lift Pump', 'Turbocharger Oil Line', 'Turbocharger Rebuild Kit', 'Exhaust Manifold', 'Intake Manifold',
+    'Air Filter', 'Starter Motor', 'Alternator', 'Engine Mount', 'Engine Overhaul Gasket Set',
+  ].map((name) => makeCatalogProduct(name, 'engine-components', 'engine-photo')),
+  ...[
+    'Gearbox Housing', 'Input Shaft', 'Output Shaft', 'Intermediate Shaft', 'Reverse Idler Gear',
+    'Forward Gear Set', 'Reverse Gear Set', 'Reduction Gear Set', 'Helical Gear Pair', 'Bevel Gear Set',
+    'Clutch Pack', 'Forward Clutch Plate', 'Reverse Clutch Plate', 'Friction Disc', 'Separator Plate',
+    'Clutch Hub', 'Clutch Drum', 'Clutch Piston', 'Clutch Return Spring', 'Hydraulic Pump',
+    'Oil Pump Drive', 'Pressure Regulator Valve', 'Control Valve Body', 'Selector Valve', 'Shift Fork',
+    'Shift Rail', 'Shift Linkage', 'Control Cable', 'Gear Selector', 'Planetary Carrier',
+    'Sun Gear', 'Ring Gear', 'Planet Gear', 'Thrust Washer', 'Needle Bearing',
+    'Tapered Roller Bearing', 'Ball Bearing', 'Thrust Bearing', 'Bearing Race', 'Input Shaft Seal',
+    'Output Shaft Seal', 'O-Ring Kit', 'Gasket Set', 'Oil Filter', 'Suction Strainer',
+    'Oil Cooler', 'Cooler Hose', 'Oil Pressure Switch', 'Speed Sensor', 'Gearbox Mounting Bracket',
+  ].map((name) => makeCatalogProduct(name, 'gearbox-parts', 'gearbox-photo')),
+  ...[
+    'Water Jacket Cover', 'Cylinder Head Bolt Set', 'Crankshaft Seal', 'Camshaft Bushing Set', 'Connecting Rod Bolt Set',
+    'Wrist Pin Bushing', 'Piston Cooling Nozzle', 'Valve Stem Seal Set', 'Valve Collet Set', 'Rocker Cover',
+    'Rocker Cover Gasket', 'Manifold Gasket Set', 'Turbocharger Gasket Kit', 'Exhaust Elbow', 'Engine Mounting Bracket',
+    'Front Engine Support', 'Rear Engine Support', 'Engine Control Unit', 'Engine Wiring Harness', 'Oil Pressure Sensor',
+    'Coolant Temperature Sensor', 'Crankshaft Position Sensor', 'Speed Pickup Sensor', 'Glow Plug Set', 'Intake Air Heater',
+    'Exhaust Flex Connector', 'Expansion Tank', 'Coolant Level Sensor', 'Fuel Rail', 'High Pressure Fuel Pipe Set',
+    'Fuel Return Pipe Set', 'Fuel Water Separator', 'Air Intake Silencer', 'Engine Service Kit',
+  ].map((name) => makeCatalogProduct(name, 'engine-components', 'engine-photo')),
+  ...[
+    'Marine Gearbox Assembly', 'Reversing Gearbox Assembly', 'Reduction Gearbox Assembly', 'Transmission Input Coupling', 'Flexible Drive Coupling',
+    'Torsional Damper', 'Propeller Shaft Flange', 'Output Flange', 'Input Shaft Bearing', 'Output Shaft Bearing',
+    'Gearbox Oil Pump', 'Oil Pump Cover', 'Hydraulic Control Pump', 'Clutch Friction Plate Set', 'Clutch Steel Plate Set',
+    'Clutch Disc Hub', 'Clutch Pressure Plate', 'Clutch Release Piston', 'Reverse Clutch Drum', 'Gear Shift Lever',
+    'Gear Selector Cable', 'Neutral Safety Switch', 'Direction Control Valve', 'Pressure Relief Valve', 'Oil Cooler Core',
+    'Oil Cooler Gasket', 'Dipstick Assembly', 'Breather Assembly', 'Magnetic Drain Plug', 'Gear Tooth Set',
+    'Planetary Gear Carrier', 'Reduction Gear Pinion', 'Marine Transmission Service Kit',
+  ].map((name) => makeCatalogProduct(name, 'gearbox-parts', 'gearbox-photo')),
+  ...[
+    'Track Shoe', 'Track Link', 'Track Roller', 'Carrier Roller', 'Track Idler',
+    'Sprocket Segment', 'Track Chain', 'Rubber Track', 'Final Drive Motor', 'Travel Motor',
+    'Swing Motor', 'Hydraulic Pump', 'Hydraulic Cylinder', 'Lift Cylinder', 'Boom Cylinder',
+    'Bucket Cylinder', 'Hydraulic Hose', 'Hydraulic Hose Coupling', 'Hydraulic Control Valve', 'Hydraulic Relief Valve',
+    'Swing Bearing', 'Slew Ring', 'Boom Pin', 'Bucket Pin', 'Bucket Bushing',
+    'Bucket Cutting Edge', 'Bucket Tooth', 'Bucket Side Cutter', 'Quick Coupler', 'Loader Tire',
+    'Wheel Hub', 'Axle Shaft', 'Brake Assembly',
+  ].map((name) => makeCatalogProduct(name, 'heavy-equipment-parts', 'heavy-equipment-photo')),
 ];
+
+function makeCatalogProduct(name: string, category: ProductCategory, photo: string): Product {
+  const id = `${category}-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
+  const fitmentDetails = category === 'heavy-equipment-parts'
+    ? 'Confirm the machine make, model, serial number, dimensions, and part number to check compatibility before ordering.'
+    : 'Confirm the exact engine or gearbox model, serial number, dimensions, and part number to check compatibility before ordering.';
+  const photoDetails = PHOTO_SOURCES[photo];
+
+  return {
+    id,
+    name,
+    description: `${name} for ${category === 'heavy-equipment-parts' ? 'construction and industrial machinery' : 'marine and industrial powertrain'} applications. ${fitmentDetails}`,
+    category,
+    images: [photoDetails.image],
+    imageSourceUrl: photoDetails.source,
+    imageCredit: photoDetails.credit,
+    imageLicense: photoDetails.license,
+    imageLicenseUrl: photoDetails.licenseUrl,
+  };
+}

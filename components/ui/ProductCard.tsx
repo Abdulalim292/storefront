@@ -17,13 +17,13 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-all hover:shadow-lg">
-      <Link href={`/products/${product.id}`} className="relative aspect-square overflow-hidden">
+      <Link href={`/products/${product.id}`} className="relative aspect-square overflow-hidden bg-slate-50">
         <div className="relative h-full w-full">
           <ResilientImage
             src={product.images[0]}
             alt={product.name}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
           />
         </div>
       </Link>
@@ -36,7 +36,7 @@ export function ProductCard({ product }: ProductCardProps) {
           className="mb-3 text-[11px] leading-4 text-slate-500 underline decoration-slate-300 underline-offset-2 hover:text-cyan-800"
           aria-label={`Image credit: ${product.imageCredit}, ${product.imageLicense}`}
         >
-          Photo: {product.imageCredit} · {product.imageLicense}
+          {product.imageLicense === 'Original illustration' ? 'Illustration' : 'Photo'}: {product.imageCredit} · {product.imageLicense}
         </a>
         <div className="mb-1 flex items-center justify-between">
           <span className="text-xs font-medium uppercase tracking-wider text-slate-500">
