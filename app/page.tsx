@@ -191,9 +191,9 @@ const heavyMachineryModels = [
   {
     name: 'John Deere 6068 PowerTech',
     description: 'A 6.8-litre industrial diesel engine family for off-highway equipment. Ratings, emissions certification, and accessories vary by 6068 engine code.',
-    image: 'https://www.truck1-ao.com/img/xxl/17935/John-Deere-PowerTech-Plus-6-8L-6068-silnik-kompletny-Poland_17935_8848681345853.jpg',
-    imageSource: 'https://www.truck1-ao.com/pecas-de-reposicao/motores/john-deere-powertech-plus-6-8l-6068-silnik-kompletny-a8047967.html',
-    imageCredit: 'Truck1',
+    image: 'https://www.deere.ca/assets/images/common/industries/engines-and-drivetrain/product/GEN_FT4_6068HFG09_RtFt_large_813a9581b51cfe73a6bbe1559c5008542c1cbbb9.png',
+    imageSource: 'https://www.deere.ca/en/generator-drive-engines/final-tier-4-stage-v/6068cg550/',
+    imageCredit: 'John Deere',
   },
 ];
 

@@ -89,6 +89,12 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'www.deere.ca',
+        port: '',
+        pathname: '/assets/images/common/industries/engines-and-drivetrain/product/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'fada-gearbox.com',
         port: '',
         pathname: '/wp-content/uploads/**',
