@@ -1,5 +1,6 @@
 import React from 'react';
-import { ShoppingBag } from 'lucide-react';
+import Image from 'next/image';
+import { PhoneCall, Mail, Globe } from 'lucide-react';
 import Link from 'next/link';
 
 export function Footer() {
@@ -9,34 +10,47 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div className="col-span-1 md:col-span-2">
             <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tight text-slate-900 mb-4">
-              <ShoppingBag className="h-6 w-6 text-indigo-600" />
-              <span>LUXE<span className="text-indigo-600">STORE</span></span>
+              <Image
+                src="/brand/noor-alam-machineries-logo.jpg"
+                alt="Noor Alam Machineries gear logo"
+                width={44}
+                height={44}
+                className="h-11 w-11 rounded-full object-cover"
+              />
+              <span>Noor Alam <span className="text-indigo-600">Machineries</span></span>
             </Link>
-            <p className="max-w-xs text-sm text-slate-600 leading-relaxed">
-              Curating the finest physical products for the modern home and lifestyle. Quality, design, and functionality in every piece.
+            <p className="max-w-sm text-sm leading-relaxed text-slate-600">
+              Managed by Md. Noor Nabi. Importer, wholesaler, and retailer of marine diesel engines, gearboxes, generators, and heavy equipment spare parts.
             </p>
           </div>
 
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-4">Shop</h4>
+            <h4 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-4">Equipment</h4>
             <ul className="space-y-2">
-              <li><Link href="/products" className="text-sm text-slate-600 hover:text-indigo-600">All Products</Link></li>
-              <li><Link href="/products?category=electronics" className="text-sm text-slate-600 hover:text-indigo-600">Electronics</Link></li>
-              <li><Link href="/products?category=home-decor" className="text-sm text-slate-600 hover:text-indigo-600">Home Decor</Link></li>
+              <li><Link href="/products" className="text-sm text-slate-600 hover:text-indigo-600">All Engine Parts</Link></li>
+              <li><Link href="/#marine-engines" className="text-sm text-slate-600 hover:text-indigo-600">Marine Engines</Link></li>
+              <li><Link href="/#gearboxes" className="text-sm text-slate-600 hover:text-indigo-600">Gearboxes</Link></li>
+              <li><Link href="/#heavy-machinery" className="text-sm text-slate-600 hover:text-indigo-600">Heavy Machinery</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-4">Company</h4>
             <ul className="space-y-2">
-              <li><Link href="#" className="text-sm text-slate-600 hover:text-indigo-600">About Us</Link></li>
-              <li><Link href="#" className="text-sm text-slate-600 hover:text-indigo-600">Contact</Link></li>
-              <li><Link href="#" className="text-sm text-slate-600 hover:text-indigo-600">Terms of Service</Link></li>
+              <li className="text-sm text-slate-600">Md. Noor Nabi · Managing Director</li>
+              <li><Link href="/#contact" className="text-sm text-slate-600 hover:text-indigo-600">Showroom and branch addresses</Link></li>
+              <li><a href="tel:+8801728079359" className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-indigo-600"><PhoneCall className="h-4 w-4" /> 01728-079359</a></li>
+              <li><a href="mailto:noornoobi80@gmail.com" className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-indigo-600"><Mail className="h-4 w-4" /> noornoobi80@gmail.com</a></li>
+              <li><a href="https://www.nooralammachinery.com" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-indigo-600"><Globe className="h-4 w-4" /> nooralammachinery.com</a></li>
             </ul>
           </div>
         </div>
-        <div className="mt-12 border-t border-slate-200 pt-8 text-center text-xs text-slate-500">
-          © {new Date().getFullYear()} LUXESTORE. All rights reserved.
+        <div className="mt-8 border-t border-slate-200 pt-6 text-sm text-slate-500">
+          <p className="mb-3 font-semibold text-slate-700">Engines and equipment supported</p>
+          <p className="max-w-4xl leading-6">Zichai marine diesel engines, Fadda marine gearboxes, Hino, Isuzu, Cummins, Perkins, Doosan, John Deere, MAN, generators, and heavy equipment spare parts.</p>
+        </div>
+        <div className="mt-8 border-t border-slate-200 pt-8 text-center text-xs text-slate-500">
+          © 2026 Noor Alam Machineries. All rights reserved.
         </div>
       </div>
     </footer>

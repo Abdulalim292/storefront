@@ -1,12 +1,22 @@
+export type ProductCategory =
+  | 'turbocharging'
+  | 'cylinder-assembly'
+  | 'pistons-rings'
+  | 'valve-train'
+  | 'fuel-system'
+  | 'engine-components'
+  | 'cooling-system';
+
 export interface Product {
   id: string;
   name: string;
   description: string;
-  price: number;
-  category: 'electronics' | 'home-decor' | 'accessories';
+  category: ProductCategory;
   images: string[];
-  featured: boolean;
-  stockStatus: 'in-stock' | 'low-stock' | 'out-of-stock';
+  imageSourceUrl: string;
+  imageCredit: string;
+  imageLicense: string;
+  imageLicenseUrl: string;
 }
 
 export interface CartItem extends Product {

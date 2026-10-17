@@ -1,10 +1,12 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Product } from '@/types';
 import { Button } from '@/components/ui/Button';
 import { useCart } from '@/context/CartContext';
-import { ShoppingCart } from 'lucide-react';
+import { ClipboardList } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
@@ -16,42 +18,42 @@ export function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-all hover:shadow-lg">
       <Link href={`/products/${product.id}`} className="relative aspect-square overflow-hidden">
-        <Image
-          src={product.images[0]}
-          alt={product.name}
-          fill
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
-        />
-        {product.stockStatus === 'low-stock' && (
-          <div className="absolute top-2 left-2 rounded-full bg-orange-100 px-2 py-1 text-xs font-medium text-orange-600">
-            Low Stock
-          </div>
-        )}
-        {product.stockStatus === 'out-of-stock' && (
-          <div className="absolute top-2 left-2 rounded-full bg-red-100 px-2 py-1 text-xs font-medium text-red-600">
-            Out of Stock
-          </div>
-        )}
+        <div className="relative h-full w-full">
+          <Image
+            src={product.images[0]}
+            alt={product.name}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        </div>
       </Link>
 
       <div className="flex flex-col p-4">
+        <a
+          href={product.imageSourceUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="mb-3 text-[11px] leading-4 text-slate-500 underline decoration-slate-300 underline-offset-2 hover:text-cyan-800"
+          aria-label={`Image credit: ${product.imageCredit}, ${product.imageLicense}`}
+        >
+          Photo: {product.imageCredit} · {product.imageLicense}
+        </a>
         <div className="mb-1 flex items-center justify-between">
           <span className="text-xs font-medium uppercase tracking-wider text-slate-500">
-            {product.category.replace('-', ' ')}
+            {product.category.replaceAll('-', ' ')}
           </span>
-          <span className="text-lg font-bold text-slate-900">${product.price.toFixed(2)}</span>
         </div>
-        <Link href={`/products/${product.id}`} className="mb-4 text-base font-semibold text-slate-800 hover:text-indigo-600">
+        <Link href={`/products/${product.id}`} className="mb-4 text-base font-semibold text-black">
           {product.name}
         </Link>
 
         <Button
           onClick={() => addToCart(product)}
-          disabled={product.stockStatus === 'out-of-stock'}
           className="mt-auto w-full gap-2"
         >
-          <ShoppingCart className="h-4 w-4" />
-          {product.stockStatus === 'out-of-stock' ? 'Out of Stock' : 'Add to Cart'}
+          <ClipboardList className="h-4 w-4" />
+          Add to inquiry list
         </Button>
       </div>
     </div>

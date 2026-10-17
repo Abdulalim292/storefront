@@ -1,8 +1,6 @@
-'use client';
-
 import React, { useState } from 'react';
 import { useCart } from '@/context/CartContext';
-import { X, Trash2, Plus, Minus, Mail } from 'lucide-react';
+import { X, Trash2, Plus, Minus, ClipboardList, ShoppingBag, Copy, Check } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 
@@ -12,8 +10,43 @@ interface CartDrawerProps {
 }
 
 export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
-  const { cart, removeFromCart, updateQuantity, cartTotal } = useCart();
-  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const { cart, removeFromCart, updateQuantity } = useCart();
+  const [isInquiryOpen, setIsInquiryOpen] = useState(false);
+  const [engineDetails, setEngineDetails] = useState('');
+  const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState(false);
+
+  const inquiryText = [
+    'Parts inquiry — Noor Alam Machineries',
+    '',
+    ...cart.map((item) => `${item.quantity} × ${item.name}`),
+    '',
+    `Engine make / model / serial: ${engineDetails || 'To be provided'}`,
+  ].join('\n');
+
+  const copyInquiry = async () => {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(inquiryText);
+      } else {
+        const textArea = document.createElement('textarea');
+        textArea.value = inquiryText;
+        textArea.setAttribute('readonly', '');
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.select();
+        const didCopy = document.execCommand('copy');
+        document.body.removeChild(textArea);
+        if (!didCopy) throw new Error('Copy command failed');
+      }
+      setCopied(true);
+      setCopyError(false);
+    } catch {
+      setCopied(false);
+      setCopyError(true);
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -32,7 +65,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
       )}>
         <div className="flex h-full flex-col">
           <div className="flex items-center justify-between border-b border-slate-200 p-4">
-            <h2 className="text-lg font-bold text-slate-900">Your Shopping Bag</h2>
+            <h2 className="text-lg font-bold text-slate-900">Parts inquiry list</h2>
             <button onClick={onClose} className="p-2 text-slate-500 hover:text-slate-900">
               <X className="h-5 w-5" />
             </button>
@@ -44,7 +77,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                 <div className="mb-4 rounded-full bg-slate-100 p-4">
                   <ShoppingBag className="h-8 w-8 text-slate-400" />
                 </div>
-                <p className="text-slate-600 font-medium">Your bag is empty</p>
+                <p className="text-slate-600 font-medium">Your inquiry list is empty</p>
                 <Button variant="outline" onClick={onClose} className="mt-4">
                   Start Shopping
                 </Button>
@@ -58,7 +91,12 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                     </div>
                     <div className="flex flex-1 flex-col justify-between">
                       <div className="flex justify-between">
-                        <h3 className="text-sm font-semibold text-slate-800">{item.name}</h3>
+                        <div>
+                          <h3 className="text-sm font-semibold text-black">{item.name}</h3>
+                          <a href={item.imageSourceUrl} target="_blank" rel="noreferrer" className="text-[10px] text-slate-500 underline underline-offset-2">
+                            Photo: {item.imageCredit} · {item.imageLicense}
+                          </a>
+                        </div>
                         <button
                           onClick={() => removeFromCart(item.id)}
                           className="text-slate-400 hover:text-red-500"
@@ -82,7 +120,6 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                             <Plus className="h-3 w-3" />
                           </button>
                         </div>
-                        <span className="text-sm font-bold text-slate-900">${(item.price * item.quantity).toFixed(2)}</span>
                       </div>
                     </div>
                   </div>
@@ -93,16 +130,13 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
           {cart.length > 0 && (
             <div className="border-t border-slate-200 p-4 space-y-4">
-              <div className="flex justify-between text-base font-bold text-slate-900">
-                <span>Total</span>
-                <span>${cartTotal.toFixed(2)}</span>
-              </div>
+              <p className="text-sm text-slate-600">Pricing and availability are confirmed after part and engine fitment details are reviewed.</p>
               <Button
                 className="w-full gap-2"
-                onClick={() => setIsContactModalOpen(true)}
+                onClick={() => { setIsInquiryOpen(true); setCopied(false); setCopyError(false); }}
               >
-                <Mail className="h-4 w-4" />
-                Contact for Order
+                <ClipboardList className="h-4 w-4" />
+                Prepare parts inquiry
               </Button>
             </div>
           )}
@@ -110,33 +144,41 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
       </div>
 
       {/* Contact Modal */}
-      {isContactModalOpen && (
+      {isInquiryOpen && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
           <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold text-slate-900">Finalize Your Order</h3>
-              <button onClick={() => setIsContactModalOpen(false)} className="p-1 text-slate-500 hover:text-slate-900">
+              <h3 className="text-xl font-bold text-slate-900">Prepare a parts inquiry</h3>
+              <button onClick={() => setIsInquiryOpen(false)} className="p-1 text-slate-500 hover:text-slate-900">
                 <X className="h-5 w-5" />
               </button>
             </div>
             <p className="text-slate-600 mb-6">
-              Our store is currently in catalog mode. Please send us an email with your cart items, and we'll get back to you with shipping and payment details.
+              Add your engine identification, then copy the inquiry details to share with Noor Alam Machineries. Confirm part fitment before ordering.
             </p>
             <div className="space-y-4">
               <div className="flex flex-col gap-1">
-                <label className="text-xs font-semibold text-slate-500 uppercase">Email Address</label>
+                <label htmlFor="engine-details" className="text-xs font-semibold uppercase text-slate-500">Engine make, model, or serial number</label>
                 <input
-                  type="email"
-                  placeholder="you@example.com"
-                  className="w-full rounded-md border border-slate-200 p-2 outline-none focus:ring-2 focus:ring-indigo-500"
+                  id="engine-details"
+                  type="text"
+                  value={engineDetails}
+                  onChange={(event) => setEngineDetails(event.target.value)}
+                  placeholder="Enter engine identification"
+                  className="w-full rounded-md border border-slate-200 p-2 text-black caret-black outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
-              <Button className="w-full" onClick={() => {
-                alert('Thank you for your interest! We will contact you soon.');
-                setIsContactModalOpen(false);
-              }}>
-                Send Inquiry
+              <textarea
+                aria-label="Parts inquiry details"
+                readOnly
+                value={inquiryText}
+                className="h-36 w-full resize-none rounded-md border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700"
+              />
+              <Button className="w-full gap-2" onClick={copyInquiry}>
+                {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                {copied ? 'Inquiry copied' : 'Copy inquiry details'}
               </Button>
+              {copyError && <p role="status" className="text-sm text-red-700">Copy was unavailable. Select and copy the inquiry text above.</p>}
             </div>
           </div>
         </div>
@@ -144,9 +186,3 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
     </>
   );
 }
-
-function ShoppingBag({ className, ...props }: any) {
-  return <ShoppingBagIcon className={className} {...props} />
-}
-
-import { ShoppingBagIcon } from 'lucide-react';
