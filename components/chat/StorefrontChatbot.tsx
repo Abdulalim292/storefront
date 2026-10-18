@@ -68,7 +68,7 @@ function replyTo(question: string): Omit<Message, 'role'> {
 
   if (/compatib|fit|which|recommend|match|model|serial/.test(query)) {
     return {
-      text: 'I can help you prepare a fitment check. Please provide the engine make and model, serial number, and the part number or dimensions if available. A branch can confirm compatibility before you order.',
+      text: 'I can help you prepare a fitment check. Please provide the engine name and model, serial number, and the part number or dimensions if available. A branch can confirm compatibility before you order.',
       suggestions: ['Find a part', 'Ask about pricing', 'Find a branch'],
     };
   }

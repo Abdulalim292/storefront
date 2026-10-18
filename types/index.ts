@@ -16,6 +16,11 @@ export interface Product {
   description: string;
   category: ProductCategory;
   images: string[];
+  imageSourceUrl: string;
+  imageCredit: string;
+  imageLicense: string;
+  imageLicenseUrl: string;
+  specifications?: string[];
 }
 
 export interface CartItem extends Product {

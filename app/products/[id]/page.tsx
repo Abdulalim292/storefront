@@ -1,5 +1,3 @@
-'use client';
-
 import { notFound } from 'next/navigation';
 import { PRODUCTS } from '@/data/products';
 import { EQUIPMENT_PRODUCTS } from '@/data/equipment';

@@ -29,7 +29,6 @@ export function Footer() {
             <h4 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-4">Equipment</h4>
             <ul className="space-y-2">
               <li><Link href="/products" className="text-sm text-slate-600 hover:text-indigo-600">All Engine Parts</Link></li>
-              <li><Link href="/image-credits" className="text-sm text-slate-600 hover:text-indigo-600">Image credits</Link></li>
               <li><Link href="/#marine-engine-models" className="text-sm text-slate-600 hover:text-indigo-600">Marine Engines</Link></li>
               <li><Link href="/#gearboxes" className="text-sm text-slate-600 hover:text-indigo-600">Gearboxes</Link></li>
               <li><Link href="/#heavy-machinery" className="text-sm text-slate-600 hover:text-indigo-600">Heavy Machinery</Link></li>

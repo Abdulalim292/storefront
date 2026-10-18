@@ -44,7 +44,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
     '',
     ...cart.map((item) => `${item.quantity} × ${item.name}`),
     '',
-    `Engine make / model / serial: ${engineDetails || 'To be provided'}`,
+    `Engine name / model / serial: ${engineDetails || 'To be provided'}`,
   ].join('\n');
 
   const copyInquiry = async () => {
@@ -187,17 +187,17 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
               </button>
             </div>
             <p className="text-slate-600 mb-6">
-              Add your engine identification, then copy the inquiry details to share with Noor Alam Machineries. Confirm part fitment before ordering.
+              Add the engine name, model or serial number, then copy the inquiry details to share with Noor Alam Machineries.
             </p>
             <div className="space-y-4">
               <div className="flex flex-col gap-1">
-                <label htmlFor="engine-details" className="text-xs font-semibold uppercase text-slate-500">Engine make, model, or serial number</label>
+                <label htmlFor="engine-details" className="text-xs font-semibold uppercase text-slate-500">Engine name, model or serial number</label>
                 <input
                   id="engine-details"
                   type="text"
                   value={engineDetails}
                   onChange={(event) => setEngineDetails(event.target.value)}
-                  placeholder="Enter engine identification"
+                  placeholder="Enter engine name, model or serial number"
                   className="w-full rounded-md border border-slate-200 p-2 text-black caret-black outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>

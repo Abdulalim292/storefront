@@ -174,6 +174,12 @@ export default function HomePage() {
                   <div className="p-5 sm:p-6">
                     <h4 className="text-xl font-bold text-slate-950">{model.name}</h4>
                     <p className="mt-2 leading-6 text-slate-600">{model.description}</p>
+                    {model.specifications && (
+                      <p className="mt-3 border-t border-slate-100 pt-3 text-sm leading-6 text-slate-500">
+                        {model.specifications.slice(0, 2).join(' · ')}
+                      </p>
+                    )}
+                    <span className="mt-4 inline-flex text-sm font-semibold text-cyan-800">View model details <ArrowRight className="ml-1 h-4 w-4" /></span>
                   </div>
                 </Link>
               ))}

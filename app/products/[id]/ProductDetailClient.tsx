@@ -43,6 +43,20 @@ export default function ProductDetailClient({ product }: { product: Product }) {
             {product.description}
           </p>
 
+          {product.category === 'equipment' && product.specifications && (
+            <section className="mb-8 rounded-xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
+              <h2 className="text-lg font-bold text-slate-950">Model details</h2>
+              <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-700">
+                {product.specifications.map((specification) => (
+                  <li key={specification} className="flex gap-2">
+                    <span aria-hidden="true" className="text-cyan-700">•</span>
+                    <span>{specification}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
           <div className="mb-10 flex flex-col gap-4 sm:flex-row">
             <Button size="lg" className="flex-1 gap-2" onClick={() => addToCart(product)}>
               <ClipboardList className="h-5 w-5" />
@@ -57,7 +71,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
               </div>
               <div>
                 <h4 className="text-sm font-bold text-slate-900">Check part compatibility</h4>
-                <p className="text-xs text-slate-500">Confirm engine make, model, and serial number.</p>
+                <p className="text-xs text-slate-500">Confirm engine name, model, and serial number.</p>
               </div>
             </div>
             <div className="flex gap-4">

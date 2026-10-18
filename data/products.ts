@@ -174,7 +174,7 @@ const catalogProducts: Product[] = [
   {
     id: 'turbocharger-assembly',
     name: 'Turbocharger Assembly',
-    description: 'Turbocharger assembly for marine and industrial diesel engines. Confirm engine make, model, serial number, and turbo specification for fitment.',
+    description: 'Turbocharger assembly for marine and industrial diesel engines. Confirm engine name, model, serial number, and turbo specification for fitment.',
     category: 'turbocharging',
     imageSourceUrl: 'https://commons.wikimedia.org/wiki/File:Turbocharger_assembly.jpg',
     imageCredit: 'Panoha / Wikimedia Commons',
@@ -240,7 +240,7 @@ const catalogProducts: Product[] = [
   {
     id: 'valve-guide',
     name: 'Valve Guide',
-    description: 'Valve guide for cylinder head maintenance. Confirm valve stem and guide dimensions alongside the engine identification.',
+    description: 'Valve guide for cylinder head maintenance. Confirm valve stem and guide dimensions alongside the engine name, model or serial number.',
     category: 'valve-train',
     imageSourceUrl: 'https://commons.wikimedia.org/wiki/File:W%C3%A4rtsil%C3%A4_46_engine_valve_train_parts_Forum_Marinum.JPG',
     imageCredit: 'MKFI / Wikimedia Commons',
