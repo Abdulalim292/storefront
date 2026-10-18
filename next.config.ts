@@ -128,6 +128,9 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
+    // The lockfile in /home/alim is outside this repository, so keep Turbopack
+    // scoped to the storefront project.
+    root: process.cwd(),
     rules: {
       "*.css": {
         loaders: ["@tailwindcss/turbopack"],
