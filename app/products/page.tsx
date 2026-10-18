@@ -49,7 +49,7 @@ function ProductsList() {
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
       <div className="mb-8 flex flex-col gap-5 sm:mb-12 sm:gap-6 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Marine Engine Parts</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">Marine Engine Parts</h1>
           <p className="mt-2 text-slate-600">Browse engine components and request pricing and fitment confirmation.</p>
           {query && <p className="mt-2 text-sm text-slate-500">Search results for “{query}”</p>}
         </div>

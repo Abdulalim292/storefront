@@ -141,7 +141,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        <div className="border-t border-white/10 bg-black/10">
+        <div className="border-t border-white/10 bg-black/10 text-white">
           <div className="mx-auto grid max-w-7xl gap-4 px-4 py-5 text-sm font-medium text-white sm:grid-cols-3 sm:px-6 lg:px-8">
             <p className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-300" /> Marine propulsion systems</p>
             <p className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-300" /> Gearboxes and transmissions</p>
