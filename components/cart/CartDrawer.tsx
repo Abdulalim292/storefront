@@ -122,9 +122,6 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                       <div className="flex justify-between">
                         <div>
                           <h3 className="text-sm font-semibold text-black">{item.name}</h3>
-                          <a href={item.imageSourceUrl} target="_blank" rel="noreferrer" className="text-[10px] text-slate-500 underline underline-offset-2">
-                            {item.imageLicense === 'Original illustration' ? 'Illustration' : 'Photo'}: {item.imageCredit} · {item.imageLicense}
-                          </a>
                         </div>
                         <button
                           type="button"

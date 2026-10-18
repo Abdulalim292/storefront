@@ -79,7 +79,7 @@ export default function HomePage() {
               <Anchor className="h-4 w-4" />
               Marine &amp; industrial equipment
             </div>
-            <h1 className="max-w-3xl break-words text-[clamp(2rem,9vw,4.5rem)] font-bold leading-[1.08] tracking-tight">
+            <h1 className="max-w-3xl break-words text-[clamp(2rem,9vw,4.5rem)] font-bold leading-[1.08] tracking-tight text-white">
               Powering work on the water <span className="text-white">and on land.</span>
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-7 text-white sm:mt-7 sm:text-xl sm:leading-8">

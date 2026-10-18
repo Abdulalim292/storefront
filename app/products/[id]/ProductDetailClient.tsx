@@ -23,18 +23,6 @@ export default function ProductDetailClient({ product }: { product: Product }) {
               className="object-contain p-4 transition-all duration-300"
             />
           </div>
-          <p className="mt-2 text-xs text-slate-500">Representative photo; the supplied part may differ.</p>
-          <a
-            href={product.imageSourceUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-1 block w-fit text-xs text-slate-500 underline decoration-slate-300 underline-offset-2 hover:text-cyan-800"
-          >
-            {product.imageLicense === 'Original illustration' ? 'Illustration' : 'Photo'}: {product.imageCredit} · {product.imageLicense}
-          </a>
-          <a href={product.imageLicenseUrl} target="_blank" rel="noreferrer" className="mt-1 block w-fit text-xs text-slate-500 underline decoration-slate-300 underline-offset-2 hover:text-cyan-800">
-            View image license
-          </a>
         </div>
 
         {/* Product Details */}

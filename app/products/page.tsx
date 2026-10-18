@@ -7,6 +7,7 @@ import { PRODUCTS, CATEGORIES } from '@/data/products';
 import { Button } from '@/components/ui/Button';
 import { ArrowUpDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ProductsPage() {
   return (
@@ -55,19 +56,26 @@ function ProductsList() {
         </div>
 
 
-        <div className="flex w-full min-w-0 flex-col items-stretch gap-3 md:w-auto md:items-end md:gap-4">
-          <div aria-label="Filter products by category" className="flex w-full min-w-0 flex-nowrap gap-1 overflow-x-auto rounded-lg bg-slate-100 p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex w-full min-w-0 flex-col items-stretch gap-3 md:w-full md:max-w-[760px] md:items-end md:gap-4">
+          <div aria-label="Filter products by category" className="relative flex w-full min-w-0 flex-wrap gap-1 rounded-lg bg-slate-100 p-1">
             {CATEGORIES.map(({ label, value }) => (
               <button
                 key={value}
                 onClick={() => setActiveCategory(value)}
                 className={cn(
-                  "min-h-11 shrink-0 whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium transition-all",
+                  "relative z-10 min-h-11 shrink-0 whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200",
                   activeCategory === value
-                    ? "bg-white text-indigo-600 shadow-sm"
+                    ? "text-indigo-600"
                     : "text-slate-600 hover:text-slate-900"
                 )}
               >
+                {activeCategory === value && (
+                  <motion.div
+                    layoutId="activeCategory"
+                    className="absolute inset-0 bg-white rounded-md shadow-sm -z-10"
+                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                  />
+                )}
                 {label}
               </button>
             ))}
@@ -88,19 +96,28 @@ function ProductsList() {
       </div>
 
       {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4">
-          {filteredProducts.map(product => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        <motion.div
+          layout
+          className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredProducts.map(product => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </AnimatePresence>
+        </motion.div>
       ) : (
-        <div className="flex h-64 flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-200 text-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="flex h-64 flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-200 text-center"
+        >
           <p className="text-lg font-medium text-slate-900">No parts found</p>
           <p className="text-slate-500">Try another search term or category.</p>
           <Button variant="outline" className="mt-4" onClick={() => setActiveCategory('all')}>
             Clear All Filters
           </Button>
-        </div>
+        </motion.div>
       )}
     </div>
   );

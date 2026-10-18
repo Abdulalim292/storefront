@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { ResilientImage } from '@/components/ui/ResilientImage';
 import { useCart } from '@/context/CartContext';
 import { ClipboardList } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface ProductCardProps {
   product: Product;
@@ -16,7 +17,14 @@ export function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
 
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-all hover:shadow-lg">
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.3 }}
+      className="group relative flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-all hover:shadow-lg"
+    >
       <Link href={`/products/${product.id}`} className="relative aspect-square overflow-hidden bg-slate-50">
         <div className="relative h-full w-full">
           <ResilientImage
@@ -29,15 +37,6 @@ export function ProductCard({ product }: ProductCardProps) {
       </Link>
 
       <div className="flex flex-col p-4">
-        <a
-          href={product.imageSourceUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="mb-3 text-[11px] leading-4 text-slate-500 underline decoration-slate-300 underline-offset-2 hover:text-cyan-800"
-          aria-label={`Image credit: ${product.imageCredit}, ${product.imageLicense}`}
-        >
-          {product.imageLicense === 'Original illustration' ? 'Illustration' : 'Photo'}: {product.imageCredit} · {product.imageLicense}
-        </a>
         <div className="mb-1 flex items-center justify-between">
           <span className="text-xs font-medium uppercase tracking-wider text-slate-500">
             {product.category.replaceAll('-', ' ')}
@@ -55,6 +54,6 @@ export function ProductCard({ product }: ProductCardProps) {
           Add to inquiry list
         </Button>
       </div>
-    </div>
+    </motion.div>
   );
 }

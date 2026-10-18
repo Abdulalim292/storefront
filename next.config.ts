@@ -24,6 +24,13 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'commons.wikimedia.org',
+        port: '',
+        pathname: '/wiki/Special:FilePath/**',
+        search: '?width=900',
+      },
+      {
+        protocol: 'https',
         hostname: 'cdn.merheinflare.com',
         port: '',
         pathname: '/public-site/products/**',
