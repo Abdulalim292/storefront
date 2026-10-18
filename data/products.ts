@@ -37,7 +37,7 @@ const PHOTO_SOURCES: Record<string, { image: string; source: string; credit: str
   },
 };
 
-export const PRODUCTS: Product[] = [
+const catalogProducts: Product[] = [
   {
     id: 'turbocharger-assembly',
     name: 'Turbocharger Assembly',
@@ -222,6 +222,13 @@ export const PRODUCTS: Product[] = [
     'Wheel Hub', 'Axle Shaft', 'Brake Assembly',
   ].map((name) => makeCatalogProduct(name, 'heavy-equipment-parts', 'heavy-equipment-photo')),
 ];
+
+export const PRODUCTS: Product[] = catalogProducts.filter((product, index, products) =>
+  product.name.trim().length > 0
+  && product.description.trim().length > 0
+  && product.images.some((image) => image.trim().length > 0)
+  && products.findIndex((candidate) => candidate.id === product.id) === index
+);
 
 function makeCatalogProduct(name: string, category: ProductCategory, photo: string): Product {
   const id = `${category}-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;

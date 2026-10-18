@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { PhoneCall, Mail, Globe } from 'lucide-react';
 import Link from 'next/link';
+import { formatBangladeshPhone, toBangladeshTel } from '@/lib/phone';
 
 export function Footer() {
   return (
@@ -11,7 +12,7 @@ export function Footer() {
           <div className="col-span-1 md:col-span-2">
             <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tight text-slate-900 mb-4">
               <Image
-                src="/brand/noor-alam-machineries-logo.jpg"
+                src="/brand/noor-alam-machineries-logo.webp"
                 alt="Noor Alam Machineries gear logo"
                 width={44}
                 height={44}
@@ -39,7 +40,7 @@ export function Footer() {
             <ul className="space-y-2">
               <li className="text-sm text-slate-600">Md. Noor Nabi · Managing Director</li>
               <li><Link href="/#contact" className="text-sm text-slate-600 hover:text-indigo-600">Showroom and branch addresses</Link></li>
-              <li><a href="tel:+8801728079359" className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-indigo-600"><PhoneCall className="h-4 w-4" /> 01728-079359</a></li>
+              <li><a href={toBangladeshTel('01728-079359')} className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-indigo-600"><PhoneCall className="h-4 w-4" /> {formatBangladeshPhone('01728-079359')}</a></li>
               <li><a href="mailto:noornoobi80@gmail.com" className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-indigo-600"><Mail className="h-4 w-4" /> noornoobi80@gmail.com</a></li>
               <li><a href="https://www.nooralammachinery.com" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-indigo-600"><Globe className="h-4 w-4" /> nooralammachinery.com</a></li>
             </ul>

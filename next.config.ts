@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
     // Serve compact modern formats when the browser supports them while keeping
     // the original source format as the compatibility fallback.
     formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1440, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 480],
     qualities: [70, 80],
     minimumCacheTTL: 604800,
     remotePatterns: [
@@ -111,6 +113,16 @@ const nextConfig: NextConfig = {
         pathname: '/wp-content/uploads/**',
       },
     ],
+  },
+  async headers() {
+    return [
+      {
+        source: '/brand/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=604800, stale-while-revalidate=86400' },
+        ],
+      },
+    ];
   },
   /* config options here */
   cacheComponents: true,

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import '../src/app/globals.css';
 import { StorefrontShell } from '@/components/layout/StorefrontShell';
+import { Footer } from '@/components/layout/Footer';
 
 export const metadata: Metadata = {
   applicationName: 'Noor Alam Machineries',
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body className="min-h-screen flex flex-col bg-white font-sans text-slate-900">
         <StorefrontShell>{children}</StorefrontShell>
+        <Footer />
       </body>
     </html>
   );

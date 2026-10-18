@@ -22,7 +22,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <ResilientImage
             src={product.images[0]}
             alt={product.name}
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            sizes="(max-width: 639px) calc(100vw - 2rem), (max-width: 1023px) calc((100vw - 3rem) / 2), (max-width: 1279px) calc((100vw - 5rem) / 4), 300px"
             className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
           />
         </div>

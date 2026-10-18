@@ -46,23 +46,23 @@ function ProductsList() {
   }, [activeCategory, sortOrder, query]);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-      <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+      <div className="mb-8 flex flex-col gap-5 sm:mb-12 sm:gap-6 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-4xl font-bold tracking-tight text-slate-900">Marine Engine Parts</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Marine Engine Parts</h1>
           <p className="mt-2 text-slate-600">Browse engine components and request pricing and fitment confirmation.</p>
           {query && <p className="mt-2 text-sm text-slate-500">Search results for “{query}”</p>}
         </div>
 
 
-        <div className="flex flex-wrap items-center gap-4">
-          <div className="flex flex-wrap items-center gap-1 rounded-lg bg-slate-100 p-1">
+        <div className="flex w-full min-w-0 flex-col items-stretch gap-3 md:w-auto md:items-end md:gap-4">
+          <div aria-label="Filter products by category" className="flex w-full min-w-0 flex-nowrap gap-1 overflow-x-auto rounded-lg bg-slate-100 p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {CATEGORIES.map(({ label, value }) => (
               <button
                 key={value}
                 onClick={() => setActiveCategory(value)}
                 className={cn(
-                  "min-h-10 px-3 py-2 text-sm font-medium rounded-md transition-all",
+                  "min-h-11 shrink-0 whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium transition-all",
                   activeCategory === value
                     ? "bg-white text-indigo-600 shadow-sm"
                     : "text-slate-600 hover:text-slate-900"
@@ -73,7 +73,7 @@ function ProductsList() {
             ))}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex min-h-11 items-center justify-end gap-2">
             <ArrowUpDown className="h-4 w-4 text-slate-400" />
             <select
               value={sortOrder}
@@ -88,7 +88,7 @@ function ProductsList() {
       </div>
 
       {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4">
           {filteredProducts.map(product => (
             <ProductCard key={product.id} product={product} />
           ))}

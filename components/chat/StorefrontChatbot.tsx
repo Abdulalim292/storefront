@@ -5,6 +5,7 @@ import type { FormEvent } from 'react';
 import Link from 'next/link';
 import { Bot, MessageCircle, RotateCcw, Send, X } from 'lucide-react';
 import { BRANCHES } from '@/data/branches';
+import { formatBangladeshPhone, toBangladeshTel } from '@/lib/phone';
 import { PRODUCTS } from '@/data/products';
 
 type ChatAction = { label: string; href: string };
@@ -49,7 +50,7 @@ function replyTo(question: string): Omit<Message, 'role'> {
   if (/branch|address|location|where|phone|contact|call/.test(query)) {
     return {
       text: 'Choose a branch below to call, or ask me about a specific part.',
-      actions: BRANCHES.flatMap((branch) => branch.phones.slice(0, 1).map((phone) => ({ label: `${branch.name} · ${phone}`, href: `tel:${phone.replaceAll('-', '')}` }))),
+      actions: BRANCHES.flatMap((branch) => branch.phones.slice(0, 1).map((phone) => ({ label: `${branch.name} · ${formatBangladeshPhone(phone)}`, href: toBangladeshTel(phone) }))),
       suggestions: ['Browse all parts', 'Ask about pricing'],
     };
   }
@@ -98,8 +99,8 @@ function initialMessage(): Message {
   };
 }
 
-export function StorefrontChatbot() {
-  const [isOpen, setIsOpen] = useState(false);
+export function StorefrontChatbot({ initiallyOpen = false }: { initiallyOpen?: boolean }) {
+  const [isOpen, setIsOpen] = useState(initiallyOpen);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([initialMessage()]);
   const endRef = useRef<HTMLDivElement>(null);
@@ -127,20 +128,20 @@ export function StorefrontChatbot() {
   }
 
   return (
-    <div className="fixed right-5 top-20 z-40 flex flex-col items-end sm:right-6 sm:top-20">
+    <div className="fixed bottom-4 right-4 z-[70] flex flex-col items-end sm:bottom-6 sm:right-6">
       {isOpen && (
-        <section aria-label="Storefront chat" className="mb-3 flex h-[min(36rem,calc(100dvh-10rem))] w-[min(24rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-950/20">
+        <section aria-label="Storefront chat" className="mb-3 flex h-[min(36rem,calc(100dvh-6rem))] w-[min(24rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-950/20">
           <header className="flex items-center justify-between bg-slate-950 px-4 py-4 text-white">
             <div className="flex items-center gap-3">
               <span className="grid h-10 w-10 place-items-center rounded-full bg-cyan-400 text-slate-950"><Bot className="h-5 w-5" /></span>
               <div>
                 <h2 className="text-sm font-semibold">Noor Alam support</h2>
-                <p className="text-xs text-slate-300">Parts, fitment &amp; branch help</p>
+                <p className="text-xs text-white">Parts, fitment &amp; branch help</p>
               </div>
             </div>
             <div className="flex items-center">
-              <button type="button" onClick={resetConversation} aria-label="Start a new conversation" title="Start a new conversation" className="rounded-full p-2 text-slate-300 transition hover:bg-white/10 hover:text-white"><RotateCcw className="h-4 w-4" /></button>
-              <button type="button" onClick={() => setIsOpen(false)} aria-label="Close chat" className="rounded-full p-2 text-slate-300 transition hover:bg-white/10 hover:text-white"><X className="h-5 w-5" /></button>
+              <button type="button" onClick={resetConversation} aria-label="Start a new conversation" title="Start a new conversation" className="rounded-full p-2 text-white transition hover:bg-white/10 hover:text-white"><RotateCcw className="h-4 w-4" /></button>
+              <button type="button" onClick={() => setIsOpen(false)} aria-label="Close chat" className="rounded-full p-2 text-white transition hover:bg-white/10 hover:text-white"><X className="h-5 w-5" /></button>
             </div>
           </header>
 
@@ -176,9 +177,9 @@ export function StorefrontChatbot() {
           </form>
         </section>
       )}
-      <button type="button" aria-label={isOpen ? 'Close support chat' : 'Open support chat'} aria-expanded={isOpen} onClick={() => setIsOpen((open) => !open)} className="flex h-14 items-center gap-2 rounded-full bg-cyan-600 px-5 text-white shadow-lg shadow-cyan-900/25 transition hover:-translate-y-0.5 hover:bg-cyan-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-700">
+      <button type="button" aria-label={isOpen ? 'Close support chat' : 'Open support chat'} aria-expanded={isOpen} onClick={() => setIsOpen((open) => !open)} className="flex h-12 w-12 items-center justify-center gap-2 rounded-full bg-cyan-600 p-0 text-white shadow-lg shadow-cyan-900/25 transition hover:-translate-y-0.5 hover:bg-cyan-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-700 sm:h-14 sm:w-auto sm:px-5">
         {isOpen ? <X className="h-5 w-5" /> : <MessageCircle className="h-5 w-5" />}
-        <span className="text-sm font-semibold">{isOpen ? 'Close chat' : 'Chat with us'}</span>
+        <span className="hidden text-sm font-semibold sm:inline">{isOpen ? 'Close chat' : 'Chat with us'}</span>
       </button>
     </div>
   );

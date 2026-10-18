@@ -95,7 +95,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
         <div className="flex h-full flex-col">
           <div className="flex items-center justify-between border-b border-slate-200 p-4">
             <h2 id="inquiry-drawer-title" className="text-lg font-bold text-slate-900">Parts inquiry list</h2>
-            <button ref={closeButtonRef} type="button" aria-label="Close inquiry list" onClick={onClose} className="p-2 text-slate-500 hover:text-slate-900">
+            <button ref={closeButtonRef} type="button" aria-label="Close inquiry list" onClick={onClose} className="grid h-11 w-11 place-items-center text-slate-500 hover:text-slate-900">
               <X className="h-5 w-5" />
             </button>
           </div>
@@ -130,7 +130,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                           type="button"
                           aria-label={`Remove ${item.name} from inquiry list`}
                           onClick={() => removeFromCart(item.id)}
-                          className="text-slate-400 hover:text-red-500"
+                          className="grid h-10 w-10 shrink-0 place-items-center text-slate-400 hover:text-red-500"
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>
@@ -141,7 +141,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                             type="button"
                             aria-label={`Decrease ${item.name} quantity`}
                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="p-1 hover:bg-slate-50"
+                            className="grid h-10 w-10 place-items-center hover:bg-slate-50"
                           >
                             <Minus className="h-3 w-3" />
                           </button>
@@ -151,7 +151,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                             aria-label={`Increase ${item.name} quantity`}
                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
                             disabled={item.quantity >= 99}
-                            className="p-1 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
+                            className="grid h-10 w-10 place-items-center hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
                           >
                             <Plus className="h-3 w-3" />
                           </button>
@@ -182,7 +182,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
       {/* Contact Modal */}
       {isInquiryOpen && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div role="dialog" aria-modal="true" aria-labelledby="inquiry-modal-title" className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+          <div role="dialog" aria-modal="true" aria-labelledby="inquiry-modal-title" className="max-h-[calc(100dvh-2rem)] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-4 shadow-xl sm:p-6">
             <div className="flex justify-between items-center mb-4">
               <h3 id="inquiry-modal-title" className="text-xl font-bold text-slate-900">Prepare a parts inquiry</h3>
               <button type="button" aria-label="Close inquiry form" onClick={() => setIsInquiryOpen(false)} className="p-1 text-slate-500 hover:text-slate-900">

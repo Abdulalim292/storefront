@@ -9,9 +9,10 @@ interface ResilientImageProps {
   alt: string;
   sizes: string;
   className?: string;
+  loading?: 'eager' | 'lazy';
 }
 
-export function ResilientImage({ src, alt, sizes, className = '' }: ResilientImageProps) {
+export function ResilientImage({ src, alt, sizes, className = '', loading = 'lazy' }: ResilientImageProps) {
   const [hasFailed, setHasFailed] = useState(false);
   const [useOriginalSource, setUseOriginalSource] = useState(false);
 
@@ -30,7 +31,8 @@ export function ResilientImage({ src, alt, sizes, className = '' }: ResilientIma
       alt={alt}
       fill
       sizes={sizes}
-      quality={80}
+      quality={70}
+      loading={loading}
       unoptimized={useOriginalSource}
       className={className}
       style={{ objectPosition: 'center' }}

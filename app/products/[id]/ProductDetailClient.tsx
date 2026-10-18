@@ -11,14 +11,15 @@ export default function ProductDetailClient({ product }: { product: Product }) {
   const { addToCart } = useCart();
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-      <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
+    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+      <div className="grid grid-cols-1 gap-8 sm:gap-12 lg:grid-cols-2">
         <div>
           <div className="relative aspect-square overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
             <ResilientImage
               src={product.images[0]}
               alt={product.name}
-              sizes="(max-width: 1024px) 100vw, 50vw"
+              sizes="(max-width: 1023px) calc(100vw - 2rem), (max-width: 1312px) 50vw, 640px"
+              loading="eager"
               className="object-contain p-4 transition-all duration-300"
             />
           </div>
@@ -42,7 +43,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
             <span className="text-sm font-medium uppercase tracking-wider text-slate-500">
               {product.category.replaceAll('-', ' ')}
             </span>
-            <h1 className="mt-2 w-fit rounded-md bg-slate-950 px-3 py-2 text-4xl font-bold tracking-tight text-white">
+            <h1 className="mt-2 max-w-full break-words rounded-md bg-slate-950 px-3 py-2 text-[clamp(1.75rem,8vw,2.25rem)] font-bold tracking-tight text-white">
               {product.name}
             </h1>
             <div className="mt-4 flex flex-wrap items-center gap-3">
