@@ -3,11 +3,9 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ShoppingBag, Menu, X, Search } from 'lucide-react';
-import { useCart } from '@/context/CartContext';
+import { Menu, X, Search } from 'lucide-react';
 
 export function Navbar({ onCartClick }: { onCartClick?: () => void }) {
-  const { cartCount } = useCart();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -45,20 +43,6 @@ export function Navbar({ onCartClick }: { onCartClick?: () => void }) {
 
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
           <PartSearchForm className="hidden 2xl:flex" />
-
-          <button
-            type="button"
-            aria-label={`Open parts inquiry list${cartCount > 0 ? `, ${cartCount} items` : ''}`}
-            className="relative grid h-11 w-11 place-items-center text-slate-600 transition-colors hover:text-indigo-600"
-            onClick={onCartClick}
-          >
-            <ShoppingBag className="h-6 w-6" />
-            {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-indigo-600 text-[10px] font-bold text-white">
-                {cartCount}
-              </span>
-            )}
-          </button>
 
           <button
             type="button"

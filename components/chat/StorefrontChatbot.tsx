@@ -7,6 +7,7 @@ import { Bot, MessageCircle, RotateCcw, Send, X } from 'lucide-react';
 import { BRANCHES } from '@/data/branches';
 import { formatBangladeshPhone, toBangladeshTel } from '@/lib/phone';
 import { PRODUCTS } from '@/data/products';
+import { marineEngineModels, marineGearboxModels, heavyMachineryModels } from '@/data/equipment';
 
 type ChatAction = { label: string; href: string };
 type Message = {
@@ -17,9 +18,19 @@ type Message = {
 };
 
 const firstSuggestions = ['Find a part', 'Check compatibility', 'Find a branch'];
+
 function productMatches(question: string) {
   const query = question.toLowerCase();
-  const searchableTerms = PRODUCTS.map((product) => ({
+
+  // Combine catalog products and equipment models for searching
+  const allItems = [
+    ...PRODUCTS.map(p => ({ ...p, source: 'catalog' })),
+    ...marineEngineModels.map(p => ({ ...p, source: 'equipment', category: 'marine-engines' })),
+    ...marineGearboxModels.map(p => ({ ...p, source: 'equipment', category: 'marine-gearboxes' })),
+    ...heavyMachineryModels.map(p => ({ ...p, source: 'equipment', category: 'heavy-machinery' })),
+  ];
+
+  const searchableTerms = allItems.map((product) => ({
     product,
     terms: product.name.toLowerCase().split(/[^a-z0-9]+/).filter((term) => term.length > 3 && !['assembly', 'engine', 'turbocharger'].includes(term)),
   }));
@@ -28,8 +39,8 @@ function productMatches(question: string) {
     .filter(({ product, terms }) => {
       const name = product.name.toLowerCase();
       return query.includes(name) || terms.some((term) => query.includes(term)) ||
-        (query.includes('turbocharger') && product.category === 'turbocharging') ||
-        (query.includes('piston') && product.category === 'pistons-rings');
+        (query.includes('turbocharger') && (product.category === 'turbocharging' || product.category === 'marine-engines')) ||
+        (query.includes('piston') && (product.category === 'pistons-rings' || product.category === 'marine-engines'));
     })
     .map(({ product }) => product)
     .slice(0, 3);
@@ -99,14 +110,14 @@ function initialMessage(): Message {
   };
 }
 
-export function StorefrontChatbot({ initiallyOpen = false }: { initiallyOpen?: boolean }) {
-  const [isOpen, setIsOpen] = useState(initiallyOpen);
+export function StorefrontChatbot() {
+  const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([initialMessage()]);
   const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: 'smooth' });
+    endRef.current?.scrollIntoView?.({ behavior: 'smooth' });
   }, [messages, isOpen]);
 
   function sendMessage(text: string) {
@@ -128,7 +139,7 @@ export function StorefrontChatbot({ initiallyOpen = false }: { initiallyOpen?: b
   }
 
   return (
-    <div className="fixed bottom-4 right-4 z-[70] flex flex-col items-end sm:bottom-6 sm:right-6">
+    <div className="pointer-events-auto fixed bottom-4 right-4 z-[9999] flex flex-col items-end sm:bottom-6 sm:right-6">
       {isOpen && (
         <section aria-label="Storefront chat" className="mb-3 flex h-[min(36rem,calc(100dvh-6rem))] w-[min(24rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-950/20">
           <header className="flex items-center justify-between bg-slate-950 px-4 py-4 text-white">
@@ -177,7 +188,7 @@ export function StorefrontChatbot({ initiallyOpen = false }: { initiallyOpen?: b
           </form>
         </section>
       )}
-      <button type="button" aria-label={isOpen ? 'Close support chat' : 'Open support chat'} aria-expanded={isOpen} onClick={() => setIsOpen((open) => !open)} className="flex h-12 w-12 items-center justify-center gap-2 rounded-full bg-cyan-600 p-0 text-white shadow-lg shadow-cyan-900/25 transition hover:-translate-y-0.5 hover:bg-cyan-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-700 sm:h-14 sm:w-auto sm:px-5">
+      <button type="button" aria-label={isOpen ? 'Close support chat' : 'Open support chat'} aria-expanded={isOpen} onClick={() => setIsOpen((open) => !open)} className="touch-manipulation flex h-12 w-12 items-center justify-center gap-2 rounded-full bg-cyan-600 p-0 text-white shadow-lg shadow-cyan-900/25 transition hover:-translate-y-0.5 hover:bg-cyan-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-700 sm:h-14 sm:w-auto sm:px-5">
         {isOpen ? <X className="h-5 w-5" /> : <MessageCircle className="h-5 w-5" />}
         <span className="hidden text-sm font-semibold sm:inline">{isOpen ? 'Close chat' : 'Chat with us'}</span>
       </button>

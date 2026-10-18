@@ -3,6 +3,7 @@
 import { Suspense } from 'react';
 import { notFound, useParams } from 'next/navigation';
 import { PRODUCTS } from '@/data/products';
+import { marineEngineModels, marineGearboxModels, heavyMachineryModels } from '@/data/equipment';
 import ProductDetailClient from './ProductDetailClient';
 
 export default function ProductDetailPage() {
@@ -15,7 +16,27 @@ export default function ProductDetailPage() {
 
 function ProductDetailRoute() {
   const { id } = useParams<{ id: string }>();
-  const product = PRODUCTS.find((item) => item.id === id);
+
+  // Search in parts catalog first
+  let product = PRODUCTS.find((item) => item.id === id);
+
+  // If not found, search in equipment models
+  if (!product) {
+    const allEquipment = [...marineEngineModels, ...marineGearboxModels, ...heavyMachineryModels];
+    const equipment = allEquipment.find((item) => item.id === id);
+    if (equipment) {
+      // Map EquipmentModel to the structure ProductDetailClient expects
+      product = {
+        ...equipment,
+        category: 'equipment', // Fallback category
+        images: [equipment.image],
+        imageSourceUrl: equipment.imageSource || '',
+        imageCredit: equipment.imageCredit || '',
+        imageLicense: 'Proprietary',
+        imageLicenseUrl: '',
+      } as any;
+    }
+  }
 
   if (!product) {
     notFound();
