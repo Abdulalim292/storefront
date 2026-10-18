@@ -7,7 +7,8 @@ export type ProductCategory =
   | 'engine-components'
   | 'cooling-system'
   | 'gearbox-parts'
-  | 'heavy-equipment-parts';
+  | 'heavy-equipment-parts'
+  | 'equipment';
 
 export interface Product {
   id: string;
@@ -15,10 +16,6 @@ export interface Product {
   description: string;
   category: ProductCategory;
   images: string[];
-  imageSourceUrl: string;
-  imageCredit: string;
-  imageLicense: string;
-  imageLicenseUrl: string;
 }
 
 export interface CartItem extends Product {

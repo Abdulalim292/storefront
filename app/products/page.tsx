@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useMemo, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { ProductCard } from '@/components/ui/ProductCard';
 import { PRODUCTS, CATEGORIES } from '@/data/products';
 import { Button } from '@/components/ui/Button';
@@ -18,6 +18,7 @@ export default function ProductsPage() {
 }
 
 function ProductsList() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get('category');
   const query = (searchParams.get('q') || '').trim().toLowerCase();
@@ -114,7 +115,10 @@ function ProductsList() {
         >
           <p className="text-lg font-medium text-slate-900">No parts found</p>
           <p className="text-slate-500">Try another search term or category.</p>
-          <Button variant="outline" className="mt-4" onClick={() => setActiveCategory('all')}>
+          <Button variant="outline" className="mt-4" onClick={() => {
+            setActiveCategory('all');
+            router.replace('/products', { scroll: false });
+          }}>
             Clear All Filters
           </Button>
         </motion.div>

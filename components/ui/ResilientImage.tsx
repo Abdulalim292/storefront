@@ -33,7 +33,7 @@ export function ResilientImage({ src, alt, sizes, className = '', loading = 'laz
       sizes={sizes}
       quality={70}
       loading={loading}
-      unoptimized={useOriginalSource}
+      unoptimized={useOriginalSource || src.includes('wikimedia.org')}
       className={className}
       style={{ objectPosition: 'center' }}
       onError={() => {

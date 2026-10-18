@@ -3,10 +3,12 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X, Search } from 'lucide-react';
+import { Menu, X, Search, ClipboardList } from 'lucide-react';
+import { useCart } from '@/context/CartContext';
 
-export function Navbar({ onCartClick }: { onCartClick?: () => void }) {
+export function Navbar({ onCartClick }: { onCartClick: () => void }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { cartCount } = useCart();
 
   return (
     <nav className="sticky top-0 z-[60] w-full border-b border-slate-200 bg-white backdrop-blur-md">
@@ -43,6 +45,16 @@ export function Navbar({ onCartClick }: { onCartClick?: () => void }) {
 
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
           <PartSearchForm className="hidden 2xl:flex" />
+
+          <button
+            type="button"
+            onClick={onCartClick}
+            aria-label={`Open inquiry list${cartCount ? `, ${cartCount} items` : ''}`}
+            className="relative grid h-11 w-11 place-items-center rounded-full text-slate-600 transition hover:bg-slate-100 hover:text-indigo-600"
+          >
+            <ClipboardList className="h-5 w-5" />
+            {cartCount > 0 && <span className="absolute right-0 top-0 grid min-h-5 min-w-5 place-items-center rounded-full bg-cyan-600 px-1 text-[10px] font-bold text-white">{cartCount > 99 ? '99+' : cartCount}</span>}
+          </button>
 
           <button
             type="button"

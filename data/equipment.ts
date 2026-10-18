@@ -1,3 +1,5 @@
+import type { Product } from '@/types';
+
 export interface EquipmentModel {
   id: string;
   name: string;
@@ -181,3 +183,19 @@ export const heavyMachineryModels: EquipmentModel[] = [
     imageCredit: 'John Deere',
   },
 ];
+
+export const EQUIPMENT_PRODUCTS: Product[] = [
+  ...marineEngineModels,
+  ...marineGearboxModels,
+  ...heavyMachineryModels,
+].map((model) => ({
+  id: model.id,
+  name: model.name,
+  description: model.description,
+  category: 'equipment',
+  images: [model.image],
+  imageSourceUrl: model.imageSource ?? '',
+  imageCredit: model.imageCredit ?? '',
+  imageLicense: 'Source attribution',
+  imageLicenseUrl: '',
+}));

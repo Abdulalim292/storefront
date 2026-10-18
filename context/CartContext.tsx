@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Product, CartItem } from '@/types';
 import { PRODUCTS } from '@/data/products';
+import { EQUIPMENT_PRODUCTS } from '@/data/equipment';
 
 interface CartContextType {
   cart: CartItem[];
@@ -16,6 +17,7 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 const CART_STORAGE_KEY = 'shopping-cart';
 const MAX_ITEM_QUANTITY = 99;
+const INQUIRY_PRODUCTS = [...PRODUCTS, ...EQUIPMENT_PRODUCTS];
 
 function readCart(value: string | null): CartItem[] {
   if (!value) return [];
@@ -24,7 +26,7 @@ function readCart(value: string | null): CartItem[] {
     const parsed: unknown = JSON.parse(value);
     if (!Array.isArray(parsed)) return [];
 
-    const productsById = new Map(PRODUCTS.map((product) => [product.id, product]));
+    const productsById = new Map(INQUIRY_PRODUCTS.map((product) => [product.id, product]));
     const quantities = new Map<string, number>();
 
     for (const item of parsed) {
@@ -76,7 +78,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [cart, isCartLoaded]);
 
   const addToCart = (product: Product) => {
-    const currentProduct = PRODUCTS.find((item) => item.id === product.id);
+    const currentProduct = INQUIRY_PRODUCTS.find((item) => item.id === product.id);
     if (!currentProduct) return;
 
     setCart((prev) => {
