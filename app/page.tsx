@@ -45,17 +45,19 @@ const equipmentCards = [
 ];
 
 const brands = [
-  { name: 'Zichai', logo: 'https://www.zichai.net/favicon.ico' },
-  { name: 'Weichai', logo: 'https://commons.wikimedia.org/wiki/Special:FilePath/Weichai_logo_2025.svg' },
-  { name: 'Cummins', logo: 'https://commons.wikimedia.org/wiki/Special:FilePath/Cummins_logo.svg' },
-  { name: 'Hino', logo: 'https://commons.wikimedia.org/wiki/Special:FilePath/Hino_Motors_logo_2026.svg' },
-  { name: 'Isuzu', logo: 'https://commons.wikimedia.org/wiki/Special:FilePath/Isuzu.svg' },
-  { name: 'Perkins', logo: 'https://commons.wikimedia.org/wiki/Special:FilePath/Perkins-Logo.svg' },
-  { name: 'Doosan', logo: 'https://commons.wikimedia.org/wiki/Special:FilePath/Doosan_Group_and_Corporation_-_Logo.svg' },
-  { name: 'John Deere', logo: 'https://commons.wikimedia.org/wiki/Special:FilePath/John_Deere_Logo_%E2%80%93_Flat_2_Color.svg' },
-  { name: 'MAN', logo: 'https://commons.wikimedia.org/wiki/Special:FilePath/MAN_Truck_%26_Bus_-_Logo.svg' },
-  { name: 'FADA', logo: 'https://fada-gearbox.com/favicon.ico' },
+  { name: 'Zichai', logo: '/brand/zichai.png' },
+  { name: 'Weichai', logo: '/brand/weichai.svg' },
+  { name: 'Cummins', logo: '/brand/cummins.svg' },
+  { name: 'Hino', logo: '/brand/hino.svg' },
+  { name: 'Isuzu', logo: '/brand/isuzu.svg' },
+  { name: 'Perkins', logo: '/brand/perkins.svg' },
+  { name: 'Doosan', logo: '/brand/doosan.svg' },
+  { name: 'John Deere', logo: '/brand/john-deere.webp' },
+  { name: 'MAN', logo: '/brand/man.svg' },
+  { name: 'FADA', logo: '/brand/fada.png' },
 ];
+
+const showroomMapQuery = 'Modina Arzoo Complex, 107 Nawabpur Road, Dhaka 1100, Bangladesh';
 
 export default function HomePage() {
   return (
@@ -127,15 +129,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="overflow-hidden border-y border-[#e2e0d8] bg-[#f8f7f3] py-7" aria-label="Equipment brands">
-        <div className="brand-marquee flex w-max items-center gap-12 sm:gap-20" aria-hidden="true">
+      <section className="overflow-hidden border-y border-[#e2e0d8] bg-[#f8f7f3] py-4" aria-label="Equipment brands">
+        <div className="brand-marquee flex w-max items-center gap-6 sm:gap-10" aria-hidden="true">
           {[...brands, ...brands].map((brand, index) => (
-            <span key={`${brand.name}-${index}`} className="flex items-center gap-12 sm:gap-20">
-              <span className="inline-flex items-center gap-3 whitespace-nowrap">
+            <span key={`${brand.name}-${index}`} className="flex items-center gap-6 sm:gap-10">
+              <span className="inline-flex items-center gap-2 whitespace-nowrap">
                 <BrandLogo name={brand.name} src={brand.logo} />
-                <span className="text-lg font-semibold tracking-[-.03em] text-[#38433d] sm:text-2xl">{brand.name}</span>
+                <span className="text-sm font-semibold tracking-[-.03em] text-[#38433d] sm:text-base">{brand.name}</span>
               </span>
-              <span className="h-1.5 w-1.5 rounded-full bg-[#a78b5f]" />
+              <span className="h-1 w-1 rounded-full bg-[#a78b5f]" />
             </span>
           ))}
         </div>
@@ -191,7 +193,8 @@ export default function HomePage() {
             <div className="grid overflow-hidden bg-[#18231f] text-white lg:grid-cols-[1fr_.85fr]">
               <div className="p-6 sm:p-9"><ContactForm /></div>
               <div className="relative min-h-[260px] bg-[#d6d4cd] lg:min-h-full">
-                <iframe title="Map to Noor Alam Machineries main showroom in Dhaka" src={`https://maps.google.com/maps?q=${encodeURIComponent(`Noor Alam Machineries, ${BRANCHES[0].address.join(', ')}, Bangladesh`)}&output=embed`} className="absolute inset-0 h-full w-full border-0 grayscale" loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
+                <iframe title="Map to Noor Alam Machineries main showroom in Dhaka" src={`https://www.google.com/maps?q=${encodeURIComponent(showroomMapQuery)}&z=17&output=embed`} className="absolute inset-0 h-full w-full border-0" loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
+                <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(showroomMapQuery)}`} target="_blank" rel="noreferrer" className="absolute bottom-3 right-3 z-10 bg-white px-3 py-2 text-xs font-semibold text-[#17221f] shadow-md hover:bg-[#f1efe8]">Open in Google Maps</a>
               </div>
             </div>
           </div>
