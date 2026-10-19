@@ -32,6 +32,24 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'commons.wikimedia.org',
+        port: '',
+        pathname: '/wiki/Special:FilePath/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.zichai.net',
+        port: '',
+        pathname: '/favicon.ico',
+      },
+      {
+        protocol: 'https',
+        hostname: 'fada-gearbox.com',
+        port: '',
+        pathname: '/favicon.ico',
+      },
+      {
+        protocol: 'https',
         hostname: 'cdn.merheinflare.com',
         port: '',
         pathname: '/public-site/products/**',

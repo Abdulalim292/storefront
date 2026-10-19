@@ -44,16 +44,16 @@ const equipmentCards = [
 ];
 
 const brands = [
-  { name: 'Zichai', mark: 'Z', color: '#bd2829' },
-  { name: 'Weichai', mark: 'W', color: '#bd2829' },
-  { name: 'Cummins', mark: 'C', color: '#b5212b' },
-  { name: 'Hino', mark: 'H', color: '#bd2829' },
-  { name: 'Isuzu', mark: 'I', color: '#bf2026' },
-  { name: 'Perkins', mark: 'P', color: '#263c31' },
-  { name: 'Doosan', mark: 'D', color: '#17548a' },
-  { name: 'John Deere', mark: 'JD', color: '#367c2b' },
-  { name: 'MAN', mark: 'M', color: '#303b38' },
-  { name: 'FADA', mark: 'F', color: '#193e5a' },
+  { name: 'Zichai', logo: 'https://www.zichai.net/favicon.ico' },
+  { name: 'Weichai', logo: 'https://commons.wikimedia.org/wiki/Special:FilePath/Weichai_logo_2025.svg' },
+  { name: 'Cummins', logo: 'https://commons.wikimedia.org/wiki/Special:FilePath/Cummins_logo.svg' },
+  { name: 'Hino', logo: 'https://commons.wikimedia.org/wiki/Special:FilePath/Hino_Motors_logo_2026.svg' },
+  { name: 'Isuzu', logo: 'https://commons.wikimedia.org/wiki/Special:FilePath/Isuzu.svg' },
+  { name: 'Perkins', logo: 'https://commons.wikimedia.org/wiki/Special:FilePath/Perkins-Logo.svg' },
+  { name: 'Doosan', logo: 'https://commons.wikimedia.org/wiki/Special:FilePath/Doosan_Group_and_Corporation_-_Logo.svg' },
+  { name: 'John Deere', logo: 'https://commons.wikimedia.org/wiki/Special:FilePath/John_Deere_Logo_%E2%80%93_Flat_2_Color.svg' },
+  { name: 'MAN', logo: 'https://commons.wikimedia.org/wiki/Special:FilePath/MAN_Truck_%26_Bus_-_Logo.svg' },
+  { name: 'FADA', logo: 'https://fada-gearbox.com/favicon.ico' },
 ];
 
 export default function HomePage() {
@@ -131,10 +131,7 @@ export default function HomePage() {
           {[...brands, ...brands].map((brand, index) => (
             <span key={`${brand.name}-${index}`} className="flex items-center gap-12 sm:gap-20">
               <span className="inline-flex items-center gap-3 whitespace-nowrap">
-                <svg aria-hidden="true" viewBox="0 0 40 40" className="h-9 w-9 shrink-0 sm:h-10 sm:w-10">
-                  <path d="M20 2.5 36 11.25v17.5L20 37.5 4 28.75v-17.5L20 2.5Z" fill={brand.color} />
-                  <text x="20" y="21" fill="white" dominantBaseline="middle" textAnchor="middle" fontFamily="Arial, sans-serif" fontSize={brand.mark.length > 1 ? '12' : '18'} fontWeight="700" letterSpacing="-.5">{brand.mark}</text>
-                </svg>
+                <Image src={brand.logo} alt="" width={128} height={48} unoptimized className="h-9 w-24 shrink-0 object-contain sm:h-10 sm:w-28" />
                 <span className="text-lg font-semibold tracking-[-.03em] text-[#38433d] sm:text-2xl">{brand.name}</span>
               </span>
               <span className="h-1.5 w-1.5 rounded-full bg-[#a78b5f]" />
