@@ -10,6 +10,7 @@ import { PinnedEquipmentStory } from '@/components/home/PinnedEquipmentStory';
 import { EquipmentCarousel } from '@/components/home/EquipmentCarousel';
 import { ScrollRevealedText } from '@/components/home/ScrollRevealedText';
 import { BrandLogo } from '@/components/home/BrandLogo';
+import { cn } from '@/lib/utils';
 
 const equipmentCards = [
   {
@@ -127,7 +128,12 @@ export default function HomePage() {
           <div className="grid grid-flow-dense grid-cols-2 grid-rows-[minmax(220px,1fr)_minmax(220px,1fr)] gap-3 sm:gap-5 lg:grid-cols-4 lg:grid-rows-[minmax(230px,1fr)_minmax(230px,1fr)]">
             {equipmentCards.map(({ id, title, note, description, image, icon: Icon, className, imageClass }, index) => (
               <Link key={id} href={`/#${id}`} className={`group relative isolate min-h-[280px] overflow-hidden bg-[#dfe2dc] ${className} ${index === 0 ? 'min-h-[440px] lg:min-h-[470px]' : ''}`}>
-                <ResilientImage src={image} alt="" sizes="(max-width: 767px) 50vw, (max-width: 1023px) 70vw, 50vw" className={`${imageClass} transition-transform duration-700 ease-out group-hover:scale-105`} />
+                <div className={cn(
+                  "relative w-full h-full",
+                  index === 0 ? "aspect-[4/3] lg:aspect-auto" : "aspect-video"
+                )}>
+                  <ResilientImage src={image} alt="" sizes="(max-width: 767px) 50vw, (max-width: 1023px) 70vw, 50vw" className={`${imageClass} transition-transform duration-700 ease-out group-hover:scale-105`} loading="lazy" />
+                </div>
                 <div className="absolute inset-0 -z-0 bg-gradient-to-t from-[#121c19]/90 via-[#121c19]/15 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-5 text-white sm:p-7">
                   <div className="mb-5 flex items-center justify-between"><span className="text-[11px] uppercase tracking-[.18em] text-white/75">{note}</span><Icon className="h-5 w-5 text-[#dfc99d]" strokeWidth={1.5} /></div>

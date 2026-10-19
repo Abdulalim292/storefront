@@ -72,8 +72,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     if (!isCartLoaded) return;
     try {
       window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
-    } catch {
-      // Storage can be full or unavailable; cart changes still work in memory.
+    } catch (error: any) {
+      if (error.name === 'QuotaExceededError' || error.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+        console.warn('Cart storage quota exceeded. Changes will not persist after page reload.');
+      } else {
+        console.error('Failed to save cart to local storage:', error);
+      }
     }
   }, [cart, isCartLoaded]);
 

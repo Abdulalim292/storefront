@@ -52,24 +52,28 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
       if (navigator.clipboard && window.isSecureContext) {
         await navigator.clipboard.writeText(inquiryText);
       } else {
+        // Fallback for non-secure contexts or unsupported browsers
         const textArea = document.createElement('textarea');
         textArea.value = inquiryText;
         textArea.setAttribute('readonly', '');
         textArea.style.position = 'fixed';
-        textArea.style.opacity = '0';
+        textArea.style.left = '-9999px';
+        textArea.style.top = '0';
         document.body.appendChild(textArea);
-        let didCopy = false;
+        textArea.focus();
+        textArea.select();
+
         try {
-          textArea.select();
-          didCopy = document.execCommand('copy');
+          const successful = document.execCommand('copy');
+          if (!successful) throw new Error('execCommand returned false');
         } finally {
           document.body.removeChild(textArea);
         }
-        if (!didCopy) throw new Error('Copy command failed');
       }
       setCopied(true);
       setCopyError(false);
-    } catch {
+    } catch (err) {
+      console.error('Failed to copy inquiry:', err);
       setCopied(false);
       setCopyError(true);
     }

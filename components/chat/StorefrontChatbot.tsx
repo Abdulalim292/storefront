@@ -22,7 +22,6 @@ const firstSuggestions = ['Find a part', 'Check compatibility', 'Find a branch']
 function productMatches(question: string) {
   const query = question.toLowerCase();
 
-  // Combine catalog products and equipment models for searching
   const allItems = [
     ...PRODUCTS.map(p => ({ ...p, source: 'catalog' })),
     ...marineEngineModels.map(p => ({ ...p, source: 'equipment', category: 'marine-engines' })),
@@ -38,9 +37,21 @@ function productMatches(question: string) {
   return searchableTerms
     .filter(({ product, terms }) => {
       const name = product.name.toLowerCase();
-      return query.includes(name) || terms.some((term) => query.includes(term)) ||
-        (query.includes('turbocharger') && (product.category === 'turbocharging' || product.category === 'marine-engines')) ||
-        (query.includes('piston') && (product.category === 'pistons-rings' || product.category === 'marine-engines'));
+      const queryRegex = new RegExp(`\\b${name}\\b`, 'i');
+
+      // High confidence: Exact name match with boundaries
+      if (queryRegex.test(query)) return true;
+
+      // Medium confidence: Any a term matches with boundaries
+      if (terms.some((term) => new RegExp(`\\b${term}\\b`, 'i').test(query))) return true;
+
+      // Category-specific fallback
+      if ((query.includes('turbocharger') && (product.category === 'turbocharging' || product.category === 'marine-engines')) ||
+          (query.includes('piston') && (product.category === 'pistons-rings' || product.category === 'marine-engines'))) {
+        return true;
+      }
+
+      return false;
     })
     .map(({ product }) => product)
     .slice(0, 3);
@@ -58,42 +69,48 @@ function replyTo(question: string): Omit<Message, 'role'> {
     };
   }
 
-  if (/branch|address|location|where|phone|contact|call/.test(query)) {
-    return {
-      text: 'Choose a branch below to call, or ask me about a specific part.',
-      actions: BRANCHES.flatMap((branch) => branch.phones.slice(0, 1).map((phone) => ({ label: `${branch.name} · ${formatBangladeshPhone(phone)}`, href: toBangladeshTel(phone) }))),
-      suggestions: ['Browse all parts', 'Ask about pricing'],
-    };
-  }
+  const rules: { pattern: RegExp; response: Omit<Message, 'role'> }[] = [
+    {
+      pattern: /\b(branch|address|location|where|phone|contact|call)\b/i,
+      response: {
+        text: 'Choose a branch below to call, or ask me about a specific part.',
+        actions: BRANCHES.flatMap((branch) => branch.phones.slice(0, 1).map((phone) => ({ label: `${branch.name} · ${formatBangladeshPhone(phone)}`, href: toBangladeshTel(phone) }))),
+        suggestions: ['Browse all parts', 'Ask about pricing'],
+      }
+    },
+    {
+      pattern: /\b(compatib|fit|which|recommend|match|model|serial)\b/i,
+      response: {
+        text: 'I can help you prepare a fitment check. Please provide the engine name and model, serial number, and the part number or dimensions if available. A branch can confirm compatibility before you order.',
+        suggestions: ['Find a part', 'Ask about pricing', 'Find a branch'],
+      }
+    },
+    {
+      pattern: /\b(price|cost|quote|order|buy|available|stock)\b/i,
+      response: {
+        text: 'Prices and availability depend on the exact specification. Call a branch with the item name, engine or equipment model, and part number if available.',
+        suggestions: ['Find a branch', 'Find a part'],
+      }
+    },
+    {
+      pattern: /\b(part|product|sell|catalog|inventory|browse)\b/i,
+      response: {
+        text: `The catalog includes ${PRODUCTS.slice(0, 5).map((p) => p.name).join(', ')}, plus more marine and industrial engine parts.`,
+        actions: [{ label: 'Browse all parts', href: '/products' }],
+        suggestions: ['Find a turbocharger', 'Find a piston', 'Check compatibility'],
+      }
+    },
+    {
+      pattern: /\b(engine|gearbox|machiner|equipment|marine)\b/i,
+      response: {
+        text: 'Noor Alam Machineries helps source marine engines, gearboxes, heavy machinery, and engine parts. Tell me the equipment type or part name to see matching catalog items.',
+        suggestions: ['Find a part', 'Find a branch', 'Ask about pricing'],
+      }
+    },
+  ];
 
-  if (/compatib|fit|which|recommend|match|model|serial/.test(query)) {
-    return {
-      text: 'I can help you prepare a fitment check. Please provide the engine name and model, serial number, and the part number or dimensions if available. A branch can confirm compatibility before you order.',
-      suggestions: ['Find a part', 'Ask about pricing', 'Find a branch'],
-    };
-  }
-
-  if (/price|cost|quote|order|buy|available|stock/.test(query)) {
-    return {
-      text: 'Prices and availability depend on the exact specification. Call a branch with the item name, engine or equipment model, and part number if available.',
-      suggestions: ['Find a branch', 'Find a part'],
-    };
-  }
-
-  if (/part|product|sell|catalog|inventory|browse/.test(query)) {
-    const examples = PRODUCTS.slice(0, 5).map((product) => product.name).join(', ');
-    return {
-      text: `The catalog includes ${examples}, plus more marine and industrial engine parts.`,
-      actions: [{ label: 'Browse all parts', href: '/products' }],
-      suggestions: ['Find a turbocharger', 'Find a piston', 'Check compatibility'],
-    };
-  }
-
-  if (/engine|gearbox|machiner|equipment|marine/.test(query)) {
-    return {
-      text: 'Noor Alam Machineries helps source marine engines, gearboxes, heavy machinery, and engine parts. Tell me the equipment type or part name to see matching catalog items.',
-      suggestions: ['Find a part', 'Find a branch', 'Ask about pricing'],
-    };
+  for (const rule of rules) {
+    if (rule.pattern.test(query)) return rule.response;
   }
 
   return {
@@ -183,7 +200,7 @@ export function StorefrontChatbot({ initialOpen = false }: { initialOpen?: boole
 
           <form onSubmit={handleSubmit} className="flex items-center gap-2 border-t border-slate-200 bg-white p-3">
             <label htmlFor="storefront-chat-input" className="sr-only">Message support</label>
-            <input id="storefront-chat-input" value={input} onChange={(event) => setInput(event.target.value)} placeholder="Ask about a part or fitment..." className="min-w-0 flex-1 rounded-full border border-slate-200 px-4 py-2.5 text-sm text-slate-800 outline-none placeholder:text-slate-400 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100" />
+            <input id="storefront-chat-input" value={input} onChange={(event) => setInput(event.target.value)} placeholder="Ask about a part or fitment..." className="min-w-0 flex-1 rounded-full border border-slate-200 px-4 py-2.5 text-sm text-slate-800 outline-none placeholder:text-slate-400 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100" inputMode="text" enterKeyHint="send" />
             <button type="submit" aria-label="Send message" disabled={!input.trim()} className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-cyan-600 text-white transition hover:bg-cyan-700 disabled:cursor-not-allowed disabled:opacity-50"><Send className="h-4 w-4" /></button>
           </form>
         </section>

@@ -8,7 +8,7 @@ export default function manifest(): MetadataRoute.Manifest {
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',
-    theme_color: '#020617',
+    theme_color: '#111b18',
     icons: [
       {
         src: '/brand/noor-alam-icon-192.png',
@@ -21,6 +21,18 @@ export default function manifest(): MetadataRoute.Manifest {
         sizes: '512x512',
         type: 'image/png',
         purpose: 'any',
+      },
+    ],
+    shortcuts: [
+      {
+        name: 'View Inquiry List',
+        url: '/',
+        description: 'Check your parts inquiry list',
+      },
+      {
+        name: 'Browse Parts',
+        url: '/products',
+        description: 'Explore our catalog of marine engine parts',
       },
     ],
   };
