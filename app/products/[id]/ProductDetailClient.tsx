@@ -5,10 +5,17 @@ import { Product } from '@/types';
 import { Button } from '@/components/ui/Button';
 import { ResilientImage } from '@/components/ui/ResilientImage';
 import { useCart } from '@/context/CartContext';
-import { ClipboardList, Ruler, Settings2, Ship } from 'lucide-react';
+import { ClipboardList, Ruler, Settings2, Ship, MessageCircle } from 'lucide-react';
 
 export default function ProductDetailClient({ product }: { product: Product }) {
   const { addToCart } = useCart();
+
+  const WHATSAPP_PHONE = '8801819461614';
+
+  const handleWhatsAppInquiry = () => {
+    const message = `Hi, I'm interested in ${product.name} (ID: ${product.id}). Could you please provide a quote?`;
+    window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+  };
 
   return (
     <div className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 sm:py-24 lg:px-12">
@@ -61,6 +68,14 @@ export default function ProductDetailClient({ product }: { product: Product }) {
             <Button size="lg" className="flex-1 gap-2" onClick={() => addToCart(product)}>
               <ClipboardList className="h-5 w-5" />
               Add to inquiry list
+            </Button>
+            <Button
+              size="lg"
+              className="flex-1 gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white border-none"
+              onClick={handleWhatsAppInquiry}
+            >
+              <MessageCircle className="h-5 w-5" />
+              WhatsApp Inquiry
             </Button>
           </div>
 
