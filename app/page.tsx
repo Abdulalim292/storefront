@@ -9,6 +9,7 @@ import { formatBangladeshPhone, toBangladeshTel } from '@/lib/phone';
 import { PinnedEquipmentStory } from '@/components/home/PinnedEquipmentStory';
 import { EquipmentCarousel } from '@/components/home/EquipmentCarousel';
 import { ScrollRevealedText } from '@/components/home/ScrollRevealedText';
+import { BrandLogo } from '@/components/home/BrandLogo';
 
 const equipmentCards = [
   {
@@ -131,7 +132,7 @@ export default function HomePage() {
           {[...brands, ...brands].map((brand, index) => (
             <span key={`${brand.name}-${index}`} className="flex items-center gap-12 sm:gap-20">
               <span className="inline-flex items-center gap-3 whitespace-nowrap">
-                <Image src={brand.logo} alt="" width={128} height={48} unoptimized className="h-9 w-24 shrink-0 object-contain sm:h-10 sm:w-28" />
+                <BrandLogo name={brand.name} src={brand.logo} />
                 <span className="text-lg font-semibold tracking-[-.03em] text-[#38433d] sm:text-2xl">{brand.name}</span>
               </span>
               <span className="h-1.5 w-1.5 rounded-full bg-[#a78b5f]" />
