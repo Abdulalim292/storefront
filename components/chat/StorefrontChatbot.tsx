@@ -110,8 +110,8 @@ function initialMessage(): Message {
   };
 }
 
-export function StorefrontChatbot() {
-  const [isOpen, setIsOpen] = useState(false);
+export function StorefrontChatbot({ initialOpen = false }: { initialOpen?: boolean }) {
+  const [isOpen, setIsOpen] = useState(initialOpen);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([initialMessage()]);
   const endRef = useRef<HTMLDivElement>(null);

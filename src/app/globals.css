@@ -20,9 +20,6 @@ body { min-height: 100vh; background: var(--background); color: var(--foreground
 ::selection { background: #d7bd8d; color: #17221f; }
 
 .hero-photo {
-  background-image: url("https://picsum.photos/seed/marine-engine-room/1920/1080");
-  background-position: center;
-  background-size: cover;
   filter: saturate(.45) contrast(1.08);
 }
 

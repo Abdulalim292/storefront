@@ -63,7 +63,17 @@ export default function HomePage() {
   return (
     <main className="w-full max-w-full overflow-x-hidden">
       <section className="hero-panel relative isolate overflow-hidden bg-[#101b19] text-white">
-        <div className="hero-photo absolute inset-0 -z-20" />
+        <div className="hero-photo absolute inset-0 -z-20">
+          <Image
+            src="https://picsum.photos/seed/marine-engine-room/1920/1080"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            quality={70}
+            className="object-cover"
+          />
+        </div>
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(10,18,17,.97)_0%,rgba(10,18,17,.88)_42%,rgba(10,18,17,.22)_100%),linear-gradient(0deg,rgba(10,18,17,.72),transparent_50%)]" />
         <div className="mx-auto grid min-h-[690px] max-w-[1440px] items-center gap-12 px-5 pb-16 pt-20 sm:px-8 lg:min-h-[760px] lg:grid-cols-[1.05fr_.95fr] lg:gap-16 lg:px-12 lg:py-24">
           <div className="relative z-10 max-w-3xl">
@@ -91,7 +101,7 @@ export default function HomePage() {
           </div>
           <div className="relative hidden h-[490px] lg:block">
             <div className="absolute right-[8%] top-[3%] h-[88%] w-[76%] overflow-hidden rounded-t-[48%] border border-white/20 bg-[#263331]/60">
-              <Image src={marineEngineModels[4].image} alt="Cummins KTA19 marine diesel engine" fill loading="eager" fetchPriority="high" sizes="(min-width: 1024px) 40vw, 0px" className="object-contain p-8 mix-blend-luminosity" />
+              <Image src={marineEngineModels[4].image} alt="Cummins KTA19 marine diesel engine" fill loading="lazy" sizes="(min-width: 1024px) 40vw, 0px" className="object-contain p-8 mix-blend-luminosity" />
             </div>
             <div className="absolute bottom-[3%] left-0 w-[46%] border border-white/20 bg-[#111d1b]/90 p-5 backdrop-blur-sm">
               <p className="text-xs uppercase tracking-[.2em] text-[#d7bd8d]">Built around your operation</p>

@@ -18,7 +18,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <body className="min-h-screen flex flex-col bg-[#f8f7f3] font-sans text-[#17221f]">
         <StorefrontShell>{children}</StorefrontShell>
         <Footer />

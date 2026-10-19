@@ -4,7 +4,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { CartProvider } from '@/context/CartContext';
 import { Navbar } from '@/components/layout/Navbar';
-import { StorefrontChatbot } from '../chat/StorefrontChatbot';
+import { StorefrontChatLauncher } from '@/components/chat/StorefrontChatLauncher';
 
 const CartDrawer = dynamic(() => import('@/components/cart/CartDrawer').then((module) => module.CartDrawer), { ssr: false });
 
@@ -20,7 +20,7 @@ export function StorefrontShell({ children }: { children: React.ReactNode }) {
       }} />
       <div className="flex-1">{children}</div>
       {hasOpenedCart && <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />}
-      <StorefrontChatbot />
+      <StorefrontChatLauncher />
     </CartProvider>
   );
 }
