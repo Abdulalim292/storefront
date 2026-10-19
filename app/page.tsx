@@ -1,332 +1,182 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import { ResilientImage } from '@/components/ui/ResilientImage';
-import { BRANCHES } from '@/data/branches';
-import { marineEngineModels, marineGearboxModels, heavyMachineryModels } from '@/data/equipment';
-import { formatBangladeshPhone, toBangladeshTel } from '@/lib/phone';
-import {
-  ArrowRight,
-  ArrowUpRight,
-  Anchor,
-  Check,
-  Cog,
-  Construction,
-  Gauge,
-  MapPin,
-  PhoneCall,
-  Ship,
-  Wrench,
-  ExternalLink,
-} from 'lucide-react';
+import { ArrowDown, ArrowRight, ArrowUpRight, Cog, Construction, MapPin, PhoneCall, Ship } from 'lucide-react';
 import { ContactForm } from '@/components/chat/ContactForm';
+import { ResilientImage } from '@/components/ui/ResilientImage';
+import { marineEngineModels, marineGearboxModels, heavyMachineryModels } from '@/data/equipment';
+import { BRANCHES } from '@/data/branches';
+import { formatBangladeshPhone, toBangladeshTel } from '@/lib/phone';
+import { PinnedEquipmentStory } from '@/components/home/PinnedEquipmentStory';
+import { EquipmentCarousel } from '@/components/home/EquipmentCarousel';
+import { ScrollRevealedText } from '@/components/home/ScrollRevealedText';
 
-const equipment = [
+const equipmentCards = [
   {
     id: 'marine-engine-models',
-    number: '01',
     title: 'Marine engines',
-    description:
-      'Main propulsion and auxiliary engine options for commercial vessels, workboats, and marine operations.',
-    detail: 'Propulsion · Auxiliary power · Engine parts',
+    note: 'Propulsion and auxiliary power',
+    description: 'Diesel engine platforms for commercial vessels, workboats, and demanding days at sea.',
+    image: marineEngineModels[4].image,
     icon: Ship,
+    className: 'col-span-2 row-span-1 lg:col-span-2 lg:row-span-2',
+    imageClass: 'object-contain p-8 sm:p-12',
   },
   {
     id: 'gearboxes',
-    number: '02',
     title: 'Marine gearboxes',
-    description:
-      'Transmission solutions selected to match engine output, vessel requirements, and operating conditions.',
-    detail: 'Marine transmissions · Reduction gears · Components',
+    note: 'Transmission and reduction',
+    description: 'Find a gearbox to suit your engine output, vessel, and operating conditions.',
+    image: marineGearboxModels[0].image,
     icon: Cog,
+    className: 'col-span-2 row-span-1',
+    imageClass: 'object-contain p-4 sm:p-7',
   },
   {
     id: 'heavy-machinery',
-    number: '03',
     title: 'Heavy machinery',
-    description:
-      'Machinery and equipment for demanding industrial, construction, and marine support applications.',
-    detail: 'Industrial equipment · Construction · Spares',
+    note: 'Equipment and spare parts',
+    description: 'Reliable machinery and components for industrial and construction work.',
+    image: heavyMachineryModels[0].image,
     icon: Construction,
+    className: 'col-span-2 row-span-1',
+    imageClass: 'object-cover',
   },
 ];
 
-const approach = [
-  {
-    title: 'Understand the application',
-    description: 'Share the vessel or equipment type, operating conditions, and the job the machinery needs to do.',
-    icon: Gauge,
-  },
-  {
-    title: 'Match the right equipment',
-    description: 'We help narrow the options using the technical details and specifications you provide.',
-    icon: Cog,
-  },
-  {
-    title: 'Plan your requirements',
-    description: 'Discuss equipment, compatible parts, and the next steps for your project with our team.',
-    icon: Wrench,
-  },
-];
+const brands = ['Zichai', 'Weichai', 'Cummins', 'Hino', 'Isuzu', 'Perkins', 'Doosan', 'John Deere', 'MAN', 'FADA'];
 
 export default function HomePage() {
   return (
-    <div className="overflow-hidden bg-white">
-      <section className="relative isolate bg-slate-950 text-white">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_75%_40%,rgba(14,116,144,0.28),transparent_48%),linear-gradient(120deg,#020617_12%,#0f172a_65%,#164e63)]" />
-        <div className="absolute inset-0 -z-10 opacity-[0.12] [background-image:linear-gradient(rgba(255,255,255,.15)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.15)_1px,transparent_1px)] [background-size:64px_64px]" />
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:gap-14 sm:px-6 sm:py-28 lg:grid-cols-[1.1fr_.9fr] lg:items-center lg:px-8 lg:py-32">
-          <div>
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/25 bg-cyan-200/10 px-3 py-2 text-xs font-medium text-white sm:mb-7 sm:px-4 sm:text-sm">
-              <Anchor className="h-4 w-4" />
-              Marine &amp; industrial equipment
-            </div>
-            <h1 className="max-w-3xl break-words text-[clamp(2rem,9vw,4.5rem)] font-bold leading-[1.08] tracking-tight text-white">
-              Powering work on the water <span className="text-white">and on land.</span>
+    <main className="w-full max-w-full overflow-x-hidden">
+      <section className="hero-panel relative isolate overflow-hidden bg-[#101b19] text-white">
+        <div className="hero-photo absolute inset-0 -z-20" />
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(10,18,17,.97)_0%,rgba(10,18,17,.88)_42%,rgba(10,18,17,.22)_100%),linear-gradient(0deg,rgba(10,18,17,.72),transparent_50%)]" />
+        <div className="mx-auto grid min-h-[690px] max-w-[1440px] items-center gap-12 px-5 pb-16 pt-20 sm:px-8 lg:min-h-[760px] lg:grid-cols-[1.05fr_.95fr] lg:gap-16 lg:px-12 lg:py-24">
+          <div className="relative z-10 max-w-3xl">
+            <p className="mb-7 flex items-center gap-3 text-xs font-semibold uppercase tracking-[.24em] text-[#d6b983] sm:text-sm">
+              <span className="h-px w-10 bg-[#d6b983]" />Marine &amp; industrial machinery
+            </p>
+            <h1 className="max-w-6xl text-[clamp(3rem,5vw,5.5rem)] font-semibold leading-[.98] tracking-[-.055em] text-white">
+              Powering work that keeps us moving.
             </h1>
-            <p className="mt-5 max-w-2xl text-base leading-7 text-white sm:mt-7 sm:text-xl sm:leading-8">
-              Noor Alam Machineries helps businesses source marine engines, gearboxes, and heavy machinery for demanding work and long days in service.
+            <p className="mt-7 max-w-xl text-base leading-7 text-white/75 sm:text-lg sm:leading-8">
+              The right engine, transmission, or machine starts with understanding the work. We help you source equipment and parts for the conditions you face.
             </p>
-            <div className="mt-7 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4">
-              <Link
-                href="#equipment"
-                className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-cyan-400 px-5 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300 sm:w-auto sm:px-6 sm:py-3.5"
-              >
-                Explore equipment <ArrowRight className="h-5 w-5" />
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <Link href="#equipment" className="inline-flex min-h-14 items-center justify-center gap-3 bg-[#d7bd8d] px-6 text-sm font-semibold text-[#17201c] transition-colors hover:bg-[#ebd8b2]">
+                Explore equipment <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link
-                href="#about"
-                className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md border border-white/25 px-5 py-3 font-semibold text-white transition hover:bg-white/10 sm:w-auto sm:px-6 sm:py-3.5"
-              >
-                About our approach
+              <Link href="#contact" className="inline-flex min-h-14 items-center justify-center gap-3 border border-white/40 px-6 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-[#17201c]">
+                Talk to our team <ArrowUpRight className="h-4 w-4" />
               </Link>
             </div>
+            <p className="mt-12 flex items-center gap-3 text-xs uppercase tracking-[.18em] text-white/60">
+              <span className="grid h-9 w-9 place-items-center rounded-full border border-white/25"><ArrowDown className="h-4 w-4" /></span>
+              A considered match for every application
+            </p>
           </div>
-
-          <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
-            <div className="absolute -inset-5 rounded-[2rem] border border-cyan-200/10" />
-            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/75 p-4 shadow-2xl shadow-black/30 backdrop-blur sm:p-8">
-              <div className="flex items-center justify-between border-b border-white/10 pb-5">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white">Equipment focus</p>
-                  <p className="mt-1 text-sm text-white">Built around your operation</p>
-                </div>
-                <div className="rounded-full border border-cyan-300/20 bg-cyan-300/10 p-3 text-cyan-200">
-                  <Gauge className="h-5 w-5" />
-                </div>
-              </div>
-              <div className="space-y-3 py-5">
-                {equipment.map(({ id, number, title, detail, icon: Icon }) => (
-                  <a
-                    key={id}
-                    href={`#${id}`}
-                    className="group flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.04] p-3 transition hover:border-cyan-300/40 hover:bg-white/[0.08] sm:items-center sm:gap-4 sm:p-4"
-                  >
-                    <div className="rounded-lg bg-cyan-300/10 p-2.5 text-cyan-200 sm:p-3">
-                      <Icon className="h-5 w-5" />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-mono text-white">{number}</span>
-                        <h2 className="font-semibold text-white">{title}</h2>
-                      </div>
-                      <p className="mt-1 whitespace-normal text-xs leading-5 text-white">{detail}</p>
-                    </div>
-                    <ArrowUpRight className="h-4 w-4 text-white transition group-hover:text-white" />
-                  </a>
-                ))}
-              </div>
-              <p className="flex items-center gap-2 border-t border-white/10 pt-5 text-sm text-white">
-                <span className="h-2 w-2 rounded-full bg-emerald-400" />
-                Equipment choices start with the job and specifications.
-              </p>
+          <div className="relative hidden h-[490px] lg:block">
+            <div className="absolute right-[8%] top-[3%] h-[88%] w-[76%] overflow-hidden rounded-t-[48%] border border-white/20 bg-[#263331]/60">
+              <Image src={marineEngineModels[4].image} alt="Cummins KTA19 marine diesel engine" fill loading="eager" fetchPriority="high" sizes="(min-width: 1024px) 40vw, 0px" className="object-contain p-8 mix-blend-luminosity" />
+            </div>
+            <div className="absolute bottom-[3%] left-0 w-[46%] border border-white/20 bg-[#111d1b]/90 p-5 backdrop-blur-sm">
+              <p className="text-xs uppercase tracking-[.2em] text-[#d7bd8d]">Built around your operation</p>
+              <p className="mt-3 text-sm leading-6 text-white/75">Share the vessel, machine, or model details. We’ll help you narrow the right fit.</p>
             </div>
           </div>
         </div>
-        <div className="border-t border-white/10 bg-black/10 text-white">
-          <div className="mx-auto grid max-w-7xl gap-4 px-4 py-5 text-sm font-medium text-white sm:grid-cols-3 sm:px-6 lg:px-8">
-            <p className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-300" /> Marine propulsion systems</p>
-            <p className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-300" /> Gearboxes and transmissions</p>
-            <p className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-300" /> Heavy-duty machinery</p>
-          </div>
+        <div className="hero-bottom-rule mx-auto flex max-w-[1440px] items-center justify-between border-t border-white/20 px-5 py-5 text-[11px] uppercase tracking-[.16em] text-white/70 sm:px-8 lg:px-12">
+          <span>Serving marine &amp; industry</span><span className="hidden sm:block">Dhaka · Chittagong</span><span>Equipment · Spares · Guidance</span>
         </div>
       </section>
 
-      <section id="equipment" className="scroll-mt-20 py-16 sm:scroll-mt-24 sm:py-28">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl">
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-700">What we work with</p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-5xl">Machinery for demanding work</h2>
-            <p className="mt-5 text-lg leading-8 text-slate-600">
-              From vessel propulsion to heavy equipment on shore, the right machinery begins with understanding how it will be used.
-            </p>
-          </div>
-          <div id="marine-engine-models" className="mt-14 scroll-mt-20 sm:mt-20 sm:scroll-mt-28">
-            <div className="max-w-2xl">
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-700">Marine diesel engines</p>
-              <h3 className="mt-3 text-3xl font-bold tracking-tight text-slate-950">Engine models</h3>
-              <p className="mt-3 leading-7 text-slate-600">Ask us about availability and matching the engine variant to your vessel and gearbox.</p>
+      <section id="equipment" className="scroll-mt-20 bg-[#f4f2ec] py-24 sm:py-32 lg:py-40">
+        <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+          <div className="mb-12 flex flex-col gap-6 md:mb-16 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-3xl">
+              <p className="section-kicker">Equipment for real work</p>
+              <h2 className="mt-5 max-w-3xl text-4xl font-semibold leading-[1.02] tracking-[-.045em] text-[#16211e] sm:text-6xl">A capable machine begins with a considered choice.</h2>
             </div>
-            <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {marineEngineModels.map((model) => (
-                <Link key={model.id} href={`/products/${model.id}`} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:border-cyan-300 hover:shadow-md">
-                  <div className="relative aspect-[16/10] bg-slate-100">
-                    <ResilientImage src={model.image} alt={`${model.name} marine diesel engine`} sizes="(max-width: 767px) calc(100vw - 2rem), (max-width: 1023px) calc((100vw - 3rem) / 2), 400px" className="object-contain p-2" />
-                  </div>
-                  <div className="p-5 sm:p-6">
-                    <h4 className="text-xl font-bold text-slate-950">{model.name}</h4>
-                    <p className="mt-2 leading-6 text-slate-600">{model.description}</p>
-                    {model.specifications && (
-                      <p className="mt-3 border-t border-slate-100 pt-3 text-sm leading-6 text-slate-500">
-                        {model.specifications.slice(0, 2).join(' · ')}
-                      </p>
-                    )}
-                    <span className="mt-4 inline-flex text-sm font-semibold text-cyan-800">View model details <ArrowRight className="ml-1 h-4 w-4" /></span>
-                  </div>
-                </Link>
-              ))}
-            </div>
+            <p className="max-w-md text-base leading-7 text-[#58625c]">Explore our core equipment categories. Every recommendation starts with your application, operating conditions, and technical requirements.</p>
           </div>
 
-          <div id="gearboxes" className="mt-14 scroll-mt-20 sm:mt-20 sm:scroll-mt-28">
-            <div className="max-w-2xl">
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-700">Marine gearboxes</p>
-              <h3 className="mt-3 text-3xl font-bold tracking-tight text-slate-950">FADA gearbox models</h3>
-              <p className="mt-3 leading-7 text-slate-600">Compare input speed and reduction ratio ranges, then confirm the correct gearbox against your engine and vessel requirements.</p>
-            </div>
-            <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {marineGearboxModels.map((model) => (
-                <Link key={model.id} href={`/products/${model.id}`} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:border-cyan-300 hover:shadow-md">
-                  <div className="relative aspect-[16/10] bg-slate-100">
-                    <ResilientImage src={model.image} alt={`${model.name} marine gearbox`} sizes="(max-width: 767px) calc(100vw - 2rem), (max-width: 1023px) calc((100vw - 3rem) / 2), 400px" className="object-contain p-2" />
-                  </div>
-                  <div className="p-5 sm:p-6">
-                    <h4 className="text-xl font-bold text-slate-950">{model.name}</h4>
-                    <p className="mt-2 leading-6 text-slate-600">{model.description}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          <div id="heavy-machinery" className="mt-14 scroll-mt-20 sm:mt-20 sm:scroll-mt-28">
-            <div className="max-w-2xl">
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-700">Heavy machinery</p>
-              <h3 className="mt-3 text-3xl font-bold tracking-tight text-slate-950">Heavy machinery &amp; engines</h3>
-            </div>
-            <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {heavyMachineryModels.map((model) => (
-                <Link key={model.id} href={`/products/${model.id}`} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:border-cyan-300 hover:shadow-md">
-                  <div className="relative aspect-[16/10] bg-slate-100">
-                    <ResilientImage src={model.image} alt={`${model.name} photo`} sizes="(max-width: 767px) calc(100vw - 2rem), (max-width: 1023px) calc((100vw - 3rem) / 2), 400px" className="object-contain p-2" />
-                  </div>
-                  <div className="p-5 sm:p-6">
-                    <h4 className="text-xl font-bold text-slate-950">{model.name}</h4>
-                    <p className="mt-2 leading-6 text-slate-600">{model.description}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="about" className="scroll-mt-20 bg-slate-50 py-16 sm:scroll-mt-24 sm:py-28">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:gap-14 sm:px-6 lg:grid-cols-[.9fr_1.1fr] lg:items-center lg:px-8">
-          <div>
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-700">A practical approach</p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-5xl">The right fit matters.</h2>
-            <p className="mt-5 text-lg leading-8 text-slate-600">
-              Noor Alam Machineries is led by Managing Director Md. Noor Nabi. We import, wholesale, and retail marine diesel engines, marine gearboxes, generators, and heavy equipment spare parts, helping customers match equipment to their requirements.
-            </p>
-            <p className="mt-4 text-sm font-semibold uppercase leading-6 tracking-wide text-slate-500">
-              Zichai · Hino · Isuzu · Cummins · Perkins · Doosan · John Deere · MAN · Fadda
-            </p>
-            <Link href="#contact" className="mt-8 inline-flex items-center gap-2 font-semibold text-cyan-800 hover:text-cyan-950">
-              Discuss your requirements <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-          <div className="space-y-4">
-            {approach.map(({ title, description, icon: Icon }, index) => (
-              <div key={title} className="flex gap-4 rounded-xl border border-slate-200 bg-white p-4 sm:gap-5 sm:p-6">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-slate-950 text-cyan-300"><Icon className="h-5 w-5" /></div>
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Step 0{index + 1}</p>
-                  <h3 className="mt-1 font-bold text-slate-950">{title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">{description}</p>
+          <div className="grid grid-flow-dense grid-cols-2 grid-rows-[minmax(220px,1fr)_minmax(220px,1fr)] gap-3 sm:gap-5 lg:grid-cols-4 lg:grid-rows-[minmax(230px,1fr)_minmax(230px,1fr)]">
+            {equipmentCards.map(({ id, title, note, description, image, icon: Icon, className, imageClass }, index) => (
+              <Link key={id} href={`/#${id}`} className={`group relative isolate min-h-[280px] overflow-hidden bg-[#dfe2dc] ${className} ${index === 0 ? 'min-h-[440px] lg:min-h-[470px]' : ''}`}>
+                <ResilientImage src={image} alt="" sizes="(max-width: 767px) 50vw, (max-width: 1023px) 70vw, 50vw" className={`${imageClass} transition-transform duration-700 ease-out group-hover:scale-105`} />
+                <div className="absolute inset-0 -z-0 bg-gradient-to-t from-[#121c19]/90 via-[#121c19]/15 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5 text-white sm:p-7">
+                  <div className="mb-5 flex items-center justify-between"><span className="text-[11px] uppercase tracking-[.18em] text-white/75">{note}</span><Icon className="h-5 w-5 text-[#dfc99d]" strokeWidth={1.5} /></div>
+                  <div className="flex items-end justify-between gap-4"><div><h3 className="text-2xl font-medium tracking-tight sm:text-3xl">{title}</h3><p className="mt-2 max-w-md text-sm leading-6 text-white/75">{description}</p></div><ArrowUpRight className="mb-1 h-5 w-5 shrink-0 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" /></div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="contact" className="scroll-mt-20 bg-slate-950 py-14 text-white sm:scroll-mt-24 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-            <div className="max-w-2xl">
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-white">Start a conversation</p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Looking for an engine, gearbox, or machinery?</h2>
-            <p className="mt-4 leading-7 text-white">Share the equipment type and the specifications you have. Noor Alam Machineries can help you take the next step.</p>
-            <div className="mt-5 flex flex-col gap-2 text-sm text-white">
-              <a href="mailto:noornoobi80@gmail.com" className="w-fit transition hover:text-white">noornoobi80@gmail.com</a>
-              <a href="https://www.nooralammachinery.com" target="_blank" rel="noreferrer" className="w-fit transition hover:text-white">www.nooralammachinery.com</a>
-            </div>
+      <section className="overflow-hidden border-y border-[#e2e0d8] bg-[#f8f7f3] py-7" aria-label="Equipment brands">
+        <div className="brand-marquee flex w-max items-center gap-12 sm:gap-20" aria-hidden="true">
+          {[...brands, ...brands].map((brand, index) => <span key={`${brand}-${index}`} className="flex items-center gap-12 text-lg font-medium tracking-[-.03em] text-[#38433d] sm:gap-20 sm:text-2xl"><span>{brand}</span><span className="h-1.5 w-1.5 rounded-full bg-[#a78b5f]" /></span>)}
+        </div>
+      </section>
+
+      <PinnedEquipmentStory models={[marineEngineModels[4], marineGearboxModels[0], heavyMachineryModels[0]]} />
+      <EquipmentCarousel models={[...marineEngineModels, ...marineGearboxModels, ...heavyMachineryModels]} />
+
+      <section id="about" className="bg-[#17221f] py-24 text-white sm:py-32 lg:py-40">
+        <div className="mx-auto grid max-w-[1440px] gap-14 px-5 sm:px-8 lg:grid-cols-[.9fr_1.1fr] lg:gap-24 lg:px-12">
+          <div>
+            <p className="section-kicker section-kicker-light">How we work</p>
+            <h2 className="mt-5 max-w-xl text-4xl font-medium leading-[1.05] tracking-[-.04em] sm:text-6xl">Good advice starts with the details.</h2>
+              <ScrollRevealedText>Tell us what the equipment needs to do. We’ll help identify suitable options, clarify the specifications, and map out the next step.</ScrollRevealedText>
+            <Link href="#contact" className="mt-9 inline-flex min-h-12 items-center gap-3 border-b border-[#d7bd8d] pb-2 text-sm font-semibold text-[#e6d3ac] transition-colors hover:text-white">Discuss a requirement <ArrowRight className="h-4 w-4" /></Link>
           </div>
-          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
-            <a href={toBangladeshTel('01728-079359')} className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md border border-white/25 px-4 py-3 font-semibold text-white transition hover:bg-white/10 sm:w-auto sm:px-5 sm:py-3.5">
-              <PhoneCall className="h-5 w-5" /> {formatBangladeshPhone('01728-079359')}
-            </a>
-            <Link href="/products" className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-cyan-400 px-5 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300 sm:w-auto sm:px-6 sm:py-3.5">
-              Browse engine parts <ArrowRight className="h-5 w-5" />
-            </Link>
-          </div>
-          </div>
-          <div className="mt-10 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] lg:grid lg:grid-cols-[0.8fr_1.2fr]">
-            <div className="flex flex-col items-start justify-center p-5 sm:p-7">
-              <ContactForm />
-            </div>
-            <div className="relative min-h-[280px] overflow-hidden bg-slate-200 sm:min-h-[360px]">
-              <iframe
-                title="Map to Noor Alam Machineries main showroom in Dhaka"
-                src={`https://maps.google.com/maps?q=${encodeURIComponent(`Noor Alam Machineries, ${BRANCHES[0].address.join(', ')}, Bangladesh`)}&output=embed`}
-                className="absolute inset-0 h-full w-full border-0"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
-            </div>
-          </div>
-          <div className="mt-14 border-t border-white/10 pt-10">
-            <h3 className="text-2xl font-bold tracking-tight">Visit our locations</h3>
-            <div className="mt-6 grid gap-5 md:grid-cols-3">
-              {BRANCHES.map((branch) => (
-                <article key={branch.name} className="rounded-xl bg-white p-5 text-slate-900 shadow-lg sm:p-6">
-                  <h4 className="text-lg font-bold">{branch.name}</h4>
-                  <address className="mt-3 space-y-1 text-sm not-italic leading-6 text-slate-600">
-                    {branch.address.map((line) => <p key={line}>{line}</p>)}
-                  </address>
-                  <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`Noor Alam Machineries, ${branch.address.join(', ')}, Bangladesh`)}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-3 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-cyan-800 underline decoration-cyan-200 underline-offset-4 hover:text-cyan-950"
-                  >
-                    <MapPin className="h-4 w-4" /> View on map
-                  </a>
-                  <ul className="mt-4 space-y-2 border-t border-slate-100 pt-4">
-                    {branch.phones.map((phone) => (
-                      <li key={phone}>
-                        <a href={toBangladeshTel(phone)} className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-800 hover:text-cyan-950">
-                          <PhoneCall className="h-4 w-4" /> {formatBangladeshPhone(phone)}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
-            </div>
+          <div className="grid gap-px bg-white/15 sm:grid-cols-2">
+            {[
+              ['Understand the job', 'Start with the vessel, machine, operating conditions, and work ahead.'],
+              ['Match the equipment', 'Compare model details and technical requirements with your application.'],
+              ['Check compatibility', 'Confirm the engine, gearbox, dimensions, and part numbers before ordering.'],
+              ['Plan the next step', 'Discuss availability, compatible parts, and the information needed to proceed.'],
+            ].map(([title, description], index) => (
+              <article key={title} className="bg-[#17221f] p-7 sm:p-9">
+                <span className="font-mono text-xs text-[#d7bd8d]">0{index + 1}</span>
+                <h3 className="mt-8 text-xl font-medium">{title}</h3>
+                <p className="mt-3 text-sm leading-6 text-white/60">{description}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
-    </div>
+
+      <section id="contact" className="scroll-mt-20 bg-[#e7e3d8] py-24 sm:py-32 lg:py-40">
+        <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+          <div className="grid gap-14 lg:grid-cols-[.85fr_1.15fr] lg:gap-24">
+            <div>
+              <p className="section-kicker">Start a conversation</p>
+              <h2 className="mt-5 max-w-2xl text-4xl font-semibold leading-[1.02] tracking-[-.045em] text-[#17221f] sm:text-6xl">Let’s find the right fit for the work.</h2>
+              <p className="mt-6 max-w-lg text-base leading-7 text-[#59615c]">Send the equipment model and the specifications you have. Our team can help you take the next step.</p>
+              <div className="mt-9 space-y-4 text-sm">
+                <a href={toBangladeshTel('01728-079359')} className="flex items-center gap-3 text-[#17221f] hover:underline"><PhoneCall className="h-4 w-4" />{formatBangladeshPhone('01728-079359')}</a>
+                <a href="mailto:noornoobi80@gmail.com" className="flex items-center gap-3 text-[#17221f] hover:underline">noornoobi80@gmail.com</a>
+              </div>
+              <div className="mt-12 border-t border-[#c5c1b7] pt-7">
+                <p className="mb-5 text-xs font-semibold uppercase tracking-[.18em] text-[#71756d]">Visit our locations</p>
+                <div className="space-y-5">
+                  {BRANCHES.map((branch) => <div key={branch.name} className="flex gap-3 text-sm text-[#4b554f]"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#88714b]" /><p><span className="font-semibold text-[#1b2521]">{branch.name}</span><br />{branch.address.join(', ')}</p></div>)}
+                </div>
+              </div>
+            </div>
+            <div className="grid overflow-hidden bg-[#18231f] text-white lg:grid-cols-[1fr_.85fr]">
+              <div className="p-6 sm:p-9"><ContactForm /></div>
+              <div className="relative min-h-[260px] bg-[#d6d4cd] lg:min-h-full">
+                <iframe title="Map to Noor Alam Machineries main showroom in Dhaka" src={`https://maps.google.com/maps?q=${encodeURIComponent(`Noor Alam Machineries, ${BRANCHES[0].address.join(', ')}, Bangladesh`)}&output=embed`} className="absolute inset-0 h-full w-full border-0 grayscale" loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
+              </div>
+            </div>
+          </div>
+          <div className="mt-20 flex flex-col justify-between gap-6 border-t border-[#c5c1b7] pt-7 text-xs uppercase tracking-[.16em] text-[#74796f] sm:flex-row"><span>Noor Alam Machineries</span><span>Dhaka · Chittagong · Bangladesh</span><Link href="/products" className="inline-flex items-center gap-2 text-[#17221f]">Browse engine parts <ArrowRight className="h-3.5 w-3.5" /></Link></div>
+        </div>
+      </section>
+    </main>
   );
 }

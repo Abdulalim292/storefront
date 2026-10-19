@@ -11,16 +11,16 @@ export default function ProductDetailClient({ product }: { product: Product }) {
   const { addToCart } = useCart();
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+    <div className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 sm:py-24 lg:px-12">
       <div className="grid grid-cols-1 gap-8 sm:gap-12 lg:grid-cols-2">
         <div>
-          <div className="relative aspect-square overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
+          <div className="relative aspect-square overflow-hidden border border-[#dfddd5] bg-[#eeece5]">
             <ResilientImage
               src={product.images[0]}
               alt={product.name}
               sizes="(max-width: 1023px) calc(100vw - 2rem), (max-width: 1312px) 50vw, 640px"
               loading="eager"
-              className="object-contain p-4 transition-all duration-300"
+              className="object-contain p-5 transition-transform duration-700 ease-out hover:scale-105 sm:p-8"
             />
           </div>
         </div>
@@ -28,28 +28,28 @@ export default function ProductDetailClient({ product }: { product: Product }) {
         {/* Product Details */}
         <div className="flex flex-col">
           <div className="mb-6">
-            <span className="text-sm font-medium uppercase tracking-wider text-slate-500">
+            <span className="text-xs font-semibold uppercase tracking-[.16em] text-[#8b806b]">
               {product.category.replaceAll('-', ' ')}
             </span>
-            <h1 className="mt-2 max-w-full break-words rounded-md bg-slate-950 px-3 py-2 text-[clamp(1.75rem,8vw,2.25rem)] font-bold tracking-tight text-white">
+            <h1 className="mt-3 max-w-full break-words text-[clamp(2.5rem,5vw,4.5rem)] font-semibold leading-[1.02] tracking-[-.045em] text-[#17221f]">
               {product.name}
             </h1>
             <div className="mt-4 flex flex-wrap items-center gap-3">
-              <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">Fitment confirmation required</span>
+              <span className="border border-[#dfddd5] bg-[#eeece5] px-3 py-2 text-xs font-medium text-[#59615c]">Fitment confirmation required</span>
             </div>
           </div>
 
-          <p className="mb-8 text-lg leading-relaxed text-slate-600">
+          <p className="mb-8 text-lg leading-8 text-[#59615c]">
             {product.description}
           </p>
 
           {product.category === 'equipment' && product.specifications && (
-            <section className="mb-8 rounded-xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
-              <h2 className="text-lg font-bold text-slate-950">Model details</h2>
-              <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-700">
+            <section className="mb-8 border border-[#dfddd5] bg-[#f1efe8] p-5 sm:p-6">
+              <h2 className="text-lg font-bold text-[#17221f]">Model details</h2>
+              <ul className="mt-3 space-y-2 text-sm leading-6 text-[#48534c]">
                 {product.specifications.map((specification) => (
                   <li key={specification} className="flex gap-2">
-                    <span aria-hidden="true" className="text-cyan-700">•</span>
+                    <span aria-hidden="true" className="text-[#a78b5f]">•</span>
                     <span>{specification}</span>
                   </li>
                 ))}
@@ -64,7 +64,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 border-t border-slate-200 pt-10 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 border-t border-[#dfddd5] pt-10 sm:grid-cols-2">
             <div className="flex gap-4">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan-50 text-cyan-800">
                 <Settings2 className="h-5 w-5" />

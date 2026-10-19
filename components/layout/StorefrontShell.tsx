@@ -18,7 +18,7 @@ export function StorefrontShell({ children }: { children: React.ReactNode }) {
         setHasOpenedCart(true);
         setIsCartOpen(true);
       }} />
-      <main className="flex-1">{children}</main>
+      <div className="flex-1">{children}</div>
       {hasOpenedCart && <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />}
       <StorefrontChatbot />
     </CartProvider>

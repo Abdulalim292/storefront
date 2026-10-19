@@ -1,30 +1,53 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8f7f3;
+  --foreground: #17221f;
+  --ink: #17221f;
+  --paper: #f8f7f3;
+  --brass: #a78b5f;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: "Outfit", "Avenir Next", "Segoe UI", sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html { scroll-padding-top: 5rem; scroll-behavior: smooth; }
+body { min-height: 100vh; background: var(--background); color: var(--foreground); font-family: "Outfit", "Avenir Next", "Segoe UI", sans-serif; }
+::selection { background: #d7bd8d; color: #17221f; }
+
+.hero-photo {
+  background-image: url("https://picsum.photos/seed/marine-engine-room/1920/1080");
+  background-position: center;
+  background-size: cover;
+  filter: saturate(.45) contrast(1.08);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.inline-image-word {
+  display: inline-block;
+  width: 2.1em;
+  height: .72em;
+  margin: 0 .05em .02em;
+  overflow: hidden;
+  border-radius: 999px;
+  background-image: url("https://picsum.photos/seed/industrial-propulsion/600/400");
+  background-position: center 42%;
+  background-size: cover;
+  color: transparent;
+  vertical-align: baseline;
+  -webkit-text-fill-color: transparent;
 }
 
-html {
-  scroll-padding-top: 5rem;
+.section-kicker { color: #8d754d; font-size: .7rem; font-weight: 700; letter-spacing: .19em; line-height: 1.4; text-transform: uppercase; }
+.section-kicker-light { color: #d7bd8d; }
+.brand-marquee { animation: brand-marquee 36s linear infinite; }
+@keyframes brand-marquee { to { transform: translateX(-50%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+  .brand-marquee { animation: none; }
 }
