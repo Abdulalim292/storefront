@@ -34,26 +34,29 @@ function productMatches(question: string) {
     terms: product.name.toLowerCase().split(/[^a-z0-9]+/).filter((term) => term.length > 3 && !['assembly', 'engine', 'turbocharger'].includes(term)),
   }));
 
-  return searchableTerms
-    .filter(({ product, terms }) => {
-      const name = product.name.toLowerCase();
-      const queryRegex = new RegExp(`\\b${name}\\b`, 'i');
+  const scoredMatches = searchableTerms.map(({ product, terms }) => {
+    let score = 0;
+    const name = product.name.toLowerCase();
 
-      // High confidence: Exact name match with boundaries
-      if (queryRegex.test(query)) return true;
+    // Exact full name match (Highest)
+    if (new RegExp(`\\b${name}\\b`, 'i').test(query)) score += 10;
 
-      // Medium confidence: Any a term matches with boundaries
-      if (terms.some((term) => new RegExp(`\\b${term}\\b`, 'i').test(query))) return true;
+    // Term matches (Medium)
+    terms.forEach(term => {
+      if (new RegExp(`\\b${term}\\b`, 'i').test(query)) score += 5;
+    });
 
-      // Category-specific fallback
-      if ((query.includes('turbocharger') && (product.category === 'turbocharging' || product.category === 'marine-engines')) ||
-          (query.includes('piston') && (product.category === 'pistons-rings' || product.category === 'marine-engines'))) {
-        return true;
-      }
+    // Category-specific keywords (Low)
+    if (query.includes('turbocharger') && (product.category === 'turbocharging' || product.category === 'marine-engines')) score += 2;
+    if (query.includes('piston') && (product.category === 'pistons-rings' || product.category === 'marine-engines')) score += 2;
 
-      return false;
-    })
-    .map(({ product }) => product)
+    return { product, score };
+  });
+
+  return scoredMatches
+    .filter(m => m.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .map(m => m.product)
     .slice(0, 3);
 }
 
@@ -62,55 +65,68 @@ function replyTo(question: string): Omit<Message, 'role'> {
   const matches = productMatches(query);
 
   if (matches.length) {
+    const isExact = matches[0].name.toLowerCase() === query.trim();
     return {
-      text: `These catalog items may be what you need. Open an item to check its details, then share the engine model or part number with a branch for a fitment check.`,
+      text: isExact
+        ? `I found the ${matches[0].name}. You can view the details below. To confirm fitment, please share your engine model or serial number with a branch.`
+        : `These catalog items may be what you need. Open an item to check its details, then share the engine model or part number with a branch for a fitment check.`,
       actions: matches.map((product) => ({ label: product.name, href: `/products/${product.id}` })),
       suggestions: ['How do I check compatibility?', 'Ask about pricing', 'Find a branch'],
     };
   }
 
-  const rules: { pattern: RegExp; response: Omit<Message, 'role'> }[] = [
+  const rules: {
+    pattern: RegExp;
+    response: (query: string) => Omit<Message, 'role'>
+  }[] = [
     {
       pattern: /\b(branch|address|location|where|phone|contact|call)\b/i,
-      response: {
+      response: () => ({
         text: 'Choose a branch below to call, or ask me about a specific part.',
         actions: BRANCHES.flatMap((branch) => branch.phones.slice(0, 1).map((phone) => ({ label: `${branch.name} · ${formatBangladeshPhone(phone)}`, href: toBangladeshTel(phone) }))),
         suggestions: ['Browse all parts', 'Ask about pricing'],
-      }
+      })
     },
     {
       pattern: /\b(compatib|fit|which|recommend|match|model|serial)\b/i,
-      response: {
+      response: () => ({
         text: 'I can help you prepare a fitment check. Please provide the engine name and model, serial number, and the part number or dimensions if available. A branch can confirm compatibility before you order.',
         suggestions: ['Find a part', 'Ask about pricing', 'Find a branch'],
-      }
+      })
     },
     {
       pattern: /\b(price|cost|quote|order|buy|available|stock)\b/i,
-      response: {
+      response: () => ({
         text: 'Prices and availability depend on the exact specification. Call a branch with the item name, engine or equipment model, and part number if available.',
         suggestions: ['Find a branch', 'Find a part'],
-      }
+      })
     },
     {
       pattern: /\b(part|product|sell|catalog|inventory|browse)\b/i,
-      response: {
+      response: () => ({
         text: `The catalog includes ${PRODUCTS.slice(0, 5).map((p) => p.name).join(', ')}, plus more marine and industrial engine parts.`,
         actions: [{ label: 'Browse all parts', href: '/products' }],
         suggestions: ['Find a turbocharger', 'Find a piston', 'Check compatibility'],
-      }
+      })
     },
     {
       pattern: /\b(engine|gearbox|machiner|equipment|marine)\b/i,
-      response: {
+      response: () => ({
         text: 'Noor Alam Machineries helps source marine engines, gearboxes, heavy machinery, and engine parts. Tell me the equipment type or part name to see matching catalog items.',
         suggestions: ['Find a part', 'Find a branch', 'Ask about pricing'],
-      }
+      })
+    },
+    {
+      pattern: /\b(hi|hello|hey|greetings)\b/i,
+      response: () => ({
+        text: 'Hello! I am the Noor Alam support bot. I can help you find parts, prepare fitment checks, or locate a branch. How can I help you today?',
+        suggestions: ['Find a part', 'Check compatibility', 'Find a branch'],
+      })
     },
   ];
 
   for (const rule of rules) {
-    if (rule.pattern.test(query)) return rule.response;
+    if (rule.pattern.test(query)) return rule.response(query);
   }
 
   return {
