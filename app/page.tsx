@@ -43,7 +43,18 @@ const equipmentCards = [
   },
 ];
 
-const brands = ['Zichai', 'Weichai', 'Cummins', 'Hino', 'Isuzu', 'Perkins', 'Doosan', 'John Deere', 'MAN', 'FADA'];
+const brands = [
+  { name: 'Zichai', mark: 'Z', color: '#bd2829' },
+  { name: 'Weichai', mark: 'W', color: '#bd2829' },
+  { name: 'Cummins', mark: 'C', color: '#b5212b' },
+  { name: 'Hino', mark: 'H', color: '#bd2829' },
+  { name: 'Isuzu', mark: 'I', color: '#bf2026' },
+  { name: 'Perkins', mark: 'P', color: '#263c31' },
+  { name: 'Doosan', mark: 'D', color: '#17548a' },
+  { name: 'John Deere', mark: 'JD', color: '#367c2b' },
+  { name: 'MAN', mark: 'M', color: '#303b38' },
+  { name: 'FADA', mark: 'F', color: '#193e5a' },
+];
 
 export default function HomePage() {
   return (
@@ -117,8 +128,20 @@ export default function HomePage() {
 
       <section className="overflow-hidden border-y border-[#e2e0d8] bg-[#f8f7f3] py-7" aria-label="Equipment brands">
         <div className="brand-marquee flex w-max items-center gap-12 sm:gap-20" aria-hidden="true">
-          {[...brands, ...brands].map((brand, index) => <span key={`${brand}-${index}`} className="flex items-center gap-12 text-lg font-medium tracking-[-.03em] text-[#38433d] sm:gap-20 sm:text-2xl"><span>{brand}</span><span className="h-1.5 w-1.5 rounded-full bg-[#a78b5f]" /></span>)}
+          {[...brands, ...brands].map((brand, index) => (
+            <span key={`${brand.name}-${index}`} className="flex items-center gap-12 sm:gap-20">
+              <span className="inline-flex items-center gap-3 whitespace-nowrap">
+                <svg aria-hidden="true" viewBox="0 0 40 40" className="h-9 w-9 shrink-0 sm:h-10 sm:w-10">
+                  <path d="M20 2.5 36 11.25v17.5L20 37.5 4 28.75v-17.5L20 2.5Z" fill={brand.color} />
+                  <text x="20" y="21" fill="white" dominantBaseline="middle" textAnchor="middle" fontFamily="Arial, sans-serif" fontSize={brand.mark.length > 1 ? '12' : '18'} fontWeight="700" letterSpacing="-.5">{brand.mark}</text>
+                </svg>
+                <span className="text-lg font-semibold tracking-[-.03em] text-[#38433d] sm:text-2xl">{brand.name}</span>
+              </span>
+              <span className="h-1.5 w-1.5 rounded-full bg-[#a78b5f]" />
+            </span>
+          ))}
         </div>
+        <ul className="sr-only">{brands.map(({ name }) => <li key={name}>{name}</li>)}</ul>
       </section>
 
       <PinnedEquipmentStory models={[marineEngineModels[4], marineGearboxModels[0], heavyMachineryModels[0]]} />
