@@ -20,6 +20,7 @@ export interface Product {
   imageCredit: string;
   imageLicense: string;
   imageLicenseUrl: string;
+  price?: number | null;
   specifications?: string[];
 }
 
