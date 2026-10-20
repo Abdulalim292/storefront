@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X, Search, ClipboardList, Cog } from 'lucide-react';
+import { Menu, X, Search, ClipboardList } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 
 export function Navbar({ onCartClick }: { onCartClick: () => void }) {
@@ -32,14 +32,13 @@ export function Navbar({ onCartClick }: { onCartClick: () => void }) {
 
         <Link href="/" className="relative mr-auto flex min-w-0 items-center gap-2 text-base font-bold tracking-tight text-[#17221f] sm:absolute sm:left-1/2 sm:top-1/2 sm:mr-0 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:whitespace-nowrap sm:text-xl lg:text-2xl xl:text-2xl 2xl:text-3xl" aria-label="Noor Alam Machineries home">
           <Image
-            src="/brand/noor-alam-machineries-logo.webp"
-            alt=""
+            src="/brand/noor-alam-site-logo.webp"
+            alt="Noor Alam Machineries logo"
             width={42}
             height={42}
             className="h-8 w-8 shrink-0 rounded-full object-cover sm:h-10 sm:w-10"
             preload
           />
-          <Cog aria-hidden="true" className="hidden h-4 w-4 shrink-0 text-[#8d754d] sm:block" strokeWidth={1.8} />
           <span className="max-w-[88px] text-[13px] leading-tight sm:hidden">Noor Alam Machineries</span>
           <span className="hidden sm:inline">Noor Alam <span className="text-[#8d754d]">Machineries</span></span>
         </Link>

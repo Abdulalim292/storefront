@@ -12,7 +12,7 @@ export function Footer() {
           <div className="col-span-1 md:col-span-2">
             <Link href="/" className="mb-4 flex items-center gap-3 text-xl font-bold tracking-tight text-white">
               <Image
-                src="/brand/noor-alam-machineries-logo.webp"
+                src="/brand/noor-alam-site-logo.webp"
                 alt="Noor Alam Machineries gear logo"
                 width={44}
                 height={44}
