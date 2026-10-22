@@ -17,13 +17,13 @@ A product and equipment storefront built with Next.js App Router, React, and Tai
    npm ci
    ```
 
-3. Copy the example environment file if you want a local `.env` file:
+3. Copy the example environment file if you want to configure local photo uploads:
 
    ```bash
    cp .env.example .env.local
    ```
 
-   The app currently does not read environment variables, so this step is optional and `.env.local` can remain empty.
+   Fill in the values as described under [Photo uploads](#photo-uploads). The storefront works without them, but the photo manager does not.
 
 4. Start the development server:
 
@@ -53,16 +53,38 @@ A product and equipment storefront built with Next.js App Router, React, and Tai
 
 To update the catalog, edit `data/catalog.json`; products, equipment models, categories, and their prices are kept there as data. Add an item to the `products` array with a unique `id`, `name`, `description`, `category`, `images`, and image attribution fields. Set `price` to a number when you want to publish a price, or `null` while the item remains quote-only. Add category labels and URL values to the `categories` array. Equipment entries use the `equipment` category and can include a `specifications` array. Remote image hosts must also be allowed in `next.config.ts` for Next.js image optimization.
 
-## Environment variables
+## Photo uploads
 
-The storefront itself does not require environment variables. The optional product photo manager at `/admin/products` uses Supabase Storage and requires the variables in `.env.example`.
+Product photos can be changed from the deployed site using the protected photo manager at `/admin/products`. Uploaded photos are stored in Supabase Storage and the product-to-photo mapping is saved in Supabase, so changes remain after a redeploy.
 
-To enable photo uploads:
+### One-time setup
 
-1. Create a Supabase project and run [`scripts/product-photo-storage.sql`](scripts/product-photo-storage.sql) in its SQL Editor.
-2. Set `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` from the Supabase project's API settings. Keep the service role key private and add it only to server-side environment variables.
-3. Set `ADMIN_PASSWORD` to a strong unique password and `ADMIN_SESSION_SECRET` to a random secret with at least 32 characters.
-4. Add all four values to your deployment provider's environment variable settings, then redeploy. For local use, put them in `.env.local`.
-5. Open `/admin/products`, sign in, select a catalog item, choose a JPG, PNG, or WebP photo up to 4 MB, then save.
+1. Create a Supabase project.
+2. In Supabase, open **SQL Editor**, create a query, paste in the contents of [`scripts/product-photo-storage.sql`](scripts/product-photo-storage.sql), and run it. This creates the photo mapping table and the public bucket used to display photos.
+3. In your Supabase project's API settings, copy the project URL and **service role** key. The service role key is secret: use it only as a server-side environment variable and never add it to client-side code.
+4. Set these four environment variables in your hosting provider's project settings:
 
-The uploaded image and product-to-image mapping are stored in Supabase, so changes persist across deployments and appear on product cards, detail pages, and equipment sections. If those environment variables are not configured, the storefront continues to use its catalog images and the photo manager cannot sign in or upload.
+   | Variable | Value |
+   | --- | --- |
+   | `SUPABASE_URL` | Your Supabase project URL |
+   | `SUPABASE_SERVICE_ROLE_KEY` | Your Supabase service role key |
+   | `ADMIN_PASSWORD` | A strong, unique password for the photo manager |
+   | `ADMIN_SESSION_SECRET` | A random secret with at least 32 characters |
+
+   For example, generate a session secret locally with `openssl rand -base64 32`.
+
+5. Make sure the variables are available to the production deployment, then redeploy the site. For local development, put them in `.env.local` instead.
+
+### Replace a product photo
+
+1. Open `https://your-site-address/admin/products` in a browser.
+2. Sign in with the `ADMIN_PASSWORD` you configured above.
+3. Search for the product by name, then select it from the catalog list. Equipment models are listed there too.
+4. Choose a JPG, PNG, or WebP photo that is no larger than 4 MB. The preview shows the selected file before upload.
+5. Select **Save new photo** and wait for the success message. The new photo appears on the product card, product detail page, cart, and relevant equipment sections.
+
+Sign out when finished. The photo manager does not change product names, descriptions, prices, or other catalog details. If Supabase or the four environment variables are not configured, the storefront keeps showing its existing catalog photos and uploads will not work.
+
+### Change photos in the project instead
+
+You can also add a photo under `public/` and edit the item's `images` array in `data/catalog.json`. For example, a file at `public/images/products/new-part.webp` is referenced as `/images/products/new-part.webp`. Commit and redeploy the project for that change to reach the site. A photo uploaded through the admin page takes precedence over this catalog image for that item.
