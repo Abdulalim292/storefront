@@ -3,7 +3,7 @@ import { useCart } from '@/context/CartContext';
 import { X, Trash2, Plus, Minus, ClipboardList, ShoppingBag, Copy, Check } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
-import { ResilientImage } from '@/components/ui/ResilientImage';
+import { CatalogImage } from '@/components/ui/CatalogImage';
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -120,7 +120,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                 {cart.map((item) => (
                   <div key={item.id} className="flex gap-4 border-b border-slate-100 pb-4">
                     <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-slate-200 bg-slate-50">
-                      <ResilientImage src={item.images[0]} alt={item.name} sizes="80px" className="object-contain p-1" />
+                      <CatalogImage productId={item.id} src={item.images[0]} alt={item.name} sizes="80px" className="object-contain p-1" />
                     </div>
                     <div className="flex flex-1 flex-col justify-between">
                       <div className="flex justify-between">

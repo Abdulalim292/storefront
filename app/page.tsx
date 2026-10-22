@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowDown, ArrowRight, ArrowUpRight, Cog, Construction, MapPin, PhoneCall, Ship } from 'lucide-react';
 import { ContactForm } from '@/components/chat/ContactForm';
-import { ResilientImage } from '@/components/ui/ResilientImage';
+import { CatalogImage } from '@/components/ui/CatalogImage';
 import { marineEngineModels, marineGearboxModels, heavyMachineryModels } from '@/data/equipment';
 import { BRANCHES } from '@/data/branches';
 import { formatBangladeshPhone, toBangladeshTel } from '@/lib/phone';
@@ -19,6 +19,7 @@ const equipmentCards = [
     note: 'Propulsion and auxiliary power',
     description: 'Diesel engine platforms for commercial vessels, workboats, and demanding days at sea.',
     image: marineEngineModels[4].image,
+    productId: marineEngineModels[4].id,
     icon: Ship,
     className: 'col-span-2 row-span-1 lg:col-span-2 lg:row-span-2',
     imageClass: 'object-contain p-8 sm:p-12',
@@ -29,6 +30,7 @@ const equipmentCards = [
     note: 'Transmission and reduction',
     description: 'Find a gearbox to suit your engine output, vessel, and operating conditions.',
     image: marineGearboxModels[0].image,
+    productId: marineGearboxModels[0].id,
     icon: Cog,
     className: 'col-span-2 row-span-1',
     imageClass: 'object-contain p-4 sm:p-7',
@@ -39,6 +41,7 @@ const equipmentCards = [
     note: 'Equipment and spare parts',
     description: 'Reliable machinery and components for industrial and construction work.',
     image: heavyMachineryModels[0].image,
+    productId: heavyMachineryModels[0].id,
     icon: Construction,
     className: 'col-span-2 row-span-1',
     imageClass: 'object-cover',
@@ -126,13 +129,13 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-flow-dense grid-cols-2 grid-rows-[minmax(220px,1fr)_minmax(220px,1fr)] gap-3 sm:gap-5 lg:grid-cols-4 lg:grid-rows-[minmax(230px,1fr)_minmax(230px,1fr)]">
-            {equipmentCards.map(({ id, title, note, description, image, icon: Icon, className, imageClass }, index) => (
+            {equipmentCards.map(({ id, productId, title, note, description, image, icon: Icon, className, imageClass }, index) => (
               <Link key={id} href={`/#${id}`} className={`group relative isolate min-h-[280px] overflow-hidden bg-[#dfe2dc] ${className} ${index === 0 ? 'min-h-[440px] lg:min-h-[470px]' : ''}`}>
                 <div className={cn(
                   "relative w-full h-full",
                   index === 0 ? "aspect-[4/3] lg:aspect-auto" : "aspect-video"
                 )}>
-                  <ResilientImage src={image} alt="" sizes="(max-width: 767px) 50vw, (max-width: 1023px) 70vw, 50vw" className={`${imageClass} transition-transform duration-700 ease-out group-hover:scale-105`} loading="lazy" />
+                  <CatalogImage productId={productId} src={image} alt="" sizes="(max-width: 767px) 50vw, (max-width: 1023px) 70vw, 50vw" className={`${imageClass} transition-transform duration-700 ease-out group-hover:scale-105`} loading="lazy" />
                 </div>
                 <div className="absolute inset-0 -z-0 bg-gradient-to-t from-[#121c19]/90 via-[#121c19]/15 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-5 text-white sm:p-7">

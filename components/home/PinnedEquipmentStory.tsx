@@ -7,6 +7,7 @@ import { ArrowUpRight } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { EquipmentModel } from '@/data/equipment';
+import { useProductImage } from '@/context/ProductImageContext';
 
 export function PinnedEquipmentStory({ models }: { models: EquipmentModel[] }) {
   const sectionRef = useRef<HTMLElement>(null);
@@ -60,9 +61,20 @@ export function PinnedEquipmentStory({ models }: { models: EquipmentModel[] }) {
 
         <div ref={galleryRef} className="space-y-7 lg:space-y-12">
           {models.map((model, index) => (
-            <Link key={model.id} id={index === 0 ? 'marine-engine-models' : index === 1 ? 'gearboxes' : 'heavy-machinery'} href={`/products/${model.id}`} className="story-card group scroll-mt-24 block overflow-hidden bg-[#d8d9d2]">
+            <EquipmentStoryCard key={model.id} model={model} index={index} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function EquipmentStoryCard({ model, index }: { model: EquipmentModel; index: number }) {
+  const image = useProductImage(model.id, model.image);
+  return (
+            <Link id={index === 0 ? 'marine-engine-models' : index === 1 ? 'gearboxes' : 'heavy-machinery'} href={`/products/${model.id}`} className="story-card group scroll-mt-24 block overflow-hidden bg-[#d8d9d2]">
               <div className={`relative ${index === 0 ? 'aspect-[1.42]' : 'aspect-[1.7]'}`}>
-                <Image src={model.image} alt={model.name} fill sizes="(max-width: 959px) 100vw, 60vw" className="object-contain p-8 transition-transform duration-700 ease-out group-hover:scale-105 sm:p-12" />
+                <Image src={image} alt={model.name} fill sizes="(max-width: 959px) 100vw, 60vw" unoptimized={image.includes('/storage/v1/object/public/product-images/')} className="object-contain p-8 transition-transform duration-700 ease-out group-hover:scale-105 sm:p-12" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#17221f]/75 via-transparent to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 text-white sm:p-8">
                   <div><p className="text-[11px] uppercase tracking-[.18em] text-white/70">{index === 0 ? 'Marine propulsion' : index === 1 ? 'Marine transmission' : 'Heavy machinery'}</p><h3 className="mt-2 text-2xl font-medium tracking-tight sm:text-4xl">{model.name}</h3></div>
@@ -70,9 +82,5 @@ export function PinnedEquipmentStory({ models }: { models: EquipmentModel[] }) {
                 </div>
               </div>
             </Link>
-          ))}
-        </div>
-      </div>
-    </section>
   );
 }

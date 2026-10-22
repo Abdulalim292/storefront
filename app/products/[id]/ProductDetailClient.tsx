@@ -3,7 +3,7 @@
 import React from 'react';
 import { Product } from '@/types';
 import { Button } from '@/components/ui/Button';
-import { ResilientImage } from '@/components/ui/ResilientImage';
+import { CatalogImage } from '@/components/ui/CatalogImage';
 import { useCart } from '@/context/CartContext';
 import { ClipboardList, Ruler, Settings2, Ship, MessageCircle } from 'lucide-react';
 
@@ -22,7 +22,8 @@ export default function ProductDetailClient({ product }: { product: Product }) {
       <div className="grid grid-cols-1 gap-8 sm:gap-12 lg:grid-cols-2">
         <div>
           <div className="relative aspect-square overflow-hidden border border-[#dfddd5] bg-[#eeece5]">
-            <ResilientImage
+            <CatalogImage
+              productId={product.id}
               src={product.images[0]}
               alt={product.name}
               sizes="(max-width: 1023px) calc(100vw - 2rem), (max-width: 1312px) 50vw, 640px"
@@ -42,7 +43,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
               {product.name}
             </h1>
             <div className="mt-4 flex flex-wrap items-center gap-3">
-              <span className="border border-[#dfddd5] bg-[#eeece5] px-3 py-2 text-xs font-medium text-[#59615c]">Fitment confirmation required</span>
+              <span className="border border-[#dfddd5] bg-[#eeece5] px-3 py-2 text-xs font-medium text-[#59615c]">Part number required</span>
             </div>
           </div>
 

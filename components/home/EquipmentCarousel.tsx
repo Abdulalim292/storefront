@@ -5,10 +5,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import type { EquipmentModel } from '@/data/equipment';
+import { useProductImage } from '@/context/ProductImageContext';
 
 export function EquipmentCarousel({ models }: { models: EquipmentModel[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const model = models[activeIndex];
+  const image = useProductImage(model.id, model.image);
   const move = (offset: number) => setActiveIndex((index) => (index + offset + models.length) % models.length);
 
   return (
@@ -24,7 +26,7 @@ export function EquipmentCarousel({ models }: { models: EquipmentModel[] }) {
 
         <div className="grid overflow-hidden bg-[#e6e5de] lg:grid-cols-[1.1fr_.9fr]">
           <Link href={`/products/${model.id}`} className="group relative block min-h-[300px] overflow-hidden sm:min-h-[450px]">
-            <Image key={model.id} src={model.image} alt={model.name} fill sizes="(max-width: 1023px) 100vw, 55vw" className="object-contain p-8 transition-transform duration-700 ease-out group-hover:scale-105 sm:p-14" />
+            <Image key={model.id} src={image} alt={model.name} fill sizes="(max-width: 1023px) 100vw, 55vw" unoptimized={image.includes('/storage/v1/object/public/product-images/')} className="object-contain p-8 transition-transform duration-700 ease-out group-hover:scale-105 sm:p-14" />
             <span className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full bg-white/90 text-[#17221f]"><ArrowUpRight className="h-4 w-4" /></span>
           </Link>
           <div className="flex flex-col justify-between p-7 sm:p-12 lg:p-14">

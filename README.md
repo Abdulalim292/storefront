@@ -55,4 +55,14 @@ To update the catalog, edit `data/catalog.json`; products, equipment models, cat
 
 ## Environment variables
 
-No environment variables are currently required. `.env.example` is intentionally empty apart from a comment so future configuration can be documented without adding placeholder secrets.
+The storefront itself does not require environment variables. The optional product photo manager at `/admin/products` uses Supabase Storage and requires the variables in `.env.example`.
+
+To enable photo uploads:
+
+1. Create a Supabase project and run [`scripts/product-photo-storage.sql`](scripts/product-photo-storage.sql) in its SQL Editor.
+2. Set `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` from the Supabase project's API settings. Keep the service role key private and add it only to server-side environment variables.
+3. Set `ADMIN_PASSWORD` to a strong unique password and `ADMIN_SESSION_SECRET` to a random secret with at least 32 characters.
+4. Add all four values to your deployment provider's environment variable settings, then redeploy. For local use, put them in `.env.local`.
+5. Open `/admin/products`, sign in, select a catalog item, choose a JPG, PNG, or WebP photo up to 4 MB, then save.
+
+The uploaded image and product-to-image mapping are stored in Supabase, so changes persist across deployments and appear on product cards, detail pages, and equipment sections. If those environment variables are not configured, the storefront continues to use its catalog images and the photo manager cannot sign in or upload.

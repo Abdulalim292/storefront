@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Product } from '@/types';
 import { Button } from '@/components/ui/Button';
-import { ResilientImage } from '@/components/ui/ResilientImage';
+import { CatalogImage } from '@/components/ui/CatalogImage';
 import { useCart } from '@/context/CartContext';
 import { ClipboardList } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -27,7 +27,8 @@ export function ProductCard({ product }: ProductCardProps) {
     >
       <Link href={`/products/${product.id}`} className="relative aspect-square overflow-hidden bg-[#eeece5]">
         <div className="relative h-full w-full">
-          <ResilientImage
+          <CatalogImage
+            productId={product.id}
             src={product.images[0]}
             alt={product.name}
             sizes="(max-width: 639px) calc(100vw - 2rem), (max-width: 1023px) calc((100vw - 3rem) / 2), (max-width: 1279px) calc((100vw - 5rem) / 4), 300px"
