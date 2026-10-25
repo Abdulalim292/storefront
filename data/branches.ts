@@ -18,6 +18,6 @@ export const BRANCHES: Branch[] = [
   {
     name: 'Chittagong Branch',
     address: ['525 Aklash Complex, Shop No. 105', 'Jubilee Road (under Islami Bank), Chittagong'],
-    phones: ['02-333358757', '01735-593764', '01863-611800'],
+    phones: ['031-333358757', '01735-593764', '01863-611800'],
   },
 ];

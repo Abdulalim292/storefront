@@ -3,7 +3,6 @@ import catalog from '@/data/catalog.json';
 import { hasValidOrigin, isAdminRequest } from '@/lib/admin-auth';
 import { saveProductImage } from '@/lib/product-image-storage';
 
-export const runtime = 'nodejs';
 const MAX_FILE_SIZE = 4 * 1024 * 1024;
 const ALLOWED_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
 const PRODUCT_IDS = new Set(catalog.products.map((product) => product.id));

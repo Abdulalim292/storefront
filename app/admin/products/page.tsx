@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
 import { ProductPhotoManager } from '@/components/admin/ProductPhotoManager';
 
-export const metadata: Metadata = { title: 'Product photos | Noor Alam Machineries' };
+export const metadata: Metadata = {
+  title: 'Product photos',
+  robots: { index: false, follow: false },
+};
 
 export default function AdminProductPhotosPage() {
   return <ProductPhotoManager />;

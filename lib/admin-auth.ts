@@ -48,8 +48,34 @@ export const adminSessionSeconds = SESSION_SECONDS;
 export function hasValidOrigin(request: Request) {
   const origin = request.headers.get('origin');
   if (!origin) return false;
+
   try {
-    return new URL(origin).host === new URL(request.url).host;
+    const originUrl = new URL(origin);
+    if (originUrl.protocol !== 'https:' && originUrl.protocol !== 'http:') return false;
+
+    const hosts = new Set<string>();
+    const addHost = (value?: string | null) => {
+      const candidate = value?.split(',')[0]?.trim();
+      if (!candidate) return;
+      try {
+        hosts.add(new URL(`${originUrl.protocol}//${candidate}`).host);
+      } catch {
+        // Ignore malformed header values.
+      }
+    };
+
+    try {
+      hosts.add(new URL(request.url).host);
+    } catch {
+      // Fall through to the proxy headers below.
+    }
+
+    // Reverse proxies may rewrite request.url; the forwarded host is the
+    // public host the browser used for Origin.
+    addHost(request.headers.get('x-forwarded-host'));
+    addHost(request.headers.get('host'));
+
+    return hosts.has(originUrl.host);
   } catch {
     return false;
   }

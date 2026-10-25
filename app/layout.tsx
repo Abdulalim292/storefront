@@ -1,12 +1,17 @@
 import type { Metadata, Viewport } from 'next';
-import '../src/app/globals.css';
+import './globals.css';
 import { StorefrontShell } from '@/components/layout/StorefrontShell';
 import { Footer } from '@/components/layout/Footer';
+import { SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   applicationName: 'Noor Alam Machineries',
   appleWebApp: { capable: true, title: 'Noor Alam Machineries', statusBarStyle: 'black-translucent' },
-  title: 'Noor Alam Machineries | Marine & Industrial Equipment',
+  title: {
+    default: 'Noor Alam Machineries | Marine & Industrial Equipment',
+    template: '%s | Noor Alam Machineries',
+  },
   description: 'Marine engines, gearboxes, heavy machinery, and engine parts matched to your application by Noor Alam Machineries.',
 };
 

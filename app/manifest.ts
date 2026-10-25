@@ -25,9 +25,9 @@ export default function manifest(): MetadataRoute.Manifest {
     ],
     shortcuts: [
       {
-        name: 'View Inquiry List',
-        url: '/',
-        description: 'Check your parts inquiry list',
+        name: 'Contact Us',
+        url: '/#contact',
+        description: 'Call or email the Noor Alam Machineries team',
       },
       {
         name: 'Browse Parts',

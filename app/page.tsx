@@ -3,7 +3,14 @@ import Link from 'next/link';
 import { ArrowDown, ArrowRight, ArrowUpRight, Cog, Construction, MapPin, PhoneCall, Ship } from 'lucide-react';
 import { ContactForm } from '@/components/chat/ContactForm';
 import { CatalogImage } from '@/components/ui/CatalogImage';
-import { marineEngineModels, marineGearboxModels, heavyMachineryModels } from '@/data/equipment';
+import {
+  marineEngineModels,
+  marineGearboxModels,
+  heavyMachineryModels,
+  featuredMarineEngine,
+  featuredMarineGearbox,
+  featuredHeavyMachinery,
+} from '@/data/equipment';
 import { BRANCHES } from '@/data/branches';
 import { formatBangladeshPhone, toBangladeshTel } from '@/lib/phone';
 import { PinnedEquipmentStory } from '@/components/home/PinnedEquipmentStory';
@@ -18,8 +25,8 @@ const equipmentCards = [
     title: 'Marine engines',
     note: 'Propulsion and auxiliary power',
     description: 'Diesel engine platforms for commercial vessels, workboats, and demanding days at sea.',
-    image: marineEngineModels[4].image,
-    productId: marineEngineModels[4].id,
+    image: featuredMarineEngine.image,
+    productId: featuredMarineEngine.id,
     icon: Ship,
     className: 'col-span-2 row-span-1 lg:col-span-2 lg:row-span-2',
     imageClass: 'object-contain p-8 sm:p-12',
@@ -29,8 +36,8 @@ const equipmentCards = [
     title: 'Marine gearboxes',
     note: 'Transmission and reduction',
     description: 'Find a gearbox to suit your engine output, vessel, and operating conditions.',
-    image: marineGearboxModels[0].image,
-    productId: marineGearboxModels[0].id,
+    image: featuredMarineGearbox.image,
+    productId: featuredMarineGearbox.id,
     icon: Cog,
     className: 'col-span-2 row-span-1',
     imageClass: 'object-contain p-4 sm:p-7',
@@ -40,8 +47,8 @@ const equipmentCards = [
     title: 'Heavy machinery',
     note: 'Equipment and spare parts',
     description: 'Reliable machinery and components for industrial and construction work.',
-    image: heavyMachineryModels[0].image,
-    productId: heavyMachineryModels[0].id,
+    image: featuredHeavyMachinery.image,
+    productId: featuredHeavyMachinery.id,
     icon: Construction,
     className: 'col-span-2 row-span-1',
     imageClass: 'object-cover',
@@ -72,7 +79,7 @@ export default function HomePage() {
             src="https://picsum.photos/seed/marine-engine-room/1920/1080"
             alt=""
             fill
-            priority
+            preload
             sizes="100vw"
             quality={70}
             className="object-cover"
@@ -105,7 +112,7 @@ export default function HomePage() {
           </div>
           <div className="relative hidden h-[490px] lg:block">
             <div className="absolute right-[8%] top-[3%] h-[88%] w-[76%] overflow-hidden rounded-t-[48%] border border-white/20 bg-[#263331]/60">
-              <Image src={marineEngineModels[4].image} alt="Cummins KTA19 marine diesel engine" fill loading="lazy" sizes="(min-width: 1024px) 40vw, 0px" className="object-contain p-8 mix-blend-luminosity" />
+              <Image src={featuredMarineEngine.image} alt={`${featuredMarineEngine.name} marine diesel engine`} fill loading="lazy" sizes="(min-width: 1024px) 40vw, 0px" className="object-contain p-8 mix-blend-luminosity" />
             </div>
             <div className="absolute bottom-[3%] left-0 w-[46%] border border-white/20 bg-[#111d1b]/90 p-5 backdrop-blur-sm">
               <p className="text-xs uppercase tracking-[.2em] text-[#d7bd8d]">Built around your operation</p>
@@ -163,7 +170,7 @@ export default function HomePage() {
         <ul className="sr-only">{brands.map(({ name }) => <li key={name}>{name}</li>)}</ul>
       </section>
 
-      <PinnedEquipmentStory models={[marineEngineModels[4], marineGearboxModels[0], heavyMachineryModels[0]]} />
+      <PinnedEquipmentStory models={[featuredMarineEngine, featuredMarineGearbox, featuredHeavyMachinery]} />
       <EquipmentCarousel models={[...marineEngineModels, ...marineGearboxModels, ...heavyMachineryModels]} />
 
       <section id="about" className="bg-[#17221f] py-24 text-white sm:py-32 lg:py-40">

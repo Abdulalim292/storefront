@@ -1,3 +1,5 @@
+export type EquipmentGroup = 'marine-engines' | 'marine-gearboxes' | 'heavy-machinery';
+
 export type ProductCategory =
   | 'turbocharging'
   | 'cylinder-assembly'
@@ -22,6 +24,7 @@ export interface Product {
   imageLicenseUrl: string;
   price?: number | null;
   specifications?: string[];
+  equipmentGroup?: EquipmentGroup;
 }
 
 export interface CartItem extends Product {

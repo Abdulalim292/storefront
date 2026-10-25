@@ -1,14 +1,16 @@
 import { defineConfig, globalIgnores } from "eslint/config";
-import nextPlugin from "@next/eslint-plugin-next";
+import nextVitals from "eslint-config-next/core-web-vitals";
 
 const eslintConfig = defineConfig([
+  ...nextVitals,
   {
-    plugins: { "@next/next": nextPlugin },
-    rules: nextPlugin.configs.recommended.rules,
+    rules: {
+      // These effects intentionally sync with browser-only APIs (localStorage,
+      // object URLs) or fetch data on mount; the rule cannot see that intent.
+      "react-hooks/set-state-in-effect": "off",
+    },
   },
-  // Override default ignores of eslint-config-next.
   globalIgnores([
-    // Default ignores of eslint-config-next:
     ".next/**",
     "out/**",
     "build/**",

@@ -13,5 +13,7 @@ type CatalogImageProps = {
 };
 
 export function CatalogImage({ productId, src, ...props }: CatalogImageProps) {
-  return <ResilientImage src={useProductImage(productId, src)} {...props} />;
+  const resolvedSrc = useProductImage(productId, src);
+  // Remount when the photo changes so any previous error state is discarded.
+  return <ResilientImage key={resolvedSrc} src={resolvedSrc} {...props} />;
 }

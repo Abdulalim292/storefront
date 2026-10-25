@@ -43,6 +43,7 @@ export function Footer() {
               <li><a href={toBangladeshTel('01728-079359')} className="inline-flex items-center gap-2 text-sm text-white/65 hover:text-white"><PhoneCall className="h-4 w-4" /> {formatBangladeshPhone('01728-079359')}</a></li>
               <li><a href="mailto:noornoobi80@gmail.com" className="inline-flex items-center gap-2 text-sm text-white/65 hover:text-white"><Mail className="h-4 w-4" /> noornoobi80@gmail.com</a></li>
               <li><a href="https://www.nooralammachinery.com" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm text-white/65 hover:text-white"><Globe className="h-4 w-4" /> nooralammachinery.com</a></li>
+              <li><Link href="/image-credits" className="text-sm text-white/65 hover:text-white">Image credits</Link></li>
             </ul>
           </div>
         </div>

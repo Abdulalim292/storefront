@@ -11,29 +11,61 @@ interface CartDrawerProps {
 }
 
 export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
-  const { cart, removeFromCart, updateQuantity } = useCart();
+  const { cart, removeFromCart, changeQuantity } = useCart();
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const [engineDetails, setEngineDetails] = useState('');
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const prepareButtonRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const wasInquiryOpen = useRef(false);
+
+  useEffect(() => {
+    if (wasInquiryOpen.current && !isInquiryOpen) {
+      prepareButtonRef.current?.focus();
+    }
+    wasInquiryOpen.current = isInquiryOpen;
+  }, [isInquiryOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
+    const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     closeButtonRef.current?.focus();
     return () => {
       document.body.style.overflow = previousOverflow;
+      previouslyFocused?.focus();
     };
   }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== 'Escape') return;
-      if (isInquiryOpen) setIsInquiryOpen(false);
-      else onClose();
+      if (event.key === 'Escape') {
+        if (isInquiryOpen) setIsInquiryOpen(false);
+        else onClose();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+
+      const container = isInquiryOpen ? modalRef.current : drawerRef.current;
+      if (!container) return;
+      const focusable = container.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
@@ -79,21 +111,24 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
     }
   };
 
-  if (!isOpen) return null;
-
   return (
     <>
       {/* Backdrop */}
       <button
         type="button"
         aria-label="Close inquiry list"
-        className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm transition-opacity"
+        aria-hidden={!isOpen}
+        tabIndex={isOpen ? 0 : -1}
+        className={cn(
+          "fixed inset-0 z-[70] bg-slate-900/40 backdrop-blur-sm transition-opacity duration-300",
+          isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+        )}
         onClick={onClose}
       />
 
       {/* Drawer */}
-      <div role="dialog" aria-modal="true" aria-labelledby="inquiry-drawer-title" className={cn(
-        "fixed right-0 top-0 z-50 h-full w-full max-w-md bg-white shadow-2xl transition-transform duration-300 ease-in-out",
+      <div ref={drawerRef} role="dialog" aria-modal={isOpen || undefined} aria-hidden={!isOpen || isInquiryOpen || undefined} inert={!isOpen || isInquiryOpen} aria-labelledby="inquiry-drawer-title" className={cn(
+        "fixed right-0 top-0 z-[70] h-full w-full max-w-md bg-white shadow-2xl transition-transform duration-300 ease-in-out",
         isOpen ? "translate-x-0" : "translate-x-full"
       )}>
         <div className="flex h-full flex-col">
@@ -141,7 +176,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                           <button
                             type="button"
                             aria-label={`Decrease ${item.name} quantity`}
-                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                            onClick={() => changeQuantity(item.id, -1)}
                             className="grid h-10 w-10 place-items-center hover:bg-slate-50"
                           >
                             <Minus className="h-3 w-3" />
@@ -150,7 +185,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                           <button
                             type="button"
                             aria-label={`Increase ${item.name} quantity`}
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                            onClick={() => changeQuantity(item.id, 1)}
                             disabled={item.quantity >= 99}
                             className="grid h-10 w-10 place-items-center hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
                           >
@@ -169,6 +204,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
             <div className="border-t border-slate-200 p-4 space-y-4">
               <p className="text-sm text-slate-600">Pricing and availability are confirmed after part and engine fitment details are reviewed.</p>
               <Button
+                ref={prepareButtonRef}
                 className="w-full gap-2"
                 onClick={() => { setIsInquiryOpen(true); setCopied(false); setCopyError(false); }}
               >
@@ -182,8 +218,8 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
       {/* Contact Modal */}
       {isInquiryOpen && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div role="dialog" aria-modal="true" aria-labelledby="inquiry-modal-title" className="max-h-[calc(100dvh-2rem)] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-4 shadow-xl sm:p-6">
+        <div className="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+          <div ref={modalRef} role="dialog" aria-modal="true" aria-labelledby="inquiry-modal-title" className="max-h-[calc(100dvh-2rem)] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-4 shadow-xl sm:p-6">
             <div className="flex justify-between items-center mb-4">
               <h3 id="inquiry-modal-title" className="text-xl font-bold text-slate-900">Prepare a parts inquiry</h3>
               <button type="button" aria-label="Close inquiry form" onClick={() => setIsInquiryOpen(false)} className="p-1 text-slate-500 hover:text-slate-900">
@@ -199,6 +235,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                 <input
                   id="engine-details"
                   type="text"
+                  autoFocus
                   value={engineDetails}
                   onChange={(event) => setEngineDetails(event.target.value)}
                   placeholder="Enter engine name, model or serial number"

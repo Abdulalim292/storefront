@@ -53,6 +53,17 @@ A product and equipment storefront built with Next.js App Router, React, and Tai
 
 To update the catalog, edit `data/catalog.json`; products, equipment models, categories, and their prices are kept there as data. Add an item to the `products` array with a unique `id`, `name`, `description`, `category`, `images`, and image attribution fields. Set `price` to a number when you want to publish a price, or `null` while the item remains quote-only. Add category labels and URL values to the `categories` array. Equipment entries use the `equipment` category and can include a `specifications` array. Remote image hosts must also be allowed in `next.config.ts` for Next.js image optimization.
 
+## Localizing remote images
+
+The catalog currently references some images on external hosts. Two helper scripts work directly with `data/catalog.json` and use Node's built-in `fetch`, so they need no extra dependencies:
+
+| Command | Purpose |
+| --- | --- |
+| `node scripts/download-images.mjs` | Download every remote catalog image into `public/images/products/` without changing the catalog |
+| `node scripts/connect-images.mjs` | Download the images and rewrite the catalog to use the local paths |
+
+Both scripts skip files that already exist. Review the printed failures before committing, and make sure the remote hosts are allowed in `next.config.ts` if you keep any remote URLs.
+
 ## Photo uploads
 
 Product photos can be changed from the deployed site using the protected photo manager at `/admin/products`. Uploaded photos are stored in Supabase Storage and the product-to-photo mapping is saved in Supabase, so changes remain after a redeploy.
@@ -62,7 +73,7 @@ Product photos can be changed from the deployed site using the protected photo m
 1. Create a Supabase project.
 2. In Supabase, open **SQL Editor**, create a query, paste in the contents of [`scripts/product-photo-storage.sql`](scripts/product-photo-storage.sql), and run it. This creates the photo mapping table and the public bucket used to display photos.
 3. In your Supabase project's API settings, copy the project URL and **service role** key. The service role key is secret: use it only as a server-side environment variable and never add it to client-side code.
-4. Set these four environment variables in your hosting provider's project settings:
+4. Set these environment variables in your hosting provider's project settings:
 
    | Variable | Value |
    | --- | --- |
@@ -70,6 +81,7 @@ Product photos can be changed from the deployed site using the protected photo m
    | `SUPABASE_SERVICE_ROLE_KEY` | Your Supabase service role key |
    | `ADMIN_PASSWORD` | A strong, unique password for the photo manager |
    | `ADMIN_SESSION_SECRET` | A random secret with at least 32 characters |
+   | `NEXT_PUBLIC_SITE_URL` | Optional public site URL, including `https://`, used for canonical links, the sitemap, and social previews |
 
    For example, generate a session secret locally with `openssl rand -base64 32`.
 
@@ -83,7 +95,7 @@ Product photos can be changed from the deployed site using the protected photo m
 4. Choose a JPG, PNG, or WebP photo that is no larger than 4 MB. The preview shows the selected file before upload.
 5. Select **Save new photo** and wait for the success message. The new photo appears on the product card, product detail page, cart, and relevant equipment sections.
 
-Sign out when finished. The photo manager does not change product names, descriptions, prices, or other catalog details. If Supabase or the four environment variables are not configured, the storefront keeps showing its existing catalog photos and uploads will not work.
+Sign out when finished. The photo manager does not change product names, descriptions, prices, or other catalog details. If Supabase or the required environment variables are not configured, the storefront keeps showing its existing catalog photos and uploads will not work. Sign-in attempts are throttled after eight failures from the same IP address within 15 minutes.
 
 ### Change photos in the project instead
 

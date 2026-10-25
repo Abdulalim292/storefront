@@ -19,6 +19,10 @@ type Message = {
 
 const firstSuggestions = ['Find a part', 'Check compatibility', 'Find a branch'];
 
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 function productMatches(question: string) {
   const query = question.toLowerCase();
 
@@ -39,11 +43,11 @@ function productMatches(question: string) {
     const name = product.name.toLowerCase();
 
     // Exact full name match (Highest)
-    if (new RegExp(`\\b${name}\\b`, 'i').test(query)) score += 10;
+    if (new RegExp(`\\b${escapeRegExp(name)}\\b`, 'i').test(query)) score += 10;
 
     // Term matches (Medium)
     terms.forEach(term => {
-      if (new RegExp(`\\b${term}\\b`, 'i').test(query)) score += 5;
+      if (new RegExp(`\\b${escapeRegExp(term)}\\b`, 'i').test(query)) score += 5;
     });
 
     // Category-specific keywords (Low)
@@ -172,7 +176,7 @@ export function StorefrontChatbot({ initialOpen = false }: { initialOpen?: boole
   }
 
   return (
-    <div className="pointer-events-auto fixed bottom-4 right-4 z-[9999] flex flex-col items-end sm:bottom-6 sm:right-6">
+    <div className="pointer-events-auto fixed bottom-4 right-4 z-[65] flex flex-col items-end sm:bottom-6 sm:right-6">
       {isOpen && (
         <section aria-label="Storefront chat" className="mb-3 flex h-[min(36rem,calc(100dvh-6rem))] w-[min(24rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-950/20">
           <header className="flex items-center justify-between bg-slate-950 px-4 py-4 text-white">

@@ -43,7 +43,19 @@ export function ProductPhotoManager() {
     const normalized = query.trim().toLowerCase();
     return normalized ? catalog.filter((item) => item.name.toLowerCase().includes(normalized)) : catalog;
   }, [query]);
-  const product = catalog.find((item) => item.id === productId) ?? catalog[0];
+
+  // Keep the stored selection aligned with the visible list so a later filter
+  // change cannot silently target a product the user is not looking at.
+  useEffect(() => {
+    if (filtered.length > 0 && !filtered.some((item) => item.id === productId)) {
+      setProductId(filtered[0].id);
+      setFile(null);
+    }
+  }, [filtered, productId]);
+
+  // Keep the upload target in sync with the visible, filtered options.
+  const product = filtered.find((item) => item.id === productId) ?? filtered[0];
+  const selectedProductId = product?.id ?? '';
   const currentImage = product ? imageOverrides[product.id] ?? product.images[0] : '';
 
   async function login(event: FormEvent<HTMLFormElement>) {
@@ -70,7 +82,7 @@ export function ProductPhotoManager() {
       const result = await response.json();
       if (!response.ok) throw new Error(result.error ?? 'Upload failed.');
       setImageOverrides((current) => ({ ...current, [product.id]: result.imageUrl }));
-      await refreshImages();
+      await refreshImages(true);
       setFile(null);
       setMessage(`Photo updated for ${product.name}.`);
     } catch (error) {
@@ -111,7 +123,7 @@ export function ProductPhotoManager() {
           <label htmlFor="product-search" className="block text-sm font-medium text-[#17221f]">Find a product</label>
           <input id="product-search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search by product name" className="mt-2 min-h-12 w-full border border-[#c9c8be] bg-white px-3 outline-none focus:border-[#8b806b]" />
           <label htmlFor="product-choice" className="mt-5 block text-sm font-medium text-[#17221f]">Catalog item</label>
-          <select id="product-choice" value={productId} onChange={(event) => { setProductId(event.target.value); setFile(null); setMessage(''); }} size={Math.min(9, Math.max(filtered.length, 3))} className="mt-2 max-h-80 w-full border border-[#c9c8be] bg-white p-1 text-sm text-[#17221f]">
+          <select id="product-choice" value={selectedProductId} onChange={(event) => { setProductId(event.target.value); setFile(null); setMessage(''); }} size={Math.min(9, Math.max(filtered.length, 3))} className="mt-2 max-h-80 w-full border border-[#c9c8be] bg-white p-1 text-sm text-[#17221f]">
             {filtered.map((item) => <option key={item.id} value={item.id} className="px-2 py-2">{item.name}</option>)}
           </select>
           <label htmlFor="photo-file" className="mt-6 block text-sm font-medium text-[#17221f]">New photo</label>

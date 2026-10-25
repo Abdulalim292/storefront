@@ -6,9 +6,11 @@ import { Button } from '@/components/ui/Button';
 import { CatalogImage } from '@/components/ui/CatalogImage';
 import { useCart } from '@/context/CartContext';
 import { ClipboardList, Ruler, Settings2, Ship, MessageCircle } from 'lucide-react';
+import { formatPrice } from '@/lib/utils';
 
 export default function ProductDetailClient({ product }: { product: Product }) {
   const { addToCart } = useCart();
+  const price = formatPrice(product.price);
 
   const WHATSAPP_PHONE = '8801819461614';
 
@@ -43,7 +45,10 @@ export default function ProductDetailClient({ product }: { product: Product }) {
               {product.name}
             </h1>
             <div className="mt-4 flex flex-wrap items-center gap-3">
-              <span className="border border-[#dfddd5] bg-[#eeece5] px-3 py-2 text-xs font-medium text-[#59615c]">Part number required</span>
+              <span className="border border-[#dfddd5] bg-[#eeece5] px-3 py-2 text-xs font-medium text-[#59615c]">
+                {product.category === 'equipment' ? 'Model and serial required' : 'Part number required'}
+              </span>
+              {price && <span className="border border-[#c6b28b] bg-[#f5eddd] px-3 py-2 text-sm font-semibold text-[#6f5a32]">{price}</span>}
             </div>
           </div>
 

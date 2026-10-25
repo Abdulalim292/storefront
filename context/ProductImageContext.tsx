@@ -3,15 +3,42 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 type ImageMap = Record<string, string>;
-type ProductImageContextValue = { images: ImageMap; refresh: () => Promise<void> };
+type ProductImageContextValue = { images: ImageMap; refresh: (force?: boolean) => Promise<void> };
 const ProductImageContext = createContext<ProductImageContextValue>({ images: {}, refresh: async () => {} });
+
+const CACHE_MS = 60_000;
+let cachedImages: ImageMap | null = null;
+let cachedAt = 0;
+let inFlight: Promise<ImageMap> | null = null;
+
+async function fetchImages() {
+  if (inFlight) return inFlight;
+
+  inFlight = fetch('/api/product-images', { cache: 'no-store' })
+    .then(async (response) => {
+      if (!response.ok) throw new Error(`Image overrides request failed (${response.status}).`);
+      const images = await response.json() as ImageMap;
+      cachedImages = images;
+      cachedAt = Date.now();
+      return images;
+    })
+    .finally(() => {
+      inFlight = null;
+    });
+
+  return inFlight;
+}
 
 export function ProductImageProvider({ children }: { children: React.ReactNode }) {
   const [images, setImages] = useState<ImageMap>({});
-  const refresh = useCallback(async () => {
+
+  const refresh = useCallback(async (force = false) => {
     try {
-      const response = await fetch('/api/product-images', { cache: 'no-store' });
-      if (response.ok) setImages(await response.json() as ImageMap);
+      if (!force && cachedImages && Date.now() - cachedAt < CACHE_MS) {
+        setImages(cachedImages);
+        return;
+      }
+      setImages(await fetchImages());
     } catch {
       // The catalog keeps its bundled image when remote storage is unavailable.
     }

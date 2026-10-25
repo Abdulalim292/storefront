@@ -1,8 +1,21 @@
 import { NextResponse } from 'next/server';
 import { adminCookie, adminSessionSeconds, createAdminSession, hasValidOrigin, passwordsMatch } from '@/lib/admin-auth';
+import { clearLoginFailures, loginClientKey, loginRetryAfter, recordLoginFailure } from '@/lib/rate-limit';
 
 export async function POST(request: Request) {
   if (!hasValidOrigin(request)) return NextResponse.json({ error: 'Request not allowed.' }, { status: 403 });
+
+  const clientKey = loginClientKey(request);
+  if (clientKey) {
+    const retryAfter = loginRetryAfter(clientKey);
+    if (retryAfter) {
+      return NextResponse.json(
+        { error: 'Too many sign-in attempts. Try again later.' },
+        { status: 429, headers: { 'Retry-After': String(retryAfter) } },
+      );
+    }
+  }
+
   let password = '';
   try {
     ({ password = '' } = await request.json());
@@ -10,7 +23,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Enter the admin password.' }, { status: 400 });
   }
   try {
-    if (!passwordsMatch(password)) return NextResponse.json({ error: 'Incorrect password.' }, { status: 401 });
+    if (!passwordsMatch(password)) {
+      if (clientKey) recordLoginFailure(clientKey);
+      return NextResponse.json({ error: 'Incorrect password.' }, { status: 401 });
+    }
+    if (clientKey) clearLoginFailures(clientKey);
     const session = createAdminSession();
     const response = NextResponse.json({ ok: true });
     response.cookies.set(adminCookie, session.value, {

@@ -8,6 +8,7 @@ import { CatalogImage } from '@/components/ui/CatalogImage';
 import { useCart } from '@/context/CartContext';
 import { ClipboardList } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { formatPrice } from '@/lib/utils';
 
 interface ProductCardProps {
   product: Product;
@@ -15,6 +16,7 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
+  const price = formatPrice(product.price);
 
   return (
     <motion.div
@@ -43,9 +45,10 @@ export function ProductCard({ product }: ProductCardProps) {
             {product.category.replaceAll('-', ' ')}
           </span>
         </div>
-        <Link href={`/products/${product.id}`} className="mb-4 text-base font-semibold text-[#17221f]">
+        <Link href={`/products/${product.id}`} className={`text-base font-semibold text-[#17221f] ${price ? 'mb-2' : 'mb-4'}`}>
           {product.name}
         </Link>
+        {price && <p className="mb-3 text-sm font-semibold text-[#8d754d]">{price}</p>}
 
         <Button
           onClick={() => addToCart(product)}

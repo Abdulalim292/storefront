@@ -10,6 +10,7 @@ interface CartContextType {
   addToCart: (product: Product) => void;
   removeFromCart: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
+  changeQuantity: (productId: string, delta: number) => void;
   clearCart: () => void;
   cartCount: number;
 }
@@ -72,8 +73,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     if (!isCartLoaded) return;
     try {
       window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
-    } catch (error: any) {
-      if (error.name === 'QuotaExceededError' || error.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+    } catch (error) {
+      const name = error instanceof Error ? error.name : '';
+      if (name === 'QuotaExceededError' || name === 'NS_ERROR_DOM_QUOTA_REACHED') {
         console.warn('Cart storage quota exceeded. Changes will not persist after page reload.');
       } else {
         console.error('Failed to save cart to local storage:', error);
@@ -111,12 +113,24 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     );
   };
 
+  const changeQuantity = (productId: string, delta: number) => {
+    if (!Number.isFinite(delta) || delta === 0) return;
+    const step = Math.trunc(delta);
+    if (step === 0) return;
+
+    setCart((prev) => prev.flatMap((item) => {
+      if (item.id !== productId) return [item];
+      const nextQuantity = Math.min(MAX_ITEM_QUANTITY, item.quantity + step);
+      return nextQuantity > 0 ? [{ ...item, quantity: nextQuantity }] : [];
+    }));
+  };
+
   const clearCart = () => setCart([]);
 
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart, cartCount }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, changeQuantity, clearCart, cartCount }}>
       {children}
     </CartContext.Provider>
   );

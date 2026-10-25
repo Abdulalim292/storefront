@@ -15,6 +15,9 @@ interface ResilientImageProps {
 export function ResilientImage({ src, alt, sizes, className = '', loading = 'lazy' }: ResilientImageProps) {
   const [hasFailed, setHasFailed] = useState(false);
   const [useOriginalSource, setUseOriginalSource] = useState(false);
+  // These sources are already rendered unoptimized, so retrying the original
+  // source would re-request the exact same URL. Treat their first failure as final.
+  const alreadyUnoptimized = src.includes('wikimedia.org') || src.includes('/storage/v1/object/public/product-images/');
 
   if (hasFailed) {
     return (
@@ -33,11 +36,11 @@ export function ResilientImage({ src, alt, sizes, className = '', loading = 'laz
       sizes={sizes}
       quality={70}
       loading={loading}
-      unoptimized={useOriginalSource || src.includes('wikimedia.org') || src.includes('/storage/v1/object/public/product-images/')}
+      unoptimized={useOriginalSource || alreadyUnoptimized}
       className={className}
       style={{ objectPosition: 'center' }}
       onError={() => {
-        if (!useOriginalSource) {
+        if (!alreadyUnoptimized && !useOriginalSource) {
           setUseOriginalSource(true);
           return;
         }
