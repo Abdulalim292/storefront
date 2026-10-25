@@ -81,7 +81,8 @@ Only the current page of products is sent to the browser. The public storefront 
 
 - Every response includes clickjacking, MIME-sniffing, referrer, permissions, and HSTS headers. Production builds also send a Content Security Policy that only allows same-origin scripts, styles, and API calls.
 - Admin requests must come from the same origin and carry a signed, `HttpOnly`, `SameSite=Strict` session cookie. Password comparisons are constant time, and sessions expire after 12 hours.
-- Sign-in failures are limited to eight per IP address and 60 globally per 15 minutes. This in-memory limit protects a single server process; busy deployments should also limit requests at their proxy or CDN.
+- Sign-in failures are limited to eight per IP address and 60 globally per 15 minutes. Counters are shared through a Vercel KV or Upstash Redis REST store when `KV_REST_API_URL`/`KV_REST_API_TOKEN` (or `UPSTASH_REDIS_REST_URL`/`UPSTASH_REDIS_REST_TOKEN`) is configured. Without a shared store, each server process keeps its own counters, so configure one when running more than one instance.
+- Unknown product URLs return a real HTTP 404 before rendering; `proxy.ts` rejects ids that are not in the catalog.
 - Uploads must be JPG, PNG, or WebP files no larger than 4 MB. Both the declared MIME type and the file's leading bytes are checked before the image is stored.
 - The image optimizer follows at most one redirect, caps remote responses at 15 MB, and refuses private network addresses.
 - Home-page reveal animations use CSS scroll-driven animation with a reduced-motion fallback. `framer-motion` and `gsap` are not part of the client bundle.

@@ -44,7 +44,7 @@ export async function POST(request: Request) {
   if (!hasValidOrigin(request)) return json({ error: 'Request not allowed.' }, 403);
 
   const clientKey = loginClientKey(request);
-  const retryAfter = loginRetryAfter(clientKey);
+  const retryAfter = await loginRetryAfter(clientKey);
   if (retryAfter) {
     return json(
       { error: 'Too many sign-in attempts. Try again later.' },
@@ -84,19 +84,19 @@ export async function POST(request: Request) {
 
   try {
     if (!passwordsMatch(password)) {
-      recordLoginFailure(clientKey);
+      await recordLoginFailure(clientKey);
       return json({ error: 'Incorrect password.' }, 401);
     }
   } catch (error) {
     // Configuration failures must not disclose which environment variable is
     // missing or how the comparison works.
     console.error('Admin login is not configured:', error);
-    recordLoginFailure(clientKey);
+    await recordLoginFailure(clientKey);
     return json({ error: 'Admin sign-in is temporarily unavailable.' }, 503);
   }
 
   try {
-    clearLoginFailures(clientKey);
+    await clearLoginFailures(clientKey);
     const session = createAdminSession();
     const response = json({ ok: true });
     response.cookies.set(adminCookie, session.value, {

@@ -1,16 +1,23 @@
-// Small in-memory throttle for the admin login. It protects a single server
-// process; a multi-instance deployment should also rate limit at its proxy or
-// use a shared store. The window resets on redeploy/restart.
+// Login throttling. A single process is protected by the in-memory map below.
+// Multi-instance deployments can set a Vercel KV or Upstash Redis REST URL and
+// token to share the same counters across processes. Without one of those
+// environment pairs, the in-memory fallback keeps the storefront working.
 const WINDOW_MS = 15 * 60 * 1000;
 const MAX_FAILURES = 8;
 const MAX_GLOBAL_FAILURES = 60;
 const PRUNE_THRESHOLD = 500;
 const MAX_BUCKETS = 5_000;
 const GLOBAL_KEY = '__all_clients__';
+const REDIS_TIMEOUT_MS = 1_500;
 
 type Bucket = {
   failures: number;
   resetAt: number;
+};
+
+type RedisConfig = {
+  url: string;
+  token: string;
 };
 
 const buckets = new Map<string, Bucket>();
@@ -48,15 +55,6 @@ function retryAfterFor(key: string, now: number): number | null {
   return Math.ceil((bucket.resetAt - now) / 1000);
 }
 
-export function loginRetryAfter(key: string | null): number | null {
-  const now = Date.now();
-  const retryAfter = key ? retryAfterFor(key, now) : null;
-  const globalRetryAfter = retryAfterFor(GLOBAL_KEY, now);
-
-  if (!retryAfter && !globalRetryAfter) return null;
-  return Math.max(retryAfter ?? 0, globalRetryAfter ?? 0);
-}
-
 function recordFailure(key: string, now: number) {
   if (buckets.size >= PRUNE_THRESHOLD) pruneExpired(now);
 
@@ -79,14 +77,115 @@ function recordFailure(key: string, now: number) {
   bucket.failures += 1;
 }
 
-export function recordLoginFailure(key: string | null) {
-  const now = Date.now();
-  if (key) recordFailure(key, now);
-  recordFailure(GLOBAL_KEY, now);
+function redisConfig(): RedisConfig | null {
+  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) return null;
+  return { url: url.replace(/\/+$/, ''), token };
 }
 
-export function clearLoginFailures(key: string | null) {
+function redisKey(key: string) {
+  return `storefront:login:${encodeURIComponent(key)}`;
+}
+
+type RedisCommand = (string | number)[];
+
+async function redisPipeline(commands: RedisCommand[]): Promise<unknown[] | null> {
+  const config = redisConfig();
+  if (!config) return null;
+
+  try {
+    const response = await fetch(`${config.url}/pipeline`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${config.token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(commands),
+      cache: 'no-store',
+      signal: AbortSignal.timeout(REDIS_TIMEOUT_MS),
+    });
+    if (!response.ok) return null;
+
+    const data: unknown = await response.json();
+    return Array.isArray(data) ? data : null;
+  } catch {
+    // An unavailable shared store must not take admin sign-in down; the local
+    // buckets still apply for this process.
+    return null;
+  }
+}
+
+function pipelineResult(results: unknown[], index: number): unknown {
+  const entry = results[index];
+  if (!entry || typeof entry !== 'object') return null;
+  return (entry as { result?: unknown }).result ?? null;
+}
+
+async function remoteRetryAfter(keys: string[]): Promise<{ ok: boolean; retryAfter: number | null }> {
+  const results = await redisPipeline(keys.flatMap((key) => [
+    ['GET', redisKey(key)],
+    ['PTTL', redisKey(key)],
+  ]));
+  if (!results) return { ok: false, retryAfter: null };
+
+  let retryAfter = 0;
+  keys.forEach((key, index) => {
+    const failures = Number(pipelineResult(results, index * 2));
+    const ttl = Number(pipelineResult(results, index * 2 + 1));
+    if (Number.isFinite(failures) && failures >= limitFor(key) && Number.isFinite(ttl) && ttl > 0) {
+      retryAfter = Math.max(retryAfter, Math.ceil(ttl / 1000));
+    }
+  });
+
+  return { ok: true, retryAfter: retryAfter || null };
+}
+
+async function recordRemoteFailures(keys: string[]): Promise<boolean> {
+  // SET ... NX gives a new key its fixed window without extending it on every
+  // later failure; INCR then records the attempt. This avoids a key without a
+  // TTL if the process stops between two separate commands.
+  const commands = keys.flatMap((key) => [
+    ['SET', redisKey(key), '0', 'PX', String(WINDOW_MS), 'NX'],
+    ['INCR', redisKey(key)],
+  ]);
+  return (await redisPipeline(commands)) !== null;
+}
+
+export async function loginRetryAfter(key: string | null): Promise<number | null> {
+  const keys = key ? [key, GLOBAL_KEY] : [GLOBAL_KEY];
+
+  // When a shared store is configured it is authoritative, so one instance
+  // cannot keep a stale local count after another instance clears it.
+  if (redisConfig()) {
+    const remote = await remoteRetryAfter(keys);
+    if (remote.ok) return remote.retryAfter;
+  }
+
+  const now = Date.now();
+  const localRetryAfter = Math.max(
+    (key ? retryAfterFor(key, now) : 0) ?? 0,
+    retryAfterFor(GLOBAL_KEY, now) ?? 0,
+  );
+  return localRetryAfter || null;
+}
+
+export async function recordLoginFailure(key: string | null) {
+  const keys = key ? [key, GLOBAL_KEY] : [GLOBAL_KEY];
+
+  if (redisConfig() && await recordRemoteFailures(keys)) return;
+
+  const now = Date.now();
+  for (const bucketKey of keys) recordFailure(bucketKey, now);
+}
+
+export async function clearLoginFailures(key: string | null) {
   // Only clear the caller's bucket. The global bucket expires with its own
   // window so one successful sign-in cannot reset protection for everyone.
-  if (key) buckets.delete(key);
+  if (!key) return;
+
+  buckets.delete(key);
+  if (redisConfig()) {
+    await redisPipeline([['DEL', redisKey(key)]]);
+  }
 }
