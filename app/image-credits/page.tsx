@@ -8,7 +8,56 @@ export const metadata: Metadata = {
   alternates: { canonical: '/image-credits' },
 };
 
-const products = [...PRODUCTS, ...EQUIPMENT_PRODUCTS];
+type CreditGroup = {
+  source: string;
+  credit: string;
+  license: string;
+  licenseUrl: string;
+  productNames: string[];
+};
+
+function safeHttpUrl(value: string) {
+  try {
+    const url = new URL(value);
+    return url.protocol === 'https:' || url.protocol === 'http:' ? url.toString() : '';
+  } catch {
+    return '';
+  }
+}
+
+// Many catalog entries share the same source photograph. Grouping keeps the
+// attribution page small while still naming every product that uses it.
+const creditGroups = (() => {
+  const products = [...PRODUCTS, ...EQUIPMENT_PRODUCTS];
+  const groups = new Map<string, CreditGroup>();
+
+  for (const product of products) {
+    const source = safeHttpUrl(product.imageSourceUrl);
+    const licenseUrl = safeHttpUrl(product.imageLicenseUrl);
+    const credit = product.imageCredit || 'Credit not recorded';
+    const license = product.imageLicense || '';
+    const key = source || `${credit}|${license}`;
+
+    const existing = groups.get(key);
+    if (existing) {
+      existing.productNames.push(product.name);
+      if (!existing.licenseUrl && licenseUrl) existing.licenseUrl = licenseUrl;
+      continue;
+    }
+
+    groups.set(key, {
+      source,
+      credit,
+      license,
+      licenseUrl,
+      productNames: [product.name],
+    });
+  }
+
+  return [...groups.values()].sort((a, b) =>
+    a.credit.localeCompare(b.credit) || a.productNames[0].localeCompare(b.productNames[0])
+  );
+})();
 
 export default function ImageCreditsPage() {
   return (
@@ -20,23 +69,26 @@ export default function ImageCreditsPage() {
         comes from Wikimedia Commons or another source, the creator, license, and original page are listed below.
         Manufacturer logos are credited in the brand assets README in the project repository.
       </p>
+      <p className="mt-4 text-sm text-[#777b72]">
+        {PRODUCTS.length + EQUIPMENT_PRODUCTS.length} catalog items across {creditGroups.length} image sources.
+      </p>
 
       <ul className="mt-12 divide-y divide-[#dfddd5] border-y border-[#dfddd5]">
-        {products.map((product) => (
-          <li key={product.id} className="grid gap-2 py-4 sm:grid-cols-[1.2fr_1fr] sm:items-center sm:gap-6">
+        {creditGroups.map((group) => (
+          <li key={group.source || group.credit} className="grid gap-3 py-5 sm:grid-cols-[1.15fr_.85fr] sm:gap-8">
             <div>
-              <p className="text-sm font-semibold text-[#17221f]">{product.name}</p>
-              <p className="mt-1 text-xs leading-5 text-[#777b72]">{product.imageCredit || 'Credit not recorded'}</p>
+              <p className="text-sm font-semibold leading-6 text-[#17221f]">{group.productNames.join(' · ')}</p>
+              <p className="mt-1 text-xs leading-5 text-[#777b72]">{group.credit}</p>
             </div>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-[#59615c]">
-              {product.imageLicense && <span>{product.imageLicense}</span>}
-              {product.imageSourceUrl && (
-                <a href={product.imageSourceUrl} target="_blank" rel="noreferrer" className="font-medium text-[#6f5a32] underline decoration-[#c6b28b] underline-offset-4 hover:text-[#17221f]">
+              {group.license && <span>{group.license}</span>}
+              {group.source && (
+                <a href={group.source} target="_blank" rel="noreferrer" className="font-medium text-[#6f5a32] underline decoration-[#c6b28b] underline-offset-4 hover:text-[#17221f]">
                   Source
                 </a>
               )}
-              {product.imageLicenseUrl && (
-                <a href={product.imageLicenseUrl} target="_blank" rel="noreferrer" className="font-medium text-[#6f5a32] underline decoration-[#c6b28b] underline-offset-4 hover:text-[#17221f]">
+              {group.licenseUrl && (
+                <a href={group.licenseUrl} target="_blank" rel="noreferrer" className="font-medium text-[#6f5a32] underline decoration-[#c6b28b] underline-offset-4 hover:text-[#17221f]">
                   License
                 </a>
               )}

@@ -30,6 +30,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
               alt={product.name}
               sizes="(max-width: 1023px) calc(100vw - 2rem), (max-width: 1312px) 50vw, 640px"
               loading="eager"
+              preload
               className="object-contain p-5 transition-transform duration-700 ease-out hover:scale-105 sm:p-8"
             />
           </div>

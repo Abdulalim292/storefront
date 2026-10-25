@@ -10,9 +10,10 @@ interface ResilientImageProps {
   sizes: string;
   className?: string;
   loading?: 'eager' | 'lazy';
+  preload?: boolean;
 }
 
-export function ResilientImage({ src, alt, sizes, className = '', loading = 'lazy' }: ResilientImageProps) {
+export function ResilientImage({ src, alt, sizes, className = '', loading = 'lazy', preload = false }: ResilientImageProps) {
   const [hasFailed, setHasFailed] = useState(false);
   const [useOriginalSource, setUseOriginalSource] = useState(false);
   // These sources are already rendered unoptimized, so retrying the original
@@ -36,6 +37,7 @@ export function ResilientImage({ src, alt, sizes, className = '', loading = 'laz
       sizes={sizes}
       quality={70}
       loading={loading}
+      preload={preload}
       unoptimized={useOriginalSource || alreadyUnoptimized}
       className={className}
       style={{ objectPosition: 'center' }}

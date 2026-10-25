@@ -10,6 +10,7 @@ type CatalogImageProps = {
   sizes: string;
   className?: string;
   loading?: 'eager' | 'lazy';
+  preload?: boolean;
 };
 
 export function CatalogImage({ productId, src, ...props }: CatalogImageProps) {

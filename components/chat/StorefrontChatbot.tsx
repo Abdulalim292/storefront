@@ -6,10 +6,9 @@ import Link from 'next/link';
 import { Bot, MessageCircle, RotateCcw, Send, X } from 'lucide-react';
 import { BRANCHES } from '@/data/branches';
 import { formatBangladeshPhone, toBangladeshTel } from '@/lib/phone';
-import { PRODUCTS } from '@/data/products';
-import { marineEngineModels, marineGearboxModels, heavyMachineryModels } from '@/data/equipment';
 
 type ChatAction = { label: string; href: string };
+type ProductMatch = { id: string; name: string };
 type Message = {
   role: 'assistant' | 'user';
   text: string;
@@ -19,54 +18,33 @@ type Message = {
 
 const firstSuggestions = ['Find a part', 'Check compatibility', 'Find a branch'];
 
-function escapeRegExp(value: string) {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+// The catalog stays on the server; only compact matches cross the network.
+async function productMatches(question: string): Promise<ProductMatch[]> {
+  try {
+    const url = new URL('/api/chat/search', window.location.origin);
+    url.searchParams.set('q', question.slice(0, 160));
+
+    const response = await fetch(url, { headers: { Accept: 'application/json' } });
+    if (!response.ok) return [];
+
+    const data: unknown = await response.json();
+    if (!data || typeof data !== 'object' || !Array.isArray((data as { matches?: unknown }).matches)) return [];
+
+    return (data as { matches: unknown[] }).matches
+      .filter((match): match is ProductMatch =>
+        Boolean(match)
+        && typeof match === 'object'
+        && typeof (match as ProductMatch).id === 'string'
+        && typeof (match as ProductMatch).name === 'string')
+      .slice(0, 3);
+  } catch {
+    return [];
+  }
 }
 
-function productMatches(question: string) {
+async function replyTo(question: string): Promise<Omit<Message, 'role'>> {
   const query = question.toLowerCase();
-
-  const allItems = [
-    ...PRODUCTS.map(p => ({ ...p, source: 'catalog' })),
-    ...marineEngineModels.map(p => ({ ...p, source: 'equipment', category: 'marine-engines' })),
-    ...marineGearboxModels.map(p => ({ ...p, source: 'equipment', category: 'marine-gearboxes' })),
-    ...heavyMachineryModels.map(p => ({ ...p, source: 'equipment', category: 'heavy-machinery' })),
-  ];
-
-  const searchableTerms = allItems.map((product) => ({
-    product,
-    terms: product.name.toLowerCase().split(/[^a-z0-9]+/).filter((term) => term.length > 3 && !['assembly', 'engine', 'turbocharger'].includes(term)),
-  }));
-
-  const scoredMatches = searchableTerms.map(({ product, terms }) => {
-    let score = 0;
-    const name = product.name.toLowerCase();
-
-    // Exact full name match (Highest)
-    if (new RegExp(`\\b${escapeRegExp(name)}\\b`, 'i').test(query)) score += 10;
-
-    // Term matches (Medium)
-    terms.forEach(term => {
-      if (new RegExp(`\\b${escapeRegExp(term)}\\b`, 'i').test(query)) score += 5;
-    });
-
-    // Category-specific keywords (Low)
-    if (query.includes('turbocharger') && (product.category === 'turbocharging' || product.category === 'marine-engines')) score += 2;
-    if (query.includes('piston') && (product.category === 'pistons-rings' || product.category === 'marine-engines')) score += 2;
-
-    return { product, score };
-  });
-
-  return scoredMatches
-    .filter(m => m.score > 0)
-    .sort((a, b) => b.score - a.score)
-    .map(m => m.product)
-    .slice(0, 3);
-}
-
-function replyTo(question: string): Omit<Message, 'role'> {
-  const query = question.toLowerCase();
-  const matches = productMatches(query);
+  const matches = await productMatches(question);
 
   if (matches.length) {
     const isExact = matches[0].name.toLowerCase() === query.trim();
@@ -108,7 +86,7 @@ function replyTo(question: string): Omit<Message, 'role'> {
     {
       pattern: /\b(part|product|sell|catalog|inventory|browse)\b/i,
       response: () => ({
-        text: `The catalog includes ${PRODUCTS.slice(0, 5).map((p) => p.name).join(', ')}, plus more marine and industrial engine parts.`,
+        text: 'The catalog covers turbochargers, cylinder components, pistons and rings, valve train parts, fuel system parts, engine components, cooling system parts, gearbox parts, and heavy equipment components.',
         actions: [{ label: 'Browse all parts', href: '/products' }],
         suggestions: ['Find a turbocharger', 'Find a piston', 'Check compatibility'],
       })
@@ -151,26 +129,40 @@ export function StorefrontChatbot({ initialOpen = false }: { initialOpen?: boole
   const [isOpen, setIsOpen] = useState(initialOpen);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([initialMessage()]);
+  const [isReplying, setIsReplying] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
+  const conversationRef = useRef(0);
 
   useEffect(() => {
     endRef.current?.scrollIntoView?.({ behavior: 'smooth' });
-  }, [messages, isOpen]);
+  }, [messages, isOpen, isReplying]);
 
-  function sendMessage(text: string) {
+  async function sendMessage(text: string) {
     const trimmed = text.trim();
-    if (!trimmed) return;
-    const response = replyTo(trimmed);
-    setMessages((current) => [...current, { role: 'user', text: trimmed }, { role: 'assistant', ...response }]);
+    if (!trimmed || isReplying) return;
+
+    const conversation = conversationRef.current;
     setInput('');
+    setIsReplying(true);
+    setMessages((current) => [...current, { role: 'user', text: trimmed }]);
+
+    try {
+      const response = await replyTo(trimmed);
+      if (conversationRef.current !== conversation) return;
+      setMessages((current) => [...current, { role: 'assistant', ...response }]);
+    } finally {
+      if (conversationRef.current === conversation) setIsReplying(false);
+    }
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    sendMessage(input);
+    void sendMessage(input);
   }
 
   function resetConversation() {
+    conversationRef.current += 1;
+    setIsReplying(false);
     setMessages([initialMessage()]);
     setInput('');
   }
@@ -193,7 +185,7 @@ export function StorefrontChatbot({ initialOpen = false }: { initialOpen?: boole
             </div>
           </header>
 
-          <div className="flex-1 space-y-4 overflow-y-auto bg-slate-50 p-4" aria-live="polite">
+          <div className="flex-1 space-y-4 overflow-y-auto bg-slate-50 p-4" aria-live="polite" aria-busy={isReplying}>
             {messages.map((message, index) => (
               <div key={`${index}-${message.role}`} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div className={`max-w-[92%] rounded-2xl px-3.5 py-2.5 text-sm leading-6 ${message.role === 'user' ? 'rounded-br-md bg-cyan-600 text-white' : 'rounded-bl-md border border-slate-200 bg-white text-slate-700'}`}>
@@ -209,19 +201,26 @@ export function StorefrontChatbot({ initialOpen = false }: { initialOpen?: boole
                   )}
                   {message.suggestions && message.suggestions.length > 0 && (
                     <div className="mt-3 flex flex-wrap gap-2">
-                      {message.suggestions.map((suggestion) => <button key={suggestion} type="button" onClick={() => sendMessage(suggestion)} className="rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1.5 text-left text-xs font-medium text-cyan-900 transition hover:border-cyan-500 hover:bg-cyan-100">{suggestion}</button>)}
+                      {message.suggestions.map((suggestion) => <button key={suggestion} type="button" disabled={isReplying} onClick={() => void sendMessage(suggestion)} className="rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1.5 text-left text-xs font-medium text-cyan-900 transition hover:border-cyan-500 hover:bg-cyan-100 disabled:cursor-not-allowed disabled:opacity-60">{suggestion}</button>)}
                     </div>
                   )}
                 </div>
               </div>
             ))}
+            {isReplying && (
+              <div className="flex justify-start">
+                <div className="rounded-2xl rounded-bl-md border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-6 text-slate-500">
+                  Checking the catalog…
+                </div>
+              </div>
+            )}
             <div ref={endRef} />
           </div>
 
           <form onSubmit={handleSubmit} className="flex items-center gap-2 border-t border-slate-200 bg-white p-3">
             <label htmlFor="storefront-chat-input" className="sr-only">Message support</label>
             <input id="storefront-chat-input" value={input} onChange={(event) => setInput(event.target.value)} placeholder="Ask about a part or fitment..." className="min-w-0 flex-1 rounded-full border border-slate-200 px-4 py-2.5 text-sm text-slate-800 outline-none placeholder:text-slate-400 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100" inputMode="text" enterKeyHint="send" />
-            <button type="submit" aria-label="Send message" disabled={!input.trim()} className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-cyan-600 text-white transition hover:bg-cyan-700 disabled:cursor-not-allowed disabled:opacity-50"><Send className="h-4 w-4" /></button>
+            <button type="submit" aria-label="Send message" disabled={!input.trim() || isReplying} className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-cyan-600 text-white transition hover:bg-cyan-700 disabled:cursor-not-allowed disabled:opacity-50"><Send className="h-4 w-4" /></button>
           </form>
         </section>
       )}

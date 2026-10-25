@@ -1,9 +1,8 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Product, CartItem } from '@/types';
-import { PRODUCTS } from '@/data/products';
-import { EQUIPMENT_PRODUCTS } from '@/data/equipment';
+import type { CartItem, EquipmentGroup, Product, ProductCategory } from '@/types';
+import { PRODUCT_CATEGORY_VALUES } from '@/types';
 
 interface CartContextType {
   cart: CartItem[];
@@ -18,7 +17,73 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 const CART_STORAGE_KEY = 'shopping-cart';
 const MAX_ITEM_QUANTITY = 99;
-const INQUIRY_PRODUCTS = [...PRODUCTS, ...EQUIPMENT_PRODUCTS];
+const MAX_TEXT_LENGTH = 2_000;
+const CATEGORY_VALUES = new Set<string>(PRODUCT_CATEGORY_VALUES);
+const EQUIPMENT_GROUP_VALUES = new Set<string>(['marine-engines', 'marine-gearboxes', 'heavy-machinery']);
+
+function readString(value: unknown, maxLength = MAX_TEXT_LENGTH) {
+  return typeof value === 'string' ? value.slice(0, maxLength) : '';
+}
+
+function safeImageUrl(value: unknown) {
+  if (typeof value !== 'string' || value.length > 1_000) return null;
+  if (value.startsWith('/') && !value.startsWith('//')) return value;
+  return value.startsWith('https://') ? value : null;
+}
+
+function safeExternalUrl(value: unknown) {
+  if (typeof value !== 'string' || value.length > 1_000) return '';
+  return value.startsWith('https://') || value.startsWith('http://') ? value : '';
+}
+
+function sanitizeQuantity(value: unknown) {
+  if (typeof value !== 'number' || !Number.isFinite(value)) return null;
+  const quantity = Math.trunc(value);
+  if (quantity < 1) return null;
+  return Math.min(MAX_ITEM_QUANTITY, quantity);
+}
+
+// Stored carts are user-controlled (localStorage), so rebuild only known,
+// bounded fields instead of trusting whatever JSON was saved.
+function sanitizeProduct(value: unknown): Product | null {
+  if (!value || typeof value !== 'object') return null;
+  const item = value as Record<string, unknown>;
+  const id = readString(item.id, 200);
+  const name = readString(item.name, 300);
+  const category = readString(item.category, 50);
+  if (!id || !name || !CATEGORY_VALUES.has(category)) return null;
+
+  const images = Array.isArray(item.images)
+    ? item.images.map(safeImageUrl).filter((image): image is string => Boolean(image)).slice(0, 5)
+    : [];
+  if (!images.length) return null;
+
+  const price = typeof item.price === 'number' && Number.isFinite(item.price) && item.price >= 0
+    ? item.price
+    : null;
+  const specifications = Array.isArray(item.specifications)
+    ? item.specifications
+      .filter((specification): specification is string => typeof specification === 'string')
+      .map((specification) => specification.slice(0, 500))
+      .slice(0, 30)
+    : undefined;
+  const equipmentGroup = readString(item.equipmentGroup, 40);
+
+  return {
+    id,
+    name,
+    description: readString(item.description),
+    category: category as ProductCategory,
+    images,
+    imageSourceUrl: safeExternalUrl(item.imageSourceUrl),
+    imageCredit: readString(item.imageCredit, 500),
+    imageLicense: readString(item.imageLicense, 500),
+    imageLicenseUrl: safeExternalUrl(item.imageLicenseUrl),
+    price,
+    specifications,
+    equipmentGroup: EQUIPMENT_GROUP_VALUES.has(equipmentGroup) ? equipmentGroup as EquipmentGroup : undefined,
+  };
+}
 
 function readCart(value: string | null): CartItem[] {
   if (!value) return [];
@@ -27,20 +92,21 @@ function readCart(value: string | null): CartItem[] {
     const parsed: unknown = JSON.parse(value);
     if (!Array.isArray(parsed)) return [];
 
-    const productsById = new Map(INQUIRY_PRODUCTS.map((product) => [product.id, product]));
+    const products = new Map<string, Product>();
     const quantities = new Map<string, number>();
 
-    for (const item of parsed) {
-      if (!item || typeof item !== 'object' || !('id' in item) || !('quantity' in item)) continue;
-      const id = item.id;
-      const quantity = item.quantity;
-      if (typeof id !== 'string' || typeof quantity !== 'number' || !Number.isInteger(quantity) || quantity < 1) continue;
-      if (!productsById.has(id)) continue;
-      quantities.set(id, Math.min(MAX_ITEM_QUANTITY, (quantities.get(id) ?? 0) + quantity));
+    for (const entry of parsed) {
+      if (!entry || typeof entry !== 'object' || !('quantity' in entry)) continue;
+      const product = sanitizeProduct(entry);
+      const quantity = sanitizeQuantity((entry as Record<string, unknown>).quantity);
+      if (!product || !quantity) continue;
+
+      products.set(product.id, product);
+      quantities.set(product.id, Math.min(MAX_ITEM_QUANTITY, (quantities.get(product.id) ?? 0) + quantity));
     }
 
     return [...quantities].flatMap(([id, quantity]) => {
-      const product = productsById.get(id);
+      const product = products.get(id);
       return product ? [{ ...product, quantity }] : [];
     });
   } catch {
@@ -84,7 +150,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [cart, isCartLoaded]);
 
   const addToCart = (product: Product) => {
-    const currentProduct = INQUIRY_PRODUCTS.find((item) => item.id === product.id);
+    const currentProduct = sanitizeProduct(product);
     if (!currentProduct) return;
 
     setCart((prev) => {

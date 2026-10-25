@@ -64,6 +64,28 @@ The catalog currently references some images on external hosts. Two helper scrip
 
 Both scripts skip files that already exist. Review the printed failures before committing, and make sure the remote hosts are allowed in `next.config.ts` if you keep any remote URLs.
 
+## Catalog browsing
+
+The `/products` page is rendered on the server in pages of 24 items. Its state lives in the URL, so searches and filters can be bookmarked or shared:
+
+| Parameter | Meaning |
+| --- | --- |
+| `category` | A category value from `data/catalog.json`, for example `turbocharging` |
+| `q` | A case-insensitive search across product names, descriptions, and categories |
+| `sort` | `a-z` (default) or `z-a` |
+| `page` | The page number, starting at 1 |
+
+Only the current page of products is sent to the browser. The public storefront never bundles the full catalog into client JavaScript; catalog search runs through a small server endpoint.
+
+## Security and performance
+
+- Every response includes clickjacking, MIME-sniffing, referrer, permissions, and HSTS headers. Production builds also send a Content Security Policy that only allows same-origin scripts, styles, and API calls.
+- Admin requests must come from the same origin and carry a signed, `HttpOnly`, `SameSite=Strict` session cookie. Password comparisons are constant time, and sessions expire after 12 hours.
+- Sign-in failures are limited to eight per IP address and 60 globally per 15 minutes. This in-memory limit protects a single server process; busy deployments should also limit requests at their proxy or CDN.
+- Uploads must be JPG, PNG, or WebP files no larger than 4 MB. Both the declared MIME type and the file's leading bytes are checked before the image is stored.
+- The image optimizer follows at most one redirect, caps remote responses at 15 MB, and refuses private network addresses.
+- Home-page reveal animations use CSS scroll-driven animation with a reduced-motion fallback. `framer-motion` and `gsap` are not part of the client bundle.
+
 ## Photo uploads
 
 Product photos can be changed from the deployed site using the protected photo manager at `/admin/products`. Uploaded photos are stored in Supabase Storage and the product-to-photo mapping is saved in Supabase, so changes remain after a redeploy.
@@ -92,7 +114,7 @@ Product photos can be changed from the deployed site using the protected photo m
 1. Open `https://your-site-address/admin/products` in a browser.
 2. Sign in with the `ADMIN_PASSWORD` you configured above.
 3. Search for the product by name, then select it from the catalog list. Equipment models are listed there too.
-4. Choose a JPG, PNG, or WebP photo that is no larger than 4 MB. The preview shows the selected file before upload.
+4. Choose a JPG, PNG, or WebP photo that is no larger than 4 MB. The preview shows the selected file before upload. The server verifies the file's actual format before accepting it.
 5. Select **Save new photo** and wait for the success message. The new photo appears on the product card, product detail page, cart, and relevant equipment sections.
 
 Sign out when finished. The photo manager does not change product names, descriptions, prices, or other catalog details. If Supabase or the required environment variables are not configured, the storefront keeps showing its existing catalog photos and uploads will not work. Sign-in attempts are throttled after eight failures from the same IP address within 15 minutes.

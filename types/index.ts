@@ -1,16 +1,19 @@
 export type EquipmentGroup = 'marine-engines' | 'marine-gearboxes' | 'heavy-machinery';
 
-export type ProductCategory =
-  | 'turbocharging'
-  | 'cylinder-assembly'
-  | 'pistons-rings'
-  | 'valve-train'
-  | 'fuel-system'
-  | 'engine-components'
-  | 'cooling-system'
-  | 'gearbox-parts'
-  | 'heavy-equipment-parts'
-  | 'equipment';
+export const PRODUCT_CATEGORY_VALUES = [
+  'turbocharging',
+  'cylinder-assembly',
+  'pistons-rings',
+  'valve-train',
+  'fuel-system',
+  'engine-components',
+  'cooling-system',
+  'gearbox-parts',
+  'heavy-equipment-parts',
+  'equipment',
+] as const;
+
+export type ProductCategory = (typeof PRODUCT_CATEGORY_VALUES)[number];
 
 export interface Product {
   id: string;

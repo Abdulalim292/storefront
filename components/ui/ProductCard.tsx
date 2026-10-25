@@ -7,27 +7,25 @@ import { Button } from '@/components/ui/Button';
 import { CatalogImage } from '@/components/ui/CatalogImage';
 import { useCart } from '@/context/CartContext';
 import { ClipboardList } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { formatPrice } from '@/lib/utils';
 
 interface ProductCardProps {
   product: Product;
+  eager?: boolean;
+  preload?: boolean;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, eager = false, preload = false }: ProductCardProps) {
   const { addToCart } = useCart();
   const price = formatPrice(product.price);
 
   return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.3 }}
-      className="group relative flex flex-col overflow-hidden border border-[#dfddd5] bg-[#f8f7f3] transition-all hover:border-[#a78b5f] hover:shadow-[0_16px_40px_rgba(30,37,32,.09)]"
-    >
-      <Link href={`/products/${product.id}`} className="relative aspect-square overflow-hidden bg-[#eeece5]">
+    <div className="group relative flex flex-col overflow-hidden border border-[#dfddd5] bg-[#f8f7f3] transition-all hover:border-[#a78b5f] hover:shadow-[0_16px_40px_rgba(30,37,32,.09)]">
+      <Link
+        href={`/products/${product.id}`}
+        prefetch={false}
+        className="relative aspect-square overflow-hidden bg-[#eeece5]"
+      >
         <div className="relative h-full w-full">
           <CatalogImage
             productId={product.id}
@@ -35,6 +33,8 @@ export function ProductCard({ product }: ProductCardProps) {
             alt={product.name}
             sizes="(max-width: 639px) calc(100vw - 2rem), (max-width: 1023px) calc((100vw - 3rem) / 2), (max-width: 1279px) calc((100vw - 5rem) / 4), 300px"
             className="object-contain p-3 transition-transform duration-700 ease-out group-hover:scale-105"
+            loading={eager ? 'eager' : 'lazy'}
+            preload={preload}
           />
         </div>
       </Link>
@@ -45,7 +45,11 @@ export function ProductCard({ product }: ProductCardProps) {
             {product.category.replaceAll('-', ' ')}
           </span>
         </div>
-        <Link href={`/products/${product.id}`} className={`text-base font-semibold text-[#17221f] ${price ? 'mb-2' : 'mb-4'}`}>
+        <Link
+          href={`/products/${product.id}`}
+          prefetch={false}
+          className={`text-base font-semibold text-[#17221f] ${price ? 'mb-2' : 'mb-4'}`}
+        >
           {product.name}
         </Link>
         {price && <p className="mb-3 text-sm font-semibold text-[#8d754d]">{price}</p>}
@@ -58,6 +62,6 @@ export function ProductCard({ product }: ProductCardProps) {
           Add to inquiry list
         </Button>
       </div>
-    </motion.div>
+    </div>
   );
 }
