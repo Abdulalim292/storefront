@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useCart } from '@/context/CartContext';
-import { X, Trash2, Plus, Minus, ClipboardList, ShoppingBag, Copy, Check } from 'lucide-react';
+import { X, Trash2, Plus, Minus, ClipboardList, ShoppingBag, Copy, Check, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 import { CatalogImage } from '@/components/ui/CatalogImage';
+import { trackEvent } from '@/lib/analytics';
+import { whatsappHref } from '@/lib/site';
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -248,11 +250,23 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                 value={inquiryText}
                 className="h-36 w-full resize-none rounded-md border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700"
               />
-              <Button className="w-full gap-2" onClick={copyInquiry}>
+              <a
+                href={whatsappHref(inquiryText)}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-analytics="cart-whatsapp"
+                onClick={() => trackEvent('generate_lead', { method: 'whatsapp', source: 'cart' })}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-sm bg-[#25D366] px-4 py-3 text-base font-semibold text-white transition-colors hover:bg-[#20ba5a] focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-offset-2"
+              >
+                <MessageCircle className="h-5 w-5" />
+                Send on WhatsApp
+              </a>
+              <Button variant="outline" className="w-full gap-2" onClick={copyInquiry}>
                 {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                 {copied ? 'Inquiry copied' : 'Copy inquiry details'}
               </Button>
               {copyError && <p role="status" className="text-sm text-red-700">Copy was unavailable. Select and copy the inquiry text above.</p>}
+              <p className="text-xs leading-5 text-slate-500">WhatsApp opens with this list ready to send. Prices and availability are confirmed after fitment details are reviewed.</p>
             </div>
           </div>
         </div>

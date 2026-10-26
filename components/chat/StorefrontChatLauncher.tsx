@@ -9,7 +9,7 @@ const StorefrontChatbot = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="pointer-events-auto fixed bottom-4 right-4 z-[65] sm:bottom-6 sm:right-6">
+      <div className="pointer-events-auto fixed bottom-20 right-4 z-[65] sm:right-6 lg:bottom-6">
         <button type="button" disabled aria-label="Loading support chat" className="flex h-12 w-12 items-center justify-center rounded-full bg-cyan-600 text-white opacity-80 shadow-lg sm:h-14 sm:w-14">
           <MessageCircle className="h-5 w-5" />
         </button>
@@ -24,7 +24,7 @@ export function StorefrontChatLauncher() {
   if (isLoaded) return <StorefrontChatbot initialOpen />;
 
   return (
-    <div className="pointer-events-auto fixed bottom-4 right-4 z-[65] sm:bottom-6 sm:right-6">
+    <div className="pointer-events-auto fixed bottom-20 right-4 z-[65] sm:right-6 lg:bottom-6">
       <button
         type="button"
         aria-label="Open support chat"

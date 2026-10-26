@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { CartItem, EquipmentGroup, Product, ProductCategory } from '@/types';
 import { PRODUCT_CATEGORY_VALUES } from '@/types';
+import { trackEvent } from '@/lib/analytics';
 
 interface CartContextType {
   cart: CartItem[];
@@ -161,6 +162,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         );
       }
       return [...prev, { ...currentProduct, quantity: 1 }];
+    });
+
+    trackEvent('add_to_inquiry', {
+      item_id: currentProduct.id,
+      item_name: currentProduct.name,
+      item_category: currentProduct.category,
     });
   };
 

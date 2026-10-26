@@ -168,9 +168,9 @@ export function StorefrontChatbot({ initialOpen = false }: { initialOpen?: boole
   }
 
   return (
-    <div className="pointer-events-auto fixed bottom-4 right-4 z-[65] flex flex-col items-end sm:bottom-6 sm:right-6">
+    <div className="pointer-events-auto fixed bottom-20 right-4 z-[65] flex flex-col items-end sm:right-6 lg:bottom-6">
       {isOpen && (
-        <section aria-label="Storefront chat" className="mb-3 flex h-[min(36rem,calc(100dvh-6rem))] w-[min(24rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-950/20">
+        <section aria-label="Storefront chat" className="mb-3 flex h-[min(34rem,calc(100dvh-11rem))] w-[min(24rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-950/20 lg:h-[min(36rem,calc(100dvh-6rem))]">
           <header className="flex items-center justify-between bg-slate-950 px-4 py-4 text-white">
             <div className="flex items-center gap-3">
               <span className="grid h-10 w-10 place-items-center rounded-full bg-cyan-400 text-slate-950"><Bot className="h-5 w-5" /></span>

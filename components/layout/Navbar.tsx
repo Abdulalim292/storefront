@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X, Search, ClipboardList } from 'lucide-react';
@@ -8,7 +8,19 @@ import { useCart } from '@/context/CartContext';
 
 export function Navbar({ onCartClick }: { onCartClick: () => void }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { cartCount } = useCart();
+
+  useEffect(() => {
+    if (!isSearchOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsSearchOpen(false);
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isSearchOpen]);
 
   return (
     <nav className="sticky top-0 z-[60] w-full border-b border-[#deddd5] bg-[#f8f7f3]/95 backdrop-blur-xl">
@@ -48,6 +60,20 @@ export function Navbar({ onCartClick }: { onCartClick: () => void }) {
 
           <button
             type="button"
+            aria-label={isSearchOpen ? 'Close search' : 'Open search'}
+            aria-expanded={isSearchOpen}
+            aria-controls="navbar-search"
+            onClick={() => {
+              setIsSearchOpen((open) => !open);
+              setIsMenuOpen(false);
+            }}
+            className="grid h-11 w-11 place-items-center rounded-full text-[#34403a] transition hover:bg-[#e7e3d8] hover:text-[#8d754d] 2xl:hidden"
+          >
+            {isSearchOpen ? <X className="h-5 w-5" /> : <Search className="h-5 w-5" />}
+          </button>
+
+          <button
+            type="button"
             onClick={onCartClick}
             aria-label={`Open inquiry list${cartCount ? `, ${cartCount} items` : ''}`}
             className="relative grid h-11 w-11 place-items-center rounded-full text-[#34403a] transition hover:bg-[#e7e3d8] hover:text-[#8d754d]"
@@ -62,17 +88,25 @@ export function Navbar({ onCartClick }: { onCartClick: () => void }) {
             aria-expanded={isMenuOpen}
             aria-controls="mobile-navigation"
             className="grid h-11 w-11 place-items-center text-[#34403a] xl:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={() => {
+              setIsMenuOpen((open) => !open);
+              setIsSearchOpen(false);
+            }}
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </div>
 
+      {isSearchOpen && (
+        <div id="navbar-search" className="border-t border-[#deddd5] bg-[#f8f7f3] p-4 2xl:hidden">
+          <PartSearchForm className="flex w-full" autoFocus expanded onSubmitted={() => setIsSearchOpen(false)} />
+        </div>
+      )}
+
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div id="mobile-navigation" className="space-y-2 border-t border-[#deddd5] bg-[#f8f7f3] p-4 shadow-lg xl:hidden">
-          <PartSearchForm className="mb-2 flex xl:hidden" />
           <Link href="/#marine-engine-models" className="flex min-h-11 items-center text-sm font-semibold text-[#34403a]" onClick={() => setIsMenuOpen(false)}>
             Marine Engines
           </Link>
@@ -91,12 +125,23 @@ export function Navbar({ onCartClick }: { onCartClick: () => void }) {
   );
 }
 
-function PartSearchForm({ className = '' }: { className?: string }) {
+function PartSearchForm({
+  className = '',
+  autoFocus = false,
+  expanded = false,
+  onSubmitted,
+}: {
+  className?: string;
+  autoFocus?: boolean;
+  expanded?: boolean;
+  onSubmitted?: () => void;
+}) {
   return (
     <form
       action="/products"
       method="get"
       role="search"
+      onSubmit={onSubmitted}
       className={`min-h-11 items-center gap-2 rounded-full border border-slate-200 bg-slate-100 px-3 py-1.5 ${className}`}
     >
       <input
@@ -104,7 +149,8 @@ function PartSearchForm({ className = '' }: { className?: string }) {
         name="q"
         aria-label="Search engine parts"
         placeholder="Search engine parts..."
-        className="min-w-0 flex-1 bg-transparent text-sm text-black caret-black outline-none placeholder:text-slate-400 xl:w-40"
+        autoFocus={autoFocus}
+        className={`min-w-0 flex-1 bg-transparent text-sm text-black caret-black outline-none placeholder:text-slate-400 ${expanded ? 'w-full' : 'xl:w-40'}`}
       />
       <button type="submit" aria-label="Search" className="grid h-10 w-10 shrink-0 place-items-center text-slate-500 transition-colors hover:text-indigo-600">
         <Search className="h-4 w-4" />

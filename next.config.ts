@@ -12,19 +12,21 @@ const securityHeaders = [
   { key: 'Strict-Transport-Security', value: 'max-age=63072000' },
 ];
 
-// The storefront loads no third-party scripts. Inline script/style allowances
-// are still required because Next.js hydrates data through inline tags.
+// Google Analytics is the only optional third-party script. The additional
+// origins below are inert unless NEXT_PUBLIC_GA_ID is configured at build
+// time. Inline allowances are still required because Next.js hydrates data
+// through inline tags.
 const contentSecurityPolicy = [
   "default-src 'self'",
   "base-uri 'self'",
   "object-src 'none'",
   "frame-ancestors 'none'",
   "form-action 'self'",
-  "script-src 'self' 'unsafe-inline'",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
-  "connect-src 'self'",
+  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com",
   "manifest-src 'self'",
   "worker-src 'self' blob:",
 ].join('; ');

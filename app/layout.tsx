@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { StorefrontShell } from '@/components/layout/StorefrontShell';
 import { Footer } from '@/components/layout/Footer';
+import { Analytics } from '@/components/analytics/Analytics';
 import { SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -24,9 +25,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
-      <body className="min-h-screen flex flex-col bg-[#f8f7f3] font-sans text-[#17221f]">
+      <body className="flex min-h-screen flex-col bg-[#f8f7f3] pb-[calc(3.5rem+env(safe-area-inset-bottom))] font-sans text-[#17221f] lg:pb-0">
         <StorefrontShell>{children}</StorefrontShell>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );

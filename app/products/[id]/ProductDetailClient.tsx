@@ -1,22 +1,31 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Product } from '@/types';
 import { Button } from '@/components/ui/Button';
 import { CatalogImage } from '@/components/ui/CatalogImage';
 import { useCart } from '@/context/CartContext';
 import { ClipboardList, Ruler, Settings2, Ship, MessageCircle } from 'lucide-react';
 import { formatPrice } from '@/lib/utils';
+import { trackEvent } from '@/lib/analytics';
+import { whatsappHref } from '@/lib/site';
 
 export default function ProductDetailClient({ product }: { product: Product }) {
   const { addToCart } = useCart();
   const price = formatPrice(product.price);
 
-  const WHATSAPP_PHONE = '8801819461614';
+  useEffect(() => {
+    trackEvent('view_item', {
+      item_id: product.id,
+      item_name: product.name,
+      item_category: product.category,
+    });
+  }, [product.id, product.name, product.category]);
 
   const handleWhatsAppInquiry = () => {
     const message = `Hi, I'm interested in ${product.name} (ID: ${product.id}). Could you please provide a quote?`;
-    window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+    trackEvent('generate_lead', { method: 'whatsapp', source: 'product-detail', item_id: product.id });
+    window.open(whatsappHref(message), '_blank', 'noopener,noreferrer');
   };
 
   return (

@@ -42,7 +42,7 @@ function pruneExpired(now: number) {
   }
 }
 
-function retryAfterFor(key: string, now: number): number | null {
+function retryAfterForLimit(key: string, now: number, limit: number): number | null {
   const bucket = buckets.get(key);
   if (!bucket) return null;
 
@@ -50,12 +50,16 @@ function retryAfterFor(key: string, now: number): number | null {
     buckets.delete(key);
     return null;
   }
-  if (bucket.failures < limitFor(key)) return null;
+  if (bucket.failures < limit) return null;
 
   return Math.ceil((bucket.resetAt - now) / 1000);
 }
 
-function recordFailure(key: string, now: number) {
+function retryAfterFor(key: string, now: number): number | null {
+  return retryAfterForLimit(key, now, limitFor(key));
+}
+
+function recordFailureWithin(key: string, now: number, windowMs: number) {
   if (buckets.size >= PRUNE_THRESHOLD) pruneExpired(now);
 
   // Keep the map bounded even if many distinct client addresses fail during
@@ -71,10 +75,14 @@ function recordFailure(key: string, now: number) {
 
   const bucket = buckets.get(key);
   if (!bucket || bucket.resetAt <= now) {
-    buckets.set(key, { failures: 1, resetAt: now + WINDOW_MS });
+    buckets.set(key, { failures: 1, resetAt: now + windowMs });
     return;
   }
   bucket.failures += 1;
+}
+
+function recordFailure(key: string, now: number) {
+  recordFailureWithin(key, now, WINDOW_MS);
 }
 
 function redisConfig(): RedisConfig | null {
@@ -150,6 +158,63 @@ async function recordRemoteFailures(keys: string[]): Promise<boolean> {
     ['INCR', redisKey(key)],
   ]);
   return (await redisPipeline(commands)) !== null;
+}
+
+export type RateLimitResult = {
+  allowed: boolean;
+  retryAfter: number;
+};
+
+async function consumeRemoteRateLimit(
+  namespace: string,
+  key: string,
+  limit: number,
+  windowMs: number,
+): Promise<{ ok: boolean; result: RateLimitResult }> {
+  const remoteKey = `storefront:${namespace}:${encodeURIComponent(key)}`;
+  const results = await redisPipeline([
+    ['SET', remoteKey, '0', 'PX', String(windowMs), 'NX'],
+    ['INCR', remoteKey],
+    ['PTTL', remoteKey],
+  ]);
+
+  if (!results) return { ok: false, result: { allowed: true, retryAfter: 0 } };
+
+  const count = Number(pipelineResult(results, 1));
+  const ttl = Number(pipelineResult(results, 2));
+  if (!Number.isFinite(count)) return { ok: false, result: { allowed: true, retryAfter: 0 } };
+
+  if (count > limit) {
+    const retryAfter = Number.isFinite(ttl) && ttl > 0
+      ? Math.ceil(ttl / 1000)
+      : Math.ceil(windowMs / 1000);
+    return { ok: true, result: { allowed: false, retryAfter } };
+  }
+
+  return { ok: true, result: { allowed: true, retryAfter: 0 } };
+}
+
+// Generic fixed-window limiter for public forms. It uses the shared store as
+// the source of truth when configured and falls back to this process's bounded
+// in-memory map when the store is absent or unavailable.
+export async function consumeRateLimit(
+  namespace: string,
+  key: string,
+  limit: number,
+  windowMs: number,
+): Promise<RateLimitResult> {
+  if (redisConfig()) {
+    const remote = await consumeRemoteRateLimit(namespace, key, limit, windowMs);
+    if (remote.ok) return remote.result;
+  }
+
+  const now = Date.now();
+  const localKey = `${namespace}:${key}`;
+  const retryAfter = retryAfterForLimit(localKey, now, limit);
+  if (retryAfter) return { allowed: false, retryAfter };
+
+  recordFailureWithin(localKey, now, windowMs);
+  return { allowed: true, retryAfter: 0 };
 }
 
 export async function loginRetryAfter(key: string | null): Promise<number | null> {
