@@ -28,10 +28,11 @@ export function Footer() {
           <div>
             <h4 className="mb-4 text-xs font-bold uppercase tracking-[.18em] text-[#d7bd8d]">Equipment</h4>
             <ul className="space-y-3">
-              <li><Link href="/products" className="text-sm text-white/65 hover:text-white">All Engine Parts</Link></li>
-              <li><Link href="/#marine-engine-models" className="text-sm text-white/65 hover:text-white">Marine Engines</Link></li>
-              <li><Link href="/#gearboxes" className="text-sm text-white/65 hover:text-white">Gearboxes</Link></li>
-              <li><Link href="/#heavy-machinery" className="text-sm text-white/65 hover:text-white">Heavy Machinery</Link></li>
+              <li><Link href="/categories" prefetch={false} className="text-sm text-white/65 hover:text-white">All categories</Link></li>
+              <li><Link href="/categories/marine-engines" prefetch={false} className="text-sm text-white/65 hover:text-white">Marine Engines</Link></li>
+              <li><Link href="/categories/marine-gearboxes" prefetch={false} className="text-sm text-white/65 hover:text-white">Gearboxes</Link></li>
+              <li><Link href="/categories/heavy-machinery" prefetch={false} className="text-sm text-white/65 hover:text-white">Heavy Machinery</Link></li>
+              <li><Link href="/products" prefetch={false} className="text-sm text-white/65 hover:text-white">All Engine Parts</Link></li>
             </ul>
           </div>
 

@@ -12,6 +12,7 @@ import {
   featuredHeavyMachinery,
 } from '@/data/equipment';
 import { BRANCHES } from '@/data/branches';
+import { CATEGORY_LANDINGS, getCategoryImageSource, getCategoryProducts } from '@/data/categories';
 import { formatBangladeshPhone, toBangladeshTel } from '@/lib/phone';
 import { PinnedEquipmentStory } from '@/components/home/PinnedEquipmentStory';
 import { EquipmentCarousel } from '@/components/home/EquipmentCarousel';
@@ -22,6 +23,7 @@ import { cn } from '@/lib/utils';
 const equipmentCards = [
   {
     id: 'marine-engine-models',
+    href: '/categories/marine-engines',
     title: 'Marine engines',
     note: 'Propulsion and auxiliary power',
     description: 'Diesel engine platforms for commercial vessels, workboats, and demanding days at sea.',
@@ -33,6 +35,7 @@ const equipmentCards = [
   },
   {
     id: 'gearboxes',
+    href: '/categories/marine-gearboxes',
     title: 'Marine gearboxes',
     note: 'Transmission and reduction',
     description: 'Find a gearbox to suit your engine output, vessel, and operating conditions.',
@@ -44,6 +47,7 @@ const equipmentCards = [
   },
   {
     id: 'heavy-machinery',
+    href: '/categories/heavy-machinery',
     title: 'Heavy machinery',
     note: 'Equipment and spare parts',
     description: 'Reliable machinery and components for industrial and construction work.',
@@ -54,6 +58,8 @@ const equipmentCards = [
     imageClass: 'object-cover',
   },
 ];
+
+const partCategoryCards = CATEGORY_LANDINGS.filter((category) => category.kind === 'parts');
 
 const brands = [
   { name: 'Zichai', logo: '/brand/zichai.png' },
@@ -76,7 +82,7 @@ export default function HomePage() {
       <section className="hero-panel relative isolate overflow-hidden bg-[#101b19] text-white">
         <div className="hero-photo absolute inset-0 -z-20">
           <Image
-            src="https://picsum.photos/seed/marine-engine-room/1920/1080"
+            src="/photos/engine-room.jpg"
             alt=""
             fill
             preload
@@ -122,6 +128,7 @@ export default function HomePage() {
         </div>
         <div className="hero-bottom-rule mx-auto flex max-w-[1440px] items-center justify-between border-t border-white/20 px-5 py-5 text-[11px] uppercase tracking-[.16em] text-white/70 sm:px-8 lg:px-12">
           <span>Serving marine &amp; industry</span><span className="hidden sm:block">Dhaka · Chittagong</span><span>Equipment · Spares · Guidance</span>
+          <a href="https://commons.wikimedia.org/wiki/File:CSIRO_ScienceImage_7992_The_engine_room_on_the_RV_Southern_Surveyor.jpg" target="_blank" rel="noreferrer" className="hidden normal-case tracking-normal text-white/50 transition-colors hover:text-white xl:block">Photo: Simon Torok / CSIRO · CC BY 3.0</a>
         </div>
       </section>
 
@@ -136,8 +143,8 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-flow-dense grid-cols-2 grid-rows-[minmax(220px,1fr)_minmax(220px,1fr)] gap-3 sm:gap-5 lg:grid-cols-4 lg:grid-rows-[minmax(230px,1fr)_minmax(230px,1fr)]">
-            {equipmentCards.map(({ id, productId, title, note, description, image, icon: Icon, className, imageClass }, index) => (
-              <Link key={id} href={`/#${id}`} className={`group relative isolate min-h-[280px] overflow-hidden bg-[#dfe2dc] ${className} ${index === 0 ? 'min-h-[440px] lg:min-h-[470px]' : ''}`}>
+            {equipmentCards.map(({ id, href, productId, title, note, description, image, icon: Icon, className, imageClass }, index) => (
+              <Link key={id} href={href} className={`group relative isolate min-h-[280px] overflow-hidden bg-[#dfe2dc] ${className} ${index === 0 ? 'min-h-[440px] lg:min-h-[470px]' : ''}`}>
                 <div className={cn(
                   "relative w-full h-full",
                   index === 0 ? "aspect-[4/3] lg:aspect-auto" : "aspect-video"
@@ -172,6 +179,50 @@ export default function HomePage() {
 
       <PinnedEquipmentStory models={[featuredMarineEngine, featuredMarineGearbox, featuredHeavyMachinery]} />
       <EquipmentCarousel models={[...marineEngineModels, ...marineGearboxModels, ...heavyMachineryModels]} />
+
+      <section className="border-y border-[#e2e0d8] bg-[#f4f2ec] py-20 sm:py-24">
+        <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+          <div className="mb-10 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-2xl">
+              <p className="section-kicker">Parts by system</p>
+              <h2 className="mt-4 text-3xl font-semibold tracking-[-.045em] text-[#17221f] sm:text-5xl">Keep the equipment working.</h2>
+            </div>
+            <Link href="/categories" prefetch={false} className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#6f5a32] transition-colors hover:text-[#17221f]">
+              All categories <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <div className="grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
+            {partCategoryCards.map((category) => {
+              const image = getCategoryImageSource(category);
+              const count = getCategoryProducts(category).length;
+
+              return (
+                <Link
+                  key={category.slug}
+                  href={`/categories/${category.slug}`}
+                  prefetch={false}
+                  className="group flex items-center gap-4 border-t border-[#d8d5cc] py-4"
+                >
+                  <div className="relative h-14 w-14 shrink-0 overflow-hidden bg-[#e7e3d8]">
+                    <CatalogImage
+                      productId={image.productId}
+                      src={image.src}
+                      alt=""
+                      sizes="56px"
+                      className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+                    />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-base font-semibold text-[#17221f] transition-colors group-hover:text-[#6f5a32]">{category.label}</h3>
+                    <p className="mt-0.5 text-xs text-[#777b72]">{count} {count === 1 ? 'part' : 'parts'}</p>
+                  </div>
+                  <ArrowUpRight className="h-4 w-4 shrink-0 text-[#a78b5f] transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
       <section id="about" className="bg-[#17221f] py-24 text-white sm:py-32 lg:py-40">
         <div className="mx-auto grid max-w-[1440px] gap-14 px-5 sm:px-8 lg:grid-cols-[.9fr_1.1fr] lg:gap-24 lg:px-12">

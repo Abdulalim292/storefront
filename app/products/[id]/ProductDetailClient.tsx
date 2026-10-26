@@ -4,13 +4,20 @@ import React, { useEffect } from 'react';
 import { Product } from '@/types';
 import { Button } from '@/components/ui/Button';
 import { CatalogImage } from '@/components/ui/CatalogImage';
+import { Breadcrumbs, type BreadcrumbEntry } from '@/components/ui/Breadcrumbs';
 import { useCart } from '@/context/CartContext';
 import { ClipboardList, Ruler, Settings2, Ship, MessageCircle } from 'lucide-react';
 import { formatPrice } from '@/lib/utils';
 import { trackEvent } from '@/lib/analytics';
 import { whatsappHref } from '@/lib/site';
 
-export default function ProductDetailClient({ product }: { product: Product }) {
+export default function ProductDetailClient({
+  product,
+  breadcrumbItems,
+}: {
+  product: Product;
+  breadcrumbItems: BreadcrumbEntry[];
+}) {
   const { addToCart } = useCart();
   const price = formatPrice(product.price);
 
@@ -30,7 +37,9 @@ export default function ProductDetailClient({ product }: { product: Product }) {
 
   return (
     <div className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 sm:py-24 lg:px-12">
-      <div className="grid grid-cols-1 gap-8 sm:gap-12 lg:grid-cols-2">
+      <Breadcrumbs items={breadcrumbItems} />
+
+      <div className="mt-8 grid grid-cols-1 gap-8 sm:gap-12 lg:grid-cols-2">
         <div>
           <div className="relative aspect-square overflow-hidden border border-[#dfddd5] bg-[#eeece5]">
             <CatalogImage
@@ -66,9 +75,11 @@ export default function ProductDetailClient({ product }: { product: Product }) {
             {product.description}
           </p>
 
-          {product.category === 'equipment' && product.specifications && (
+          {product.specifications && product.specifications.length > 0 && (
             <section className="mb-8 border border-[#dfddd5] bg-[#f1efe8] p-5 sm:p-6">
-              <h2 className="text-lg font-bold text-[#17221f]">Model details</h2>
+              <h2 className="text-lg font-bold text-[#17221f]">
+                {product.category === 'equipment' ? 'Model details' : 'Part details'}
+              </h2>
               <ul className="mt-3 space-y-2 text-sm leading-6 text-[#48534c]">
                 {product.specifications.map((specification) => (
                   <li key={specification} className="flex gap-2">

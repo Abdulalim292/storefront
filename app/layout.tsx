@@ -3,6 +3,8 @@ import './globals.css';
 import { StorefrontShell } from '@/components/layout/StorefrontShell';
 import { Footer } from '@/components/layout/Footer';
 import { Analytics } from '@/components/analytics/Analytics';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { organizationJsonLd, websiteJsonLd } from '@/lib/structured-data';
 import { SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -26,6 +28,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <body className="flex min-h-screen flex-col bg-[#f8f7f3] pb-[calc(3.5rem+env(safe-area-inset-bottom))] font-sans text-[#17221f] lg:pb-0">
+        <JsonLd data={organizationJsonLd} />
+        <JsonLd data={websiteJsonLd} />
         <StorefrontShell>{children}</StorefrontShell>
         <Footer />
         <Analytics />

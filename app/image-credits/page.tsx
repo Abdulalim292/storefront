@@ -59,6 +59,17 @@ const creditGroups = (() => {
   );
 })();
 
+// Site photography that is not part of the product catalog.
+const sitePhotos = [
+  {
+    name: 'Homepage hero: engine room on the RV Southern Surveyor',
+    credit: 'Simon Torok / CSIRO',
+    license: 'CC BY 3.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by/3.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:CSIRO_ScienceImage_7992_The_engine_room_on_the_RV_Southern_Surveyor.jpg',
+  },
+];
+
 export default function ImageCreditsPage() {
   return (
     <main className="mx-auto max-w-[1100px] px-5 py-16 sm:px-8 sm:py-24 lg:px-12">
@@ -73,7 +84,31 @@ export default function ImageCreditsPage() {
         {PRODUCTS.length + EQUIPMENT_PRODUCTS.length} catalog items across {creditGroups.length} image sources.
       </p>
 
-      <ul className="mt-12 divide-y divide-[#dfddd5] border-y border-[#dfddd5]">
+      <section className="mt-12" aria-labelledby="site-photography">
+        <h2 id="site-photography" className="text-xs font-bold uppercase tracking-[.18em] text-[#8b806b]">Site photography</h2>
+        <ul className="mt-4 divide-y divide-[#dfddd5] border-y border-[#dfddd5]">
+          {sitePhotos.map((photo) => (
+            <li key={photo.name} className="grid gap-3 py-5 sm:grid-cols-[1.15fr_.85fr] sm:gap-8">
+              <div>
+                <p className="text-sm font-semibold leading-6 text-[#17221f]">{photo.name}</p>
+                <p className="mt-1 text-xs leading-5 text-[#777b72]">{photo.credit}</p>
+              </div>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-[#59615c]">
+                <span>{photo.license}</span>
+                <a href={photo.source} target="_blank" rel="noreferrer" className="font-medium text-[#6f5a32] underline decoration-[#c6b28b] underline-offset-4 hover:text-[#17221f]">
+                  Source
+                </a>
+                <a href={photo.licenseUrl} target="_blank" rel="noreferrer" className="font-medium text-[#6f5a32] underline decoration-[#c6b28b] underline-offset-4 hover:text-[#17221f]">
+                  License
+                </a>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <h2 id="product-photography" className="mt-14 text-xs font-bold uppercase tracking-[.18em] text-[#8b806b]">Product photography</h2>
+      <ul className="mt-4 divide-y divide-[#dfddd5] border-y border-[#dfddd5]">
         {creditGroups.map((group) => (
           <li key={group.source || group.credit} className="grid gap-3 py-5 sm:grid-cols-[1.15fr_.85fr] sm:gap-8">
             <div>

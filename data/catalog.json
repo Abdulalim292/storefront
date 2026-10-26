@@ -50,21 +50,31 @@
       "images": [
         "https://upload.wikimedia.org/wikipedia/commons/3/34/Turbocharger_assembly.jpg"
       ],
-      "price": null
+      "price": null,
+      "specifications": [
+        "Complete turbocharger assembly, not a replacement cartridge",
+        "Matched by turbo model, engine model, and serial number",
+        "For marine and industrial diesel applications"
+      ]
     },
     {
       "id": "turbocharger-cartridge",
       "name": "Turbocharger Cartridge",
       "description": "Replacement turbocharger core assembly. Match the cartridge to the turbo model and engine application before ordering.",
       "category": "turbocharging",
-      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Turbocharger_assembly.jpg",
-      "imageCredit": "Panoha / Wikimedia Commons",
-      "imageLicense": "CC BY-SA 3.0",
-      "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Turbocharger_2.jpg",
+      "imageCredit": "Kagoshima / Wikimedia Commons",
+      "imageLicense": "CC BY-SA 4.0",
+      "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
       "images": [
-        "https://upload.wikimedia.org/wikipedia/commons/3/34/Turbocharger_assembly.jpg"
+        "https://upload.wikimedia.org/wikipedia/commons/4/4e/Turbocharger_2.jpg"
       ],
-      "price": null
+      "price": null,
+      "specifications": [
+        "Replacement rotating core, not a complete turbocharger",
+        "Match by turbo model, compressor/turbine trim, and engine application",
+        "Confirm housing and actuator compatibility before ordering"
+      ]
     },
     {
       "id": "cylinder-liner",
@@ -78,7 +88,12 @@
       "images": [
         "https://upload.wikimedia.org/wikipedia/commons/e/e9/Fairbanks_Morse_OP_Liner.jpg"
       ],
-      "price": null
+      "price": null,
+      "specifications": [
+        "Replacement cylinder liner for diesel engine overhaul",
+        "Confirm bore diameter, liner type (dry or wet), and engine model",
+        "Gaskets, seals, and pistons are quoted separately where required"
+      ]
     },
     {
       "id": "engine-piston",
@@ -92,7 +107,12 @@
       "images": [
         "https://upload.wikimedia.org/wikipedia/commons/0/08/Cummins_Diesel_engine_piston_head_45deg.jpg"
       ],
-      "price": null
+      "price": null,
+      "specifications": [
+        "Replacement piston for marine and industrial diesel engines",
+        "Confirm engine model, piston diameter, compression ratio, and part number",
+        "Ring sets and pins are quoted separately where required"
+      ]
     },
     {
       "id": "piston-ring-set",
@@ -113,14 +133,19 @@
       "name": "Valve Seat",
       "description": "Replacement valve seat for cylinder head repair. Share the engine model and seat dimensions for fitment checking.",
       "category": "valve-train",
-      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:W%C3%A4rtsil%C3%A4_46_engine_valve_train_parts_Forum_Marinum.JPG",
-      "imageCredit": "MKFI / Wikimedia Commons",
-      "imageLicense": "Public domain",
-      "imageLicenseUrl": "https://commons.wikimedia.org/wiki/Template:PD-self",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Valve_seat_inserts_(NPR).jpg",
+      "imageCredit": "160SX / Wikimedia Commons",
+      "imageLicense": "CC BY-SA 3.0",
+      "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
       "images": [
-        "https://upload.wikimedia.org/wikipedia/commons/e/ed/W%C3%A4rtsil%C3%A4_46_engine_valve_train_parts_Forum_Marinum.JPG"
+        "https://upload.wikimedia.org/wikipedia/commons/0/0d/Valve_seat_inserts_%28NPR%29.jpg"
       ],
-      "price": null
+      "price": null,
+      "specifications": [
+        "Cylinder-head valve seat insert",
+        "Confirm engine model, seat dimensions, and material",
+        "Machining and installation by a qualified engine shop recommended"
+      ]
     },
     {
       "id": "valve-guide",
@@ -134,21 +159,31 @@
       "images": [
         "https://upload.wikimedia.org/wikipedia/commons/e/ed/W%C3%A4rtsil%C3%A4_46_engine_valve_train_parts_Forum_Marinum.JPG"
       ],
-      "price": null
+      "price": null,
+      "specifications": [
+        "Cylinder-head valve guide",
+        "Confirm valve stem diameter, guide dimensions, and engine model",
+        "Clearance checks are required during cylinder-head assembly"
+      ]
     },
     {
       "id": "head-valve",
       "name": "Head Valve",
       "description": "Replacement head valve for diesel engine service. Provide engine model and valve dimensions to confirm the correct part.",
       "category": "valve-train",
-      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:W%C3%A4rtsil%C3%A4_46_engine_valve_train_parts_Forum_Marinum.JPG",
-      "imageCredit": "MKFI / Wikimedia Commons",
-      "imageLicense": "Public domain",
-      "imageLicenseUrl": "https://commons.wikimedia.org/wiki/Template:PD-self",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Exhaust_valve.JPG",
+      "imageCredit": "Marcus Bengtsson / Wikimedia Commons",
+      "imageLicense": "CC BY-SA 3.0",
+      "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
       "images": [
-        "https://upload.wikimedia.org/wikipedia/commons/e/ed/W%C3%A4rtsil%C3%A4_46_engine_valve_train_parts_Forum_Marinum.JPG"
+        "https://upload.wikimedia.org/wikipedia/commons/0/01/Exhaust_valve.JPG"
       ],
-      "price": null
+      "price": null,
+      "specifications": [
+        "Poppet-type intake or exhaust head valve",
+        "Confirm engine model, valve position, stem diameter, and head diameter",
+        "Inspect seats and guides when replacing a valve"
+      ]
     },
     {
       "id": "fuel-injector-nozzle",
@@ -162,7 +197,12 @@
       "images": [
         "https://upload.wikimedia.org/wikipedia/commons/e/e2/Bosch_common_rail_injector.JPG"
       ],
-      "price": null
+      "price": null,
+      "specifications": [
+        "Replacement injector nozzle for diesel fuel systems",
+        "Match by injector or nozzle number and engine specification",
+        "Nozzle testing and calibration recommended before installation"
+      ]
     },
     {
       "id": "cylinder-head-gasket",
@@ -176,7 +216,12 @@
       "images": [
         "https://upload.wikimedia.org/wikipedia/commons/8/8b/Zylinderkopfdichtung.jpg"
       ],
-      "price": null
+      "price": null,
+      "specifications": [
+        "Cylinder-head gasket for engine overhaul",
+        "Confirm engine model, bore, and gasket thickness or configuration",
+        "Head bolts and other sealing parts are quoted separately"
+      ]
     },
     {
       "id": "main-bearing-set",
@@ -190,7 +235,12 @@
       "images": [
         "https://upload.wikimedia.org/wikipedia/commons/e/ea/Ashton_Frost_engine_main_bearing.jpg"
       ],
-      "price": null
+      "price": null,
+      "specifications": [
+        "Main bearing shell set for crankshaft service",
+        "Confirm crankshaft journal size, bearing grade, and engine serial details",
+        "Measure oil clearance during assembly"
+      ]
     },
     {
       "id": "water-pump-impeller",
@@ -4434,8 +4484,10 @@
       "imageLicense": "Used for product reference; rights remain with the image owner",
       "imageLicenseUrl": "",
       "specifications": [
-        "Marine diesel engine series",
-        "Exact variant and rated power depend on configuration"
+        "Inline 6-cylinder · 9.726 L displacement",
+        "110–205 kW across WD615C marine ratings",
+        "Rated speeds: 1,500–2,100 rpm",
+        "Turbocharged and intercooled"
       ],
       "price": null
     },
@@ -4453,10 +4505,10 @@
       "imageLicense": "Used for product reference; rights remain with the image owner",
       "imageLicenseUrl": "",
       "specifications": [
-        "6 cylinders · 11.596 L displacement",
-        "220–294 kW across listed WD12 variants",
+        "Inline 6-cylinder · 11.596 L displacement",
+        "220–294 kW across WD12 marine ratings",
         "Rated speeds: 1,500–2,150 rpm",
-        "Turbocharged and aftercooled"
+        "Turbocharged and intercooled"
       ],
       "price": null
     },
@@ -4474,10 +4526,10 @@
       "imageLicense": "Used for product reference; rights remain with the image owner",
       "imageLicenseUrl": "",
       "specifications": [
-        "6 cylinders · 4-stroke diesel",
-        "230–290 kW across listed marine variants",
+        "Inline 6-cylinder · 9.726 L displacement",
+        "230–290 kW across WP10 marine ratings",
         "Rated speeds: 1,800–2,200 rpm",
-        "Fuel system: high-pressure common rail"
+        "Turbocharged and intercooled"
       ],
       "price": null
     },
@@ -4495,10 +4547,10 @@
       "imageLicense": "Used for product reference; rights remain with the image owner",
       "imageLicenseUrl": "",
       "specifications": [
-        "6-cylinder marine diesel series",
-        "295–405 kW across listed marine variants",
+        "Inline 6-cylinder · 11.596 L displacement",
+        "295–405 kW across WP12 marine ratings",
         "Rated speeds: 1,800–2,100 rpm",
-        "Fuel system: mechanical pump or high-pressure common rail, depending on variant"
+        "Mechanical pump or common rail, depending on variant"
       ],
       "price": null
     },
@@ -4518,8 +4570,8 @@
       "specifications": [
         "Inline 6-cylinder · 19 L displacement",
         "500–700 hp (373–522 kW) marine ratings",
-        "Turbocharged and aftercooled",
-        "Propulsion and auxiliary configurations"
+        "Rated speed: up to 2,100 rpm depending on rating",
+        "Turbocharged and aftercooled; PT fuel system"
       ],
       "price": null
     },
@@ -4539,8 +4591,8 @@
       "specifications": [
         "V12 · 38 L displacement",
         "850–1,500 hp (634–1,119 kW) marine ratings",
-        "Turbocharged and aftercooled",
-        "Propulsion and auxiliary configurations"
+        "Rated speeds: 1,600–2,050 rpm depending on rating",
+        "Turbocharged and aftercooled"
       ],
       "price": null
     },
@@ -4558,10 +4610,10 @@
       "imageLicense": "Used for product reference; rights remain with the image owner",
       "imageLicenseUrl": "",
       "specifications": [
-        "6 cylinders · 10.338 L displacement",
-        "192–300 kW across listed variants",
-        "Rated speeds depend on model: 1,500–2,100 rpm",
-        "For transport ships and fishing vessels"
+        "Inline 6-cylinder · 10.338 L displacement",
+        "192–300 kW across YC6MK marine ratings",
+        "Rated speeds: 1,500–2,100 rpm",
+        "Turbocharged and intercooled"
       ],
       "price": null
     },
@@ -4580,9 +4632,9 @@
       "imageLicenseUrl": "",
       "specifications": [
         "Inline 6-cylinder · 18.1 L displacement",
-        "454–1,136 bhp across marine configurations",
-        "Turbocharged and aftercooled",
-        "Commercial and high-performance versions have different ratings"
+        "454–1,136 bhp (339–847 bkW) marine ratings",
+        "Speed range: 1,500–2,100 rpm",
+        "Turbocharged and aftercooled"
       ],
       "price": null
     },
@@ -4601,9 +4653,9 @@
       "imageLicenseUrl": "",
       "specifications": [
         "V12 · 24.24 L displacement",
-        "D2862 LE44x example: 735 kW (1,000 HP) at 1,800 rpm",
-        "4-stroke marine diesel with turbocharging and charge-air cooling",
-        "Output and emissions depend on the full engine variant"
+        "735 kW (1,000 hp) at 1,800 rpm in D2862 LE44x",
+        "Maximum torque: 4,380 Nm at 1,100–1,600 rpm",
+        "Common-rail, turbocharged and charge-air cooled"
       ],
       "price": null
     },
@@ -4620,7 +4672,14 @@
       "imageCredit": "FADA Gearbox official product image",
       "imageLicense": "Used for product reference; rights remain with the image owner",
       "imageLicenseUrl": "",
-      "price": null
+      "price": null,
+      "specifications": [
+        "Input speed: 1,000–2,500 rpm",
+        "Reduction ratio: 1.97–5.88",
+        "Transmission capacity: 0.027–0.039 kW/rpm",
+        "Center distance: 170 mm · 270 kg dry",
+        "Max power: 97.5 kW at 2,500 rpm"
+      ]
     },
     {
       "id": "fada-fd135-fd135a",
@@ -4635,7 +4694,14 @@
       "imageCredit": "FADA Gearbox official product image",
       "imageLicense": "Used for product reference; rights remain with the image owner",
       "imageLicenseUrl": "",
-      "price": null
+      "price": null,
+      "specifications": [
+        "Input speed: 750–2,000 rpm",
+        "Reduction ratio: 2.03–5.81",
+        "Transmission capacity: 0.070–0.100 kW/rpm",
+        "Center distance: 225 mm · 470 kg dry",
+        "Max power: 200 kW at 2,000 rpm"
+      ]
     },
     {
       "id": "fada-fd142",
@@ -4650,7 +4716,14 @@
       "imageCredit": "FADA Gearbox official product image",
       "imageLicense": "Used for product reference; rights remain with the image owner",
       "imageLicenseUrl": "",
-      "price": null
+      "price": null,
+      "specifications": [
+        "Input speed: 1,500–2,500 rpm",
+        "Reduction ratio: 1.97–5.47",
+        "Transmission capacity: 0.013–0.030 kW/rpm",
+        "Center distance: 142 mm · 140 kg dry",
+        "Max power: 75 kW at 2,500 rpm"
+      ]
     },
     {
       "id": "fada-fd16",
@@ -4665,7 +4738,14 @@
       "imageCredit": "FADA Gearbox official product image",
       "imageLicense": "Used for product reference; rights remain with the image owner",
       "imageLicenseUrl": "",
-      "price": null
+      "price": null,
+      "specifications": [
+        "Input speed: 1,000–2,100 rpm",
+        "Reduction ratio: 2.07–3.83",
+        "Transmission capacity: 0.012 kW/rpm",
+        "Center distance: 135 mm · 87 kg dry",
+        "Max power: 25.2 kW at 2,100 rpm"
+      ]
     },
     {
       "id": "fada-fd06",
@@ -4680,7 +4760,14 @@
       "imageCredit": "FADA Gearbox official product image",
       "imageLicense": "Used for product reference; rights remain with the image owner",
       "imageLicenseUrl": "",
-      "price": null
+      "price": null,
+      "specifications": [
+        "Input speed: 1,000–2,100 rpm",
+        "Reduction ratio: 2.52–3.50",
+        "Transmission capacity: 0.0044 kW/rpm",
+        "Center distance: 124 mm · 62 kg dry",
+        "Max power: 9.24 kW at 2,100 rpm"
+      ]
     },
     {
       "id": "lonking-cdm833-wheel-loader",
@@ -4695,7 +4782,14 @@
       "imageCredit": "Made-in-China supplier listing",
       "imageLicense": "Used for product reference; rights remain with the image owner",
       "imageLicenseUrl": "",
-      "price": null
+      "price": null,
+      "specifications": [
+        "Bucket capacity: 1.7 m³ · rated payload 3,000 kg",
+        "Operating weight: 10,300 ±300 kg",
+        "Engine: Weichai WP6G125E22, 92 kW at 2,200 rpm",
+        "Max torque: 500 Nm at 1,400–1,600 rpm",
+        "Breakout force: 105 ±3 kN"
+      ]
     },
     {
       "id": "caterpillar-c7-1",
@@ -4710,7 +4804,14 @@
       "imageCredit": "eBay seller listing image",
       "imageLicense": "Used for product reference; rights remain with the image owner",
       "imageLicenseUrl": "",
-      "price": null
+      "price": null,
+      "specifications": [
+        "Inline 6-cylinder · 7.01 L displacement",
+        "112–240 kW depending on rating and emissions tier",
+        "Maximum torque: up to 1,268 Nm at 1,400 rpm",
+        "Rated speeds: 1,950–2,200 rpm",
+        "Turbocharged and aftercooled"
+      ]
     },
     {
       "id": "cummins-qsb6-7",
@@ -4725,7 +4826,13 @@
       "imageCredit": "Rebuilt Cummins Engine Sales listing",
       "imageLicense": "Used for product reference; rights remain with the image owner",
       "imageLicenseUrl": "",
-      "price": null
+      "price": null,
+      "specifications": [
+        "Inline 6-cylinder · 6.7 L displacement",
+        "129–194 kW (173–260 hp) for CEV Stage IV",
+        "Bore × stroke: 107 × 124 mm",
+        "Turbocharged and aftercooled; high-pressure common rail"
+      ]
     },
     {
       "id": "weichai-wp6g",
@@ -4740,7 +4847,14 @@
       "imageCredit": "Supplier product listing",
       "imageLicense": "Used for product reference; rights remain with the image owner",
       "imageLicenseUrl": "",
-      "price": null
+      "price": null,
+      "specifications": [
+        "Inline 6-cylinder · 6.75 L displacement",
+        "162 kW (220 hp) maximum power",
+        "Max torque: 900 Nm at 1,600 rpm",
+        "Bore × stroke: 105 × 130 mm",
+        "Turbocharged and intercooled"
+      ]
     },
     {
       "id": "perkins-1106d-e70ta",
@@ -4755,7 +4869,14 @@
       "imageCredit": "ProfMotors product listing",
       "imageLicense": "Used for product reference; rights remain with the image owner",
       "imageLicenseUrl": "",
-      "price": null
+      "price": null,
+      "specifications": [
+        "Inline 6-cylinder · 7.01 L displacement",
+        "116–205 kW (156–275 hp)",
+        "Max torque: 1,050 Nm at 1,400 rpm",
+        "Rated speeds: 2,200–2,500 rpm",
+        "Turbocharged and aftercooled"
+      ]
     },
     {
       "id": "john-deere-6068-powertech",
@@ -4770,7 +4891,13 @@
       "imageCredit": "John Deere official product image",
       "imageLicense": "Used for product reference; rights remain with the image owner",
       "imageLicenseUrl": "",
-      "price": null
+      "price": null,
+      "specifications": [
+        "Inline 6-cylinder · 6.8 L displacement",
+        "Bore × stroke: 106 × 127 mm",
+        "93–224 kW across listed 6068 industrial variants",
+        "Turbocharged or turbocharged/aftercooled depending on variant"
+      ]
     }
   ]
 }

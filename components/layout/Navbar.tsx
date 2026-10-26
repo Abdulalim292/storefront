@@ -27,16 +27,16 @@ export function Navbar({ onCartClick }: { onCartClick: () => void }) {
       <div className="relative mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-4 sm:px-8 lg:px-12">
         <div className="flex min-w-10 items-center gap-8">
           <div className="hidden xl:flex items-center gap-6">
-            <Link href="/#marine-engine-models" className="text-[11px] font-semibold uppercase tracking-[.12em] text-[#59615c] hover:text-[#8d754d] transition-colors">
+            <Link href="/categories/marine-engines" prefetch={false} className="text-[11px] font-semibold uppercase tracking-[.12em] text-[#59615c] hover:text-[#8d754d] transition-colors">
               Marine Engines
             </Link>
-            <Link href="/#gearboxes" className="text-[11px] font-semibold uppercase tracking-[.12em] text-[#59615c] hover:text-[#8d754d] transition-colors">
+            <Link href="/categories/marine-gearboxes" prefetch={false} className="text-[11px] font-semibold uppercase tracking-[.12em] text-[#59615c] hover:text-[#8d754d] transition-colors">
               Gearboxes
             </Link>
-            <Link href="/#heavy-machinery" className="text-[11px] font-semibold uppercase tracking-[.12em] text-[#59615c] hover:text-[#8d754d] transition-colors">
+            <Link href="/categories/heavy-machinery" prefetch={false} className="text-[11px] font-semibold uppercase tracking-[.12em] text-[#59615c] hover:text-[#8d754d] transition-colors">
               Heavy Machinery
             </Link>
-            <Link href="/products" className="text-[11px] font-semibold uppercase tracking-[.12em] text-[#59615c] hover:text-[#8d754d] transition-colors">
+            <Link href="/products" prefetch={false} className="text-[11px] font-semibold uppercase tracking-[.12em] text-[#59615c] hover:text-[#8d754d] transition-colors">
               Products
             </Link>
           </div>
@@ -107,16 +107,19 @@ export function Navbar({ onCartClick }: { onCartClick: () => void }) {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div id="mobile-navigation" className="space-y-2 border-t border-[#deddd5] bg-[#f8f7f3] p-4 shadow-lg xl:hidden">
-          <Link href="/#marine-engine-models" className="flex min-h-11 items-center text-sm font-semibold text-[#34403a]" onClick={() => setIsMenuOpen(false)}>
+          <Link href="/categories/marine-engines" prefetch={false} className="flex min-h-11 items-center text-sm font-semibold text-[#34403a]" onClick={() => setIsMenuOpen(false)}>
             Marine Engines
           </Link>
-          <Link href="/#gearboxes" className="flex min-h-11 items-center text-sm font-semibold text-[#34403a]" onClick={() => setIsMenuOpen(false)}>
+          <Link href="/categories/marine-gearboxes" prefetch={false} className="flex min-h-11 items-center text-sm font-semibold text-[#34403a]" onClick={() => setIsMenuOpen(false)}>
             Gearboxes
           </Link>
-          <Link href="/#heavy-machinery" className="flex min-h-11 items-center text-sm font-semibold text-[#34403a]" onClick={() => setIsMenuOpen(false)}>
+          <Link href="/categories/heavy-machinery" prefetch={false} className="flex min-h-11 items-center text-sm font-semibold text-[#34403a]" onClick={() => setIsMenuOpen(false)}>
             Heavy Machinery
           </Link>
-          <Link href="/products" className="flex min-h-11 items-center text-sm font-semibold text-[#34403a]" onClick={() => setIsMenuOpen(false)}>
+          <Link href="/categories" prefetch={false} className="flex min-h-11 items-center text-sm font-semibold text-[#34403a]" onClick={() => setIsMenuOpen(false)}>
+            All Categories
+          </Link>
+          <Link href="/products" prefetch={false} className="flex min-h-11 items-center text-sm font-semibold text-[#34403a]" onClick={() => setIsMenuOpen(false)}>
             Products
           </Link>
         </div>

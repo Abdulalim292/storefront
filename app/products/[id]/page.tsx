@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { PRODUCTS } from '@/data/products';
 import { EQUIPMENT_PRODUCTS } from '@/data/equipment';
+import { getCategoryForProduct } from '@/data/categories';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { breadcrumbJsonLd, productJsonLd } from '@/lib/structured-data';
 import ProductDetailClient from './ProductDetailClient';
 
 function findProduct(id: string) {
@@ -40,5 +43,20 @@ export default async function ProductDetailPage({ params }: PageProps<'/products
   if (!product) {
     notFound();
   }
-  return <ProductDetailClient product={product} />;
+
+  const category = getCategoryForProduct(product);
+  const breadcrumbItems = [
+    { name: 'Home', path: '/' },
+    { name: 'Products', path: '/products' },
+    ...(category ? [{ name: category.label, path: `/categories/${category.slug}` }] : []),
+    { name: product.name, path: `/products/${product.id}` },
+  ];
+
+  return (
+    <>
+      <JsonLd data={productJsonLd(product)} />
+      <JsonLd data={breadcrumbJsonLd(breadcrumbItems)} />
+      <ProductDetailClient product={product} breadcrumbItems={breadcrumbItems} />
+    </>
+  );
 }
