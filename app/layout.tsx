@@ -24,6 +24,36 @@ export const viewport: Viewport = {
   themeColor: '#111b18',
 };
 
+// Some extensions (Urban VPN, SpeakIt!, Bitdefender) stamp
+// `bis_skin_checked="1"` on every element as the page parses. React sees those
+// attributes as a hydration mismatch and reports the whole page as changed.
+// Remove that marker before hydration and keep watching for it while the page
+// loads. Only this attribute is touched, so real mismatches are still reported.
+const stripExtensionAttributes = `(function () {
+  var attribute = 'bis_skin_checked';
+  function strip(root) {
+    if (root.nodeType === 1 && root.hasAttribute(attribute)) root.removeAttribute(attribute);
+    if (!root.querySelectorAll) return;
+    var nodes = root.querySelectorAll('[' + attribute + ']');
+    for (var i = 0; i < nodes.length; i += 1) nodes[i].removeAttribute(attribute);
+  }
+  strip(document.documentElement);
+  var observer = new MutationObserver(function (records) {
+    for (var i = 0; i < records.length; i += 1) {
+      if (records[i].attributeName === attribute) records[i].target.removeAttribute(attribute);
+    }
+  });
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: [attribute],
+    subtree: true,
+  });
+  window.addEventListener('load', function () {
+    strip(document.documentElement);
+    window.setTimeout(function () { observer.disconnect(); }, 1000);
+  }, { once: true });
+})();`;
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     // Browser extensions such as Grammarly, ColorZilla, Dark Reader, and
@@ -32,6 +62,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     // elsewhere in the tree are still reported.
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body suppressHydrationWarning className="flex min-h-screen flex-col bg-[#f8f7f3] pb-[calc(3.5rem+env(safe-area-inset-bottom))] font-sans text-[#17221f] lg:pb-0">
+        <script dangerouslySetInnerHTML={{ __html: stripExtensionAttributes }} />
         <JsonLd data={organizationJsonLd} />
         <JsonLd data={websiteJsonLd} />
         <StorefrontShell>{children}</StorefrontShell>
