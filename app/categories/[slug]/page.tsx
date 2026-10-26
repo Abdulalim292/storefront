@@ -16,6 +16,10 @@ import { breadcrumbJsonLd, collectionPageJsonLd } from '@/lib/structured-data';
 
 const PAGE_SIZE = 24;
 
+// Category pages validate the slug so unknown routes return a real 404.
+// Pagination reads search params, so the route can block on first navigation.
+export const instant = false;
+
 export function generateStaticParams() {
   return CATEGORY_LANDINGS.map((category) => ({ slug: category.slug }));
 }

@@ -26,8 +26,12 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
-      <body className="flex min-h-screen flex-col bg-[#f8f7f3] pb-[calc(3.5rem+env(safe-area-inset-bottom))] font-sans text-[#17221f] lg:pb-0">
+    // Browser extensions such as Grammarly, ColorZilla, Dark Reader, and
+    // translators inject attributes into the root elements before hydration.
+    // Suppress only those root attribute warnings; real component mismatches
+    // elsewhere in the tree are still reported.
+    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
+      <body suppressHydrationWarning className="flex min-h-screen flex-col bg-[#f8f7f3] pb-[calc(3.5rem+env(safe-area-inset-bottom))] font-sans text-[#17221f] lg:pb-0">
         <JsonLd data={organizationJsonLd} />
         <JsonLd data={websiteJsonLd} />
         <StorefrontShell>{children}</StorefrontShell>
