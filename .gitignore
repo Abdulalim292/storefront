@@ -3,6 +3,7 @@ node_modules/
 .claude/
 dist/
 *.log
+*.tsbuildinfo
 .env*
 !.env.example
 public/images/products/
