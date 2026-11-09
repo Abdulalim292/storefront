@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { PRODUCTS } from '@/data/products';
 import { EQUIPMENT_PRODUCTS } from '@/data/equipment';
@@ -134,8 +135,14 @@ export function ProductPhotoManager() {
         </div>
         <div>
           <p className="text-sm font-medium text-[#17221f]">{file ? 'New photo preview' : 'Current photo'}</p>
-          <div className="mt-2 grid aspect-square place-items-center overflow-hidden border border-[#dfddd5] bg-[#eeece5]">
-            {(preview || currentImage) ? <img src={preview || currentImage} alt={product?.name ?? 'Product photo'} className="h-full w-full object-contain p-5" /> : <span className="text-sm text-[#777b72]">No photo selected</span>}
+          <div className="relative mt-2 aspect-square place-items-center overflow-hidden border border-[#dfddd5] bg-[#eeece5]">
+            {preview ? (
+              <img src={preview} alt={product?.name ?? 'Product photo'} className="h-full w-full object-contain p-5" />
+            ) : currentImage ? (
+              <Image src={currentImage} alt={product?.name ?? 'Product photo'} fill sizes="(min-width: 768px) 400px, 100vw" className="object-contain p-5" unoptimized={currentImage.startsWith('http')} />
+            ) : (
+              <span className="text-sm text-[#777b72]">No photo selected</span>
+            )}
           </div>
           {product && <p className="mt-3 text-sm text-[#59615c]">Selected: <span className="font-medium text-[#17221f]">{product.name}</span></p>}
         </div>
