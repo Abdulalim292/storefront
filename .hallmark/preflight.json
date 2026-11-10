@@ -1,0 +1,25 @@
+{
+  "scanned": "2026-11-09",
+  "findings": {
+    "brand": "Noor Alam Machineries · logo /brand/noor-alam-site-logo.webp · brass #a78b5f/#d7bd8d · deep green #17221f/#111b18",
+    "fonts": "Outfit declared in app/globals.css L14/L23 but never loaded (no next/font, no webfont link) — falls back to Avenir Next/Segoe UI",
+    "palette": "5 tokens in app/globals.css L3-9; 231 raw colour literals across components",
+    "motion": "CSS scroll-driven reveals + brand marquee, app/globals.css L50-76; no framer-motion/gsap",
+    "spacing": "Tailwind 4 default scale; max-w-[1440px] repeated per section",
+    "framework": "Next.js 16.4.5 App Router, React 19.3.1, Tailwind 4.3.5",
+    "material": "333 catalog products, 9 categories, 3 equipment groups, product photos + brand logos, 3 branches, phone/email, buying notes",
+    "pages": "/ · /categories · /categories/[slug] (12) · /products · /products/[id] (333) · /image-credits · /admin/products (app screen, auth) · not-found/error"
+  },
+  "preserve": [
+    "brand name, logo, brass + deep green",
+    "all catalog content, prices, buying notes, branch facts",
+    "every route, link, form, field, handler and test hook",
+    "real product photography"
+  ],
+  "introduce": [
+    "design tokens and a loaded typeface",
+    "shape, hero discipline, section rhythm",
+    "product-card and catalogue system",
+    "focus, contrast and state fixes"
+  ]
+}

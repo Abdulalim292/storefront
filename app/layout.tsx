@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { Chakra_Petch, IBM_Plex_Mono, IBM_Plex_Sans } from 'next/font/google';
 import './globals.css';
 import { StorefrontShell } from '@/components/layout/StorefrontShell';
 import { Footer } from '@/components/layout/Footer';
@@ -6,6 +7,25 @@ import { Analytics } from '@/components/analytics/Analytics';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { organizationJsonLd, websiteJsonLd } from '@/lib/structured-data';
 import { SITE_URL } from '@/lib/site';
+
+const chakra = Chakra_Petch({
+  subsets: ['latin'],
+  weight: ['500', '600', '700'],
+  variable: '--font-chakra',
+  display: 'swap',
+});
+const plex = IBM_Plex_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-plex',
+  display: 'swap',
+});
+const plexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-plex-mono',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -21,7 +41,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#111b18',
+  themeColor: '#17221f',
 };
 
 // Some extensions (Urban VPN, SpeakIt!, Bitdefender) stamp
@@ -61,7 +81,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     // Suppress only those root attribute warnings; real component mismatches
     // elsewhere in the tree are still reported.
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
-      <body suppressHydrationWarning className="flex min-h-screen flex-col bg-[#f8f7f3] pb-[calc(3.5rem+env(safe-area-inset-bottom))] font-sans text-[#17221f] lg:pb-0">
+      <body
+        suppressHydrationWarning
+        className={`${chakra.variable} ${plex.variable} ${plexMono.variable} flex min-h-screen flex-col pb-[calc(3.5rem+env(safe-area-inset-bottom))] lg:pb-0`}
+      >
+        <a href="#main" className="skip-link">Skip to content</a>
         <script dangerouslySetInnerHTML={{ __html: stripExtensionAttributes }} />
         <JsonLd data={organizationJsonLd} />
         <JsonLd data={websiteJsonLd} />

@@ -13,26 +13,21 @@ export function Button({
   ...props
 }: ButtonProps) {
   const variants = {
-    primary: 'bg-[#17221f] text-white hover:bg-[#34433c]',
-    secondary: 'bg-[#e7e3d8] text-[#17221f] hover:bg-[#d8d2c4]',
-    outline: 'border border-[#b9b8ae] bg-transparent text-[#26332d] hover:bg-[#eeece4]',
-    ghost: 'bg-transparent text-[#48534c] hover:bg-[#eeece4]',
+    primary: 'btn',
+    secondary: 'btn btn--quiet',
+    outline: 'btn btn--quiet',
+    ghost: 'btn btn--quiet border-transparent',
   };
 
   const sizes = {
-    sm: 'px-3 py-1.5 text-sm',
-    md: 'px-4 py-2 text-base',
-    lg: 'px-6 py-3 text-lg',
+    sm: 'btn--sm',
+    md: '',
+    lg: 'min-h-14 px-8 text-base',
   };
 
   return (
     <button
-      className={cn(
-        'inline-flex items-center justify-center rounded-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[#a78b5f] focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none',
-        variants[variant],
-        sizes[size],
-        className
-      )}
+      className={cn(variants[variant], sizes[size], className)}
       {...props}
     />
   );

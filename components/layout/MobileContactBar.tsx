@@ -8,26 +8,26 @@ export function MobileContactBar() {
   return (
     <nav
       aria-label="Quick contact"
-      className="fixed inset-x-0 bottom-0 z-[55] border-t border-[#d8d5ca] bg-[#f8f7f3]/95 backdrop-blur-xl lg:hidden"
+      className="fixed inset-x-0 bottom-0 z-[55] border-t border-rule-2 bg-paper-2 lg:hidden"
     >
       <div className="grid grid-cols-2 pb-[env(safe-area-inset-bottom)]">
         <a
           href={toBangladeshTel(SALES_PHONE)}
           data-analytics="mobile-bar"
-          className="flex min-h-14 items-center justify-center gap-2 border-r border-[#d8d5ca] px-3 text-sm font-semibold text-[#17221f] transition-colors hover:bg-[#ebe7dc]"
+          className="flex min-h-14 items-center justify-center gap-2 border-r border-rule-2 px-3 text-sm font-medium text-ink transition-colors hover:bg-paper-3"
         >
-          <PhoneCall className="h-4 w-4" />
+          <PhoneCall className="h-4 w-4" aria-hidden="true" />
           <span>Call us</span>
-          <span className="sr-only">{formatBangladeshPhone(SALES_PHONE)}</span>
+          <span className="visually-hidden">{formatBangladeshPhone(SALES_PHONE)}</span>
         </a>
         <a
           href={whatsappHref(WHATSAPP_MESSAGE)}
           target="_blank"
           rel="noopener noreferrer"
           data-analytics="mobile-bar"
-          className="flex min-h-14 items-center justify-center gap-2 bg-[#25D366] px-3 text-sm font-semibold text-white transition-colors hover:bg-[#20ba5a]"
+          className="flex min-h-14 items-center justify-center gap-2 bg-accent px-3 text-sm font-medium text-accent-ink transition-colors hover:bg-accent/85"
         >
-          <MessageCircle className="h-4 w-4" />
+          <MessageCircle className="h-4 w-4" aria-hidden="true" />
           <span>WhatsApp</span>
         </a>
       </div>

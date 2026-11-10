@@ -22,7 +22,7 @@ export function ResilientImage({ src, alt, sizes, className = '', loading = 'laz
 
   if (hasFailed) {
     return (
-      <div role="img" aria-label={`${alt} (image unavailable)`} className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-slate-100 p-4 text-slate-400">
+      <div role="img" aria-label={`${alt} (image unavailable)`} className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-paper-2 p-4 text-muted">
         <ImageOff className="h-8 w-8" aria-hidden="true" />
         <span className="text-center text-xs">Image unavailable</span>
       </div>

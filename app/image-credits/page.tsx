@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { PRODUCTS } from '@/data/products';
 import { EQUIPMENT_PRODUCTS } from '@/data/equipment';
+import { cleanDash } from '@/lib/copy';
 
 export const metadata: Metadata = {
   title: 'Image credits',
@@ -72,65 +73,110 @@ const sitePhotos = [
 
 export default function ImageCreditsPage() {
   return (
-    <main className="mx-auto max-w-[1100px] px-5 py-16 sm:px-8 sm:py-24 lg:px-12">
-      <p className="section-kicker">Attribution</p>
-      <h1 className="mt-4 text-4xl font-semibold tracking-[-.045em] text-[#17221f] sm:text-6xl">Image credits</h1>
-      <p className="mt-5 max-w-2xl text-base leading-7 text-[#59615c]">
-        Product photography is shown for reference and remains the property of its respective owners. Where a photograph
-        comes from Wikimedia Commons or another source, the creator, license, and original page are listed below.
-        Manufacturer logos are credited in the brand assets README in the project repository.
-      </p>
-      <p className="mt-4 text-sm text-[#777b72]">
-        {PRODUCTS.length + EQUIPMENT_PRODUCTS.length} catalog items across {creditGroups.length} image sources.
-      </p>
+    <main className="sheet-light">
+      <div className="container py-12 sm:py-16 lg:py-20">
+        <header className="index-head border-b border-rule pb-10">
+          <div>
+            <p className="font-outlier text-xs text-muted">Attribution</p>
+            <h1 className="mt-4 text-ink">Image credits</h1>
+            <p className="mt-5 max-w-2xl text-base leading-7 text-ink-2">
+              Product photography is shown for reference and remains the property of its respective owners. Where a photograph
+              comes from Wikimedia Commons or another source, the creator, license, and original page are listed below.
+              Manufacturer logos are credited in the brand assets README in the project repository.
+            </p>
+            <p className="mt-4 font-outlier text-xs text-muted">
+              {PRODUCTS.length + EQUIPMENT_PRODUCTS.length} catalog items across {creditGroups.length} image sources
+            </p>
+          </div>
 
-      <section className="mt-12" aria-labelledby="site-photography">
-        <h2 id="site-photography" className="text-xs font-bold uppercase tracking-[.18em] text-[#8b806b]">Site photography</h2>
-        <ul className="mt-4 divide-y divide-[#dfddd5] border-y border-[#dfddd5]">
-          {sitePhotos.map((photo) => (
-            <li key={photo.name} className="grid gap-3 py-5 sm:grid-cols-[1.15fr_.85fr] sm:gap-8">
-              <div>
-                <p className="text-sm font-semibold leading-6 text-[#17221f]">{photo.name}</p>
-                <p className="mt-1 text-xs leading-5 text-[#777b72]">{photo.credit}</p>
-              </div>
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-[#59615c]">
-                <span>{photo.license}</span>
-                <a href={photo.source} target="_blank" rel="noreferrer" className="font-medium text-[#6f5a32] underline decoration-[#c6b28b] underline-offset-4 hover:text-[#17221f]">
-                  Source
-                </a>
-                <a href={photo.licenseUrl} target="_blank" rel="noreferrer" className="font-medium text-[#6f5a32] underline decoration-[#c6b28b] underline-offset-4 hover:text-[#17221f]">
-                  License
-                </a>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </section>
+          <nav aria-label="Credit sections" className="mt-10 flex flex-col gap-3 border-t border-rule-2 pt-4 font-outlier text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+            <span>Jump to a section</span>
+            <span className="flex flex-wrap gap-x-6 gap-y-2">
+              <a href="#site-photography" className="hover:text-accent">Site photography</a>
+              <a href="#product-photography" className="hover:text-accent">Product photography</a>
+            </span>
+          </nav>
+        </header>
 
-      <h2 id="product-photography" className="mt-14 text-xs font-bold uppercase tracking-[.18em] text-[#8b806b]">Product photography</h2>
-      <ul className="mt-4 divide-y divide-[#dfddd5] border-y border-[#dfddd5]">
-        {creditGroups.map((group) => (
-          <li key={group.source || group.credit} className="grid gap-3 py-5 sm:grid-cols-[1.15fr_.85fr] sm:gap-8">
-            <div>
-              <p className="text-sm font-semibold leading-6 text-[#17221f]">{group.productNames.join(' · ')}</p>
-              <p className="mt-1 text-xs leading-5 text-[#777b72]">{group.credit}</p>
-            </div>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-[#59615c]">
-              {group.license && <span>{group.license}</span>}
-              {group.source && (
-                <a href={group.source} target="_blank" rel="noreferrer" className="font-medium text-[#6f5a32] underline decoration-[#c6b28b] underline-offset-4 hover:text-[#17221f]">
-                  Source
-                </a>
-              )}
-              {group.licenseUrl && (
-                <a href={group.licenseUrl} target="_blank" rel="noreferrer" className="font-medium text-[#6f5a32] underline decoration-[#c6b28b] underline-offset-4 hover:text-[#17221f]">
-                  License
-                </a>
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
+        <section className="mt-14" aria-labelledby="site-photography">
+          <div className="mb-4 flex items-baseline justify-between gap-4 border-b border-rule pb-3">
+            <h2 id="site-photography" className="text-xl text-ink">Site photography</h2>
+            <p className="font-outlier text-xs text-muted">01</p>
+          </div>
+          <ul>
+            {sitePhotos.map((photo) => (
+              <li key={photo.name} className="grid gap-3 border-b border-rule-2 py-5 sm:grid-cols-12 sm:items-baseline sm:gap-6">
+                <div className="sm:col-span-7">
+                  <p className="text-sm font-medium leading-6 text-ink">{photo.name}</p>
+                  <p className="mt-1 font-outlier text-xs text-muted">{photo.credit}</p>
+                </div>
+                <div className="sm:col-span-5">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-outlier text-xs text-muted sm:justify-end">
+                    {photo.license && <span>{photo.license}</span>}
+                    {photo.source && (
+                      <a href={photo.source} target="_blank" rel="noreferrer" className="link">
+                        Source
+                      </a>
+                    )}
+                    {photo.licenseUrl && (
+                      <a href={photo.licenseUrl} target="_blank" rel="noreferrer" className="link">
+                        License
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="mt-14" aria-labelledby="product-photography">
+          <div className="mb-4 flex items-baseline justify-between gap-4 border-b border-rule pb-3">
+            <h2 id="product-photography" className="text-xl text-ink">Product photography</h2>
+            <p className="font-outlier text-xs text-muted">02</p>
+          </div>
+          <ul>
+            {creditGroups.map((group) => (
+              <li key={group.source || group.credit} className="grid gap-3 border-b border-rule-2 py-5 sm:grid-cols-12 sm:items-baseline sm:gap-6">
+                <div className="sm:col-span-7">
+                  {group.productNames.length > 3 ? (
+                    <details>
+                      <summary className="cursor-pointer font-outlier text-xs text-ink marker:text-accent">
+                        {group.productNames.length} products
+                      </summary>
+                      <ul className="mt-2 space-y-1">
+                        {group.productNames.map((name) => (
+                          <li key={name} className="text-sm leading-6 text-ink-2">{cleanDash(name)}</li>
+                        ))}
+                      </ul>
+                    </details>
+                  ) : (
+                    <p className="text-sm leading-6 text-ink">
+                      {group.productNames.map((name) => cleanDash(name)).join(', ')}
+                    </p>
+                  )}
+                  <p className="mt-1 font-outlier text-xs text-muted">{group.credit}</p>
+                </div>
+                <div className="sm:col-span-5">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-outlier text-xs text-muted sm:justify-end">
+                    {group.license && <span>{group.license}</span>}
+                    {group.source && (
+                      <a href={group.source} target="_blank" rel="noreferrer" className="link">
+                        Source
+                      </a>
+                    )}
+                    {group.licenseUrl && (
+                      <a href={group.licenseUrl} target="_blank" rel="noreferrer" className="link">
+                        License
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
     </main>
   );
 }

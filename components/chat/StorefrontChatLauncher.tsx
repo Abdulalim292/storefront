@@ -10,8 +10,9 @@ const StorefrontChatbot = dynamic(
     ssr: false,
     loading: () => (
       <div className="pointer-events-auto fixed bottom-20 right-4 z-[65] sm:right-6 lg:bottom-6">
-        <button type="button" disabled aria-label="Loading support chat" className="flex h-12 w-12 items-center justify-center rounded-full bg-cyan-600 text-white opacity-80 shadow-lg sm:h-14 sm:w-14">
-          <MessageCircle className="h-5 w-5" />
+        <button type="button" disabled aria-label="Loading support chat" className="btn opacity-80">
+          <MessageCircle className="h-5 w-5" aria-hidden="true" />
+          <span className="hidden sm:inline">Chat with us</span>
         </button>
       </div>
     ),
@@ -29,10 +30,10 @@ export function StorefrontChatLauncher() {
         type="button"
         aria-label="Open support chat"
         onClick={() => setIsLoaded(true)}
-        className="touch-manipulation flex h-12 w-12 items-center justify-center gap-2 rounded-full bg-cyan-600 p-0 text-white shadow-lg shadow-cyan-900/25 transition hover:-translate-y-0.5 hover:bg-cyan-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-700 sm:h-14 sm:w-auto sm:px-5"
+        className="btn touch-manipulation"
       >
-        <MessageCircle className="h-5 w-5" />
-        <span className="hidden text-sm font-semibold sm:inline">Chat with us</span>
+        <MessageCircle className="h-5 w-5" aria-hidden="true" />
+        <span className="hidden sm:inline">Chat with us</span>
       </button>
     </div>
   );

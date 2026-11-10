@@ -5,19 +5,37 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import type { EquipmentModel } from '@/data/equipment';
 import { useProductImage } from '@/context/ProductImageContext';
+import { cleanDash, splitMeta } from '@/lib/copy';
+
+const roles = ['Marine propulsion', 'Marine transmission', 'Heavy machinery'];
+const anchors = ['marine-engine-models', 'gearboxes', 'heavy-machinery'];
 
 export function PinnedEquipmentStory({ models }: { models: EquipmentModel[] }) {
   return (
-    <section className="bg-[#ebe9e2] py-24 sm:py-32 lg:py-40">
-      <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:grid lg:grid-cols-[.78fr_1.22fr] lg:gap-20 lg:px-12">
-        <div className="mb-12 max-w-xl lg:sticky lg:top-24 lg:mb-0 lg:self-start">
-          <p className="section-kicker">Made to move demanding work</p>
-          <h2 className="mt-5 text-4xl font-semibold leading-[1.03] tracking-[-.045em] text-[#17221f] sm:text-6xl">Power, matched to its purpose.</h2>
-          <p className="mt-6 text-base leading-7 text-[#59615c]">From propulsion to transmission, each specification matters. Browse a few equipment options and talk with us about the right configuration.</p>
-          <Link href="/products" className="mt-8 inline-flex min-h-12 items-center gap-3 text-sm font-semibold text-[#26332d] underline decoration-[#a78b5f] underline-offset-8">Explore the catalog <ArrowUpRight className="h-4 w-4" /></Link>
+    <section className="section">
+      <div className="container grid gap-10 lg:grid-cols-12 lg:gap-14">
+        <div className="lg:sticky lg:top-28 lg:col-span-4 lg:self-start">
+          <h2>Power, matched to its purpose.</h2>
+          <p className="mt-5 max-w-sm text-base leading-7 text-muted">
+            From propulsion to transmission, each specification matters. Browse a few equipment options and talk with us about the right configuration.
+          </p>
+          <Link href="/products" className="link mt-6">
+            Explore the catalog <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+
+          <ol className="mt-9 border-t border-rule-2">
+            {models.map((model, index) => (
+              <li key={model.id} className="border-b border-rule-2">
+                <a href={`#${anchors[index]}`} className="flex items-baseline gap-3 py-3 text-sm text-ink-2 hover:text-accent">
+                  <span className="font-outlier text-xs text-muted">{String(index + 1).padStart(2, '0')}</span>
+                  {model.name}
+                </a>
+              </li>
+            ))}
+          </ol>
         </div>
 
-        <div className="space-y-7 lg:space-y-12">
+        <div className="space-y-6 lg:col-span-8">
           {models.map((model, index) => (
             <EquipmentStoryCard key={model.id} model={model} index={index} />
           ))}
@@ -29,31 +47,45 @@ export function PinnedEquipmentStory({ models }: { models: EquipmentModel[] }) {
 
 function EquipmentStoryCard({ model, index }: { model: EquipmentModel; index: number }) {
   const image = useProductImage(model.id, model.image);
+  const specs = (model.specifications ?? []).flatMap((spec) => splitMeta(spec)).slice(0, 4);
+
   return (
     <Link
-      id={index === 0 ? 'marine-engine-models' : index === 1 ? 'gearboxes' : 'heavy-machinery'}
+      id={anchors[index]}
       href={`/products/${model.id}`}
       prefetch={false}
-      className="story-card group scroll-mt-24 block overflow-hidden bg-[#d8d9d2]"
+      className="plate-link group grid scroll-mt-28 border border-rule-2 md:grid-cols-2"
     >
-      <div className={`relative ${index === 0 ? 'aspect-[1.42]' : 'aspect-[1.7]'}`}>
+      <div className={`plate ${index === 0 ? 'aspect-[4/3] md:aspect-auto md:min-h-[340px]' : 'aspect-[16/9] md:aspect-auto md:min-h-[280px]'}`}>
         <Image
           src={image}
           alt={model.name}
           fill
-          sizes="(max-width: 959px) 100vw, 60vw"
+          sizes="(max-width: 767px) 100vw, 44vw"
           quality={70}
           unoptimized={image.includes('/storage/v1/object/public/product-images/')}
-          className="object-contain p-8 transition-transform duration-700 ease-out group-hover:scale-105 sm:p-12"
+          className="object-contain p-6 sm:p-8"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#17221f]/75 via-transparent to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 text-white sm:p-8">
-          <div>
-            <p className="text-[11px] uppercase tracking-[.18em] text-white/70">{index === 0 ? 'Marine propulsion' : index === 1 ? 'Marine transmission' : 'Heavy machinery'}</p>
-            <h3 className="mt-2 text-2xl font-medium tracking-tight sm:text-4xl">{model.name}</h3>
+      </div>
+      <div className="flex flex-col justify-between border-t border-rule-2 p-5 md:border-l md:border-t-0 sm:p-6">
+        <div>
+          <div className="flex items-center justify-between gap-4">
+            <span className="font-outlier text-xs text-muted">{roles[index]}</span>
+            <span className="font-outlier text-xs text-muted">{String(index + 1).padStart(2, '0')}</span>
           </div>
-          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/50 transition-colors group-hover:bg-white group-hover:text-[#17221f]"><ArrowUpRight className="h-4 w-4" /></span>
+          <h3 className="mt-3 text-2xl text-ink">{model.name}</h3>
+          <p className="mt-3 text-sm leading-6 text-muted">{cleanDash(model.description)}</p>
+          {specs.length > 0 && (
+            <ul className="mt-5 border-t border-rule-2">
+              {specs.map((spec) => (
+                <li key={spec} className="border-b border-rule-2 py-2 text-sm leading-6 text-ink-2">{spec}</li>
+              ))}
+            </ul>
+          )}
         </div>
+        <span className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-accent">
+          View model <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+        </span>
       </div>
     </Link>
   );

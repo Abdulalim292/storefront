@@ -27,7 +27,7 @@ export function ContactForm() {
   };
 
   const whatsappText = [
-    'Equipment inquiry — Noor Alam Machineries',
+    'Equipment inquiry for Noor Alam Machineries',
     '',
     `Name: ${formData.name || 'Not provided'}`,
     `Phone: ${formData.phone || 'Not provided'}`,
@@ -70,13 +70,12 @@ export function ContactForm() {
   };
 
   return (
-    <div className="w-full max-w-md">
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <div className="space-y-2">
-            <label className="text-xs font-semibold uppercase tracking-wider text-slate-400" htmlFor="name">
-              Name
-            </label>
+    <div className="w-full">
+      <p className="mb-4 text-sm font-medium text-ink">Send an inquiry</p>
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-px border border-rule-2 bg-rule-2">
+        <div className="grid grid-cols-1 gap-px bg-rule-2 sm:grid-cols-2">
+          <div className="field bg-paper p-3">
+            <label className="label" htmlFor="name">Name</label>
             <input
               type="text"
               name="name"
@@ -86,14 +85,12 @@ export function ContactForm() {
               autoComplete="name"
               value={formData.name}
               onChange={handleInputChange}
-              className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-slate-500 outline-none transition-all focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+              className="input border-0 border-b border-muted bg-transparent px-0"
               placeholder="Your name"
             />
           </div>
-          <div className="space-y-2">
-            <label className="text-xs font-semibold uppercase tracking-wider text-slate-400" htmlFor="email">
-              Email <span className="normal-case tracking-normal text-slate-500">(optional)</span>
-            </label>
+          <div className="field bg-paper p-3">
+            <label className="label" htmlFor="email">Email (optional)</label>
             <input
               type="email"
               name="email"
@@ -102,17 +99,15 @@ export function ContactForm() {
               autoComplete="email"
               value={formData.email}
               onChange={handleInputChange}
-              className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-slate-500 outline-none transition-all focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
-              placeholder="email@example.com"
+              className="input border-0 border-b border-muted bg-transparent px-0"
+              placeholder="you@company.com"
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <div className="space-y-2">
-            <label className="text-xs font-semibold uppercase tracking-wider text-slate-400" htmlFor="phone">
-              Phone
-            </label>
+        <div className="grid grid-cols-1 gap-px bg-rule-2 sm:grid-cols-2">
+          <div className="field bg-paper p-3">
+            <label className="label" htmlFor="phone">Phone</label>
             <input
               type="tel"
               name="phone"
@@ -123,14 +118,12 @@ export function ContactForm() {
               autoComplete="tel"
               value={formData.phone}
               onChange={handleInputChange}
-              className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-slate-500 outline-none transition-all focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
-              placeholder="Phone or WhatsApp number"
+              className="input border-0 border-b border-muted bg-transparent px-0"
+              placeholder="Phone or WhatsApp"
             />
           </div>
-          <div className="space-y-2">
-            <label className="text-xs font-semibold uppercase tracking-wider text-slate-400" htmlFor="model">
-              Equipment model
-            </label>
+          <div className="field bg-paper p-3">
+            <label className="label" htmlFor="model">Equipment model</label>
             <input
               type="text"
               name="model"
@@ -138,16 +131,14 @@ export function ContactForm() {
               maxLength={120}
               value={formData.model}
               onChange={handleInputChange}
-              className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-slate-500 outline-none transition-all focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
-              placeholder="e.g. Cummins KTA19"
+              className="input border-0 border-b border-muted bg-transparent px-0"
+              placeholder="e.g. KTA19"
             />
           </div>
         </div>
 
-        <div className="space-y-2">
-          <label className="text-xs font-semibold uppercase tracking-wider text-slate-400" htmlFor="message">
-            Message
-          </label>
+        <div className="field bg-paper p-3">
+          <label className="label" htmlFor="message">Message</label>
           <textarea
             name="message"
             id="message"
@@ -156,8 +147,8 @@ export function ContactForm() {
             maxLength={2_000}
             value={formData.message}
             onChange={handleInputChange}
-            className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-slate-500 outline-none transition-all focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
-            placeholder="Share your requirements, vessel type, and specifications..."
+            className="input border-0 border-b border-muted bg-transparent px-0"
+            placeholder="Share your requirements, vessel type, and specifications"
           />
         </div>
 
@@ -177,42 +168,42 @@ export function ContactForm() {
         <Button
           type="submit"
           disabled={status === 'submitting'}
-          className="mt-2 w-full bg-cyan-400 py-6 text-base font-bold text-slate-950 transition hover:bg-cyan-300 disabled:opacity-50"
+          className="w-full"
         >
-          <Send className="mr-2 inline h-4 w-4" />
-          {status === 'submitting' ? 'Sending inquiry…' : 'Send inquiry'}
+          <Send className="h-4 w-4" aria-hidden="true" />
+          {status === 'submitting' ? 'Sending inquiry' : 'Send inquiry'}
         </Button>
 
-        <div aria-live="polite">
+        <div aria-live="polite" className="bg-paper p-3 empty:hidden">
           {status === 'success' && (
-            <p role="status" className="text-sm text-emerald-300">
-              Thank you — your inquiry has been received. We will contact you shortly.
+            <p role="status" className="text-sm text-success">
+              Thank you. Your inquiry has been received. We will contact you shortly.
             </p>
           )}
           {status === 'error' && (
-            <div role="alert" className="space-y-3 border border-red-400/40 bg-red-950/30 p-4 text-sm text-red-100">
+            <div role="alert" className="space-y-3 border border-error/50 p-3 text-sm text-ink-2">
               <p>{errorMessage}</p>
               <a
                 href={whatsappHref(whatsappText)}
                 target="_blank"
                 rel="noopener noreferrer"
                 data-analytics="contact-form-fallback"
-                className="inline-flex items-center gap-2 font-semibold text-emerald-300 underline underline-offset-4 hover:text-emerald-200"
+                className="inline-flex items-center gap-2 font-medium text-accent underline underline-offset-4"
               >
-                <MessageCircle className="h-4 w-4" /> Send these details on WhatsApp instead
+                <MessageCircle className="h-4 w-4" aria-hidden="true" /> Send these details on WhatsApp instead
               </a>
             </div>
           )}
         </div>
 
-        <p className="text-xs leading-5 text-slate-400">
+        <p className="bg-paper p-3 text-xs leading-5 text-muted">
           We only use these details to respond to your inquiry. Prefer WhatsApp?{' '}
           <a
             href={whatsappHref('Hi, I have an equipment inquiry for Noor Alam Machineries.')}
             target="_blank"
             rel="noopener noreferrer"
             data-analytics="contact-form-whatsapp"
-            className="font-semibold text-cyan-300 underline underline-offset-4 hover:text-cyan-200"
+            className="font-medium text-accent underline underline-offset-4"
           >
             Message our team
           </a>

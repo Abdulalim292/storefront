@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowDown, ArrowRight, ArrowUpRight, Cog, Construction, MapPin, PhoneCall, Ship } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Cog, Construction, MapPin, PhoneCall, Ship } from 'lucide-react';
 import { ContactForm } from '@/components/chat/ContactForm';
 import { CatalogImage } from '@/components/ui/CatalogImage';
 import {
@@ -14,11 +14,10 @@ import {
 import { BRANCHES } from '@/data/branches';
 import { CATEGORY_LANDINGS, getCategoryImageSource, getCategoryProducts } from '@/data/categories';
 import { formatBangladeshPhone, toBangladeshTel } from '@/lib/phone';
+import { cleanDash, splitMeta } from '@/lib/copy';
 import { PinnedEquipmentStory } from '@/components/home/PinnedEquipmentStory';
 import { EquipmentCarousel } from '@/components/home/EquipmentCarousel';
-import { ScrollRevealedText } from '@/components/home/ScrollRevealedText';
 import { BrandLogo } from '@/components/home/BrandLogo';
-import { cn } from '@/lib/utils';
 
 const equipmentCards = [
   {
@@ -30,7 +29,6 @@ const equipmentCards = [
     image: featuredMarineEngine.image,
     productId: featuredMarineEngine.id,
     icon: Ship,
-    className: 'col-span-2 row-span-1 lg:col-span-2 lg:row-span-2',
     imageClass: 'object-contain p-8 sm:p-12',
   },
   {
@@ -42,8 +40,7 @@ const equipmentCards = [
     image: featuredMarineGearbox.image,
     productId: featuredMarineGearbox.id,
     icon: Cog,
-    className: 'col-span-2 row-span-1',
-    imageClass: 'object-contain p-4 sm:p-7',
+    imageClass: 'object-contain p-6 sm:p-8',
   },
   {
     id: 'heavy-machinery',
@@ -54,7 +51,6 @@ const equipmentCards = [
     image: featuredHeavyMachinery.image,
     productId: featuredHeavyMachinery.id,
     icon: Construction,
-    className: 'col-span-2 row-span-1',
     imageClass: 'object-cover',
   },
 ];
@@ -76,208 +72,354 @@ const brands = [
 
 const showroomMapQuery = 'Modina Arzoo Complex, 107 Nawabpur Road, Dhaka 1100, Bangladesh';
 
+const engineSpecs = featuredMarineEngine.specifications ?? [];
+const displacement = engineSpecs
+  .flatMap((spec) => splitMeta(spec))
+  .find((part) => /displacement/i.test(part)) ?? '19 L displacement';
+const power = (engineSpecs
+  .flatMap((spec) => splitMeta(spec))
+  .find((part) => /\bhp\b/i.test(part)) ?? '500 to 700 hp')
+  .replace(/\s*\(.*$/, '');
+
 export default function HomePage() {
   return (
-    <main className="w-full max-w-full overflow-x-hidden">
-      <section className="hero-panel relative isolate overflow-hidden bg-[#101b19] text-white">
-        <div className="hero-photo absolute inset-0 -z-20">
-          <Image
-            src="/photos/engine-room.jpg"
-            alt=""
-            fill
-            preload
-            sizes="100vw"
-            quality={70}
-            className="object-cover"
-          />
-        </div>
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(10,18,17,.97)_0%,rgba(10,18,17,.88)_42%,rgba(10,18,17,.22)_100%),linear-gradient(0deg,rgba(10,18,17,.72),transparent_50%)]" />
-        <div className="mx-auto grid min-h-[690px] max-w-[1440px] items-center gap-12 px-5 pb-16 pt-20 sm:px-8 lg:min-h-[760px] lg:grid-cols-[1.05fr_.95fr] lg:gap-16 lg:px-12 lg:py-24">
-          <div className="relative z-10 max-w-3xl">
-            <p className="mb-7 flex items-center gap-3 text-xs font-semibold uppercase tracking-[.24em] text-[#d6b983] sm:text-sm">
-              <span className="h-px w-10 bg-[#d6b983]" />Marine &amp; industrial machinery
-            </p>
-            <h1 className="max-w-6xl text-[clamp(3rem,5vw,5.5rem)] font-semibold leading-[.98] tracking-[-.055em] text-white">
-              Powering work that keeps us moving.
-            </h1>
-            <p className="mt-7 max-w-xl text-base leading-7 text-white/75 sm:text-lg sm:leading-8">
-              The right engine, transmission, or machine starts with understanding the work. We help you source equipment and parts for the conditions you face.
-            </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Link href="#equipment" className="inline-flex min-h-14 items-center justify-center gap-3 bg-[#d7bd8d] px-6 text-sm font-semibold text-[#17201c] transition-colors hover:bg-[#ebd8b2]">
-                Explore equipment <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link href="#contact" className="inline-flex min-h-14 items-center justify-center gap-3 border border-white/40 px-6 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-[#17201c]">
-                Talk to our team <ArrowUpRight className="h-4 w-4" />
-              </Link>
+    <main>
+      <section className="hero-stage flex flex-col sheet">
+        <div className="container flex flex-1 flex-col">
+          <div className="grid flex-1 items-center gap-10 py-8 lg:grid-cols-12 lg:gap-12 lg:py-10">
+            <div className="lg:col-span-6">
+              <p className="mb-5 flex items-center gap-3 font-outlier text-xs text-accent">
+                <span className="h-px w-10 bg-accent" aria-hidden="true" />
+                Equipment register
+              </p>
+              <h1 className="max-w-[15ch] text-[clamp(2.5rem,4.4vw,4.5rem)] text-ink">
+                Marine engines, gearboxes, and spares.
+              </h1>
+              <p className="lead mt-4 max-w-[44ch] sm:mt-6">
+                The right engine, transmission, or machine starts with understanding the work. We help you source equipment and parts for the conditions you face.
+              </p>
+              <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row">
+                <Link href="#equipment" className="btn">
+                  Explore equipment <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+                <Link href="#contact" className="btn btn--quiet">
+                  Talk to our team <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </div>
+              <div className="mt-8 hidden border-y border-rule-2 font-outlier text-xs sm:mt-10 sm:grid sm:grid-cols-[1fr_1fr_1.4fr] sm:divide-x sm:divide-rule-2">
+                <div className="px-3 py-2 first:pl-0">
+                  <span className="block text-xs text-accent">01</span>
+                  <span className="mt-0.5 block text-ink-2">Noor Alam Machineries</span>
+                </div>
+                <div className="px-3 py-2">
+                  <span className="block text-xs text-accent">02</span>
+                  <span className="mt-0.5 block text-ink-2">Dhaka and Chittagong</span>
+                </div>
+                <div className="px-3 py-2">
+                  <span className="block text-xs text-accent">03</span>
+                  <span className="mt-0.5 block text-ink-2">Equipment, spares, guidance</span>
+                </div>
+              </div>
             </div>
-            <p className="mt-12 flex items-center gap-3 text-xs uppercase tracking-[.18em] text-white/60">
-              <span className="grid h-9 w-9 place-items-center rounded-full border border-white/25"><ArrowDown className="h-4 w-4" /></span>
-              A considered match for every application
-            </p>
+
+            <div className="lg:col-span-6">
+              <div className="plate plate--brass aspect-[4/3] w-full lg:aspect-auto lg:h-[min(64vh,calc(100dvh-20rem))]">
+                <span className="absolute right-4 top-4 z-[3] border border-rule-2 bg-paper px-2 py-0.5 font-outlier text-xs text-ink">N-01</span>
+                <CatalogImage
+                  productId={featuredMarineEngine.id}
+                  src={featuredMarineEngine.image}
+                  alt={`${featuredMarineEngine.name} marine diesel engine`}
+                  sizes="(max-width: 1023px) calc(100vw - 2rem), 58vw"
+                  loading="eager"
+                  preload
+                  className="h-full w-full object-contain p-6 sm:p-10"
+                />
+              </div>
+              <div className="mt-6">
+                <p className="dim-value">{featuredMarineEngine.name} marine rating</p>
+                <div className="dim-row hero-dim">
+                  <span className="font-outlier text-xs text-ink-2">{cleanDash(displacement)}</span>
+                  <span className="dim" aria-hidden="true" />
+                  <span className="font-outlier text-xs text-ink-2">{power}</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="relative hidden h-[490px] lg:block">
-            <div className="absolute right-[8%] top-[3%] h-[88%] w-[76%] overflow-hidden rounded-t-[48%] border border-white/20 bg-[#263331]/60">
-              <Image src={featuredMarineEngine.image} alt={`${featuredMarineEngine.name} marine diesel engine`} fill loading="lazy" sizes="(min-width: 1024px) 40vw, 0px" className="object-contain p-8 mix-blend-luminosity" />
-            </div>
-            <div className="absolute bottom-[3%] left-0 w-[46%] border border-white/20 bg-[#111d1b]/90 p-5 backdrop-blur-sm">
-              <p className="text-xs uppercase tracking-[.2em] text-[#d7bd8d]">Built around your operation</p>
-              <p className="mt-3 text-sm leading-6 text-white/75">Share the vessel, machine, or model details. We’ll help you narrow the right fit.</p>
-            </div>
+
+          <div className="flex flex-col justify-between gap-3 border-t border-rule-2 py-4 font-outlier text-xs text-muted sm:flex-row sm:items-center">
+            <span>Serving marine and industry</span>
+            <span className="hidden sm:block">Equipment, spares, guidance</span>
+            <a
+              href="https://commons.wikimedia.org/wiki/File:CSIRO_ScienceImage_7992_The_engine_room_on_the_RV_Southern_Surveyor.jpg"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-accent"
+            >
+              Photo: Simon Torok / CSIRO, CC BY 3.0
+            </a>
           </div>
-        </div>
-        <div className="hero-bottom-rule mx-auto flex max-w-[1440px] items-center justify-between border-t border-white/20 px-5 py-5 text-[11px] uppercase tracking-[.16em] text-white/70 sm:px-8 lg:px-12">
-          <span>Serving marine &amp; industry</span><span className="hidden sm:block">Dhaka · Chittagong</span><span>Equipment · Spares · Guidance</span>
-          <a href="https://commons.wikimedia.org/wiki/File:CSIRO_ScienceImage_7992_The_engine_room_on_the_RV_Southern_Surveyor.jpg" target="_blank" rel="noreferrer" className="hidden normal-case tracking-normal text-white/50 transition-colors hover:text-white xl:block">Photo: Simon Torok / CSIRO · CC BY 3.0</a>
         </div>
       </section>
 
-      <section id="equipment" className="scroll-mt-20 bg-[#f4f2ec] py-24 sm:py-32 lg:py-40">
-        <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
-          <div className="mb-12 flex flex-col gap-6 md:mb-16 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-3xl">
-              <p className="section-kicker">Equipment for real work</p>
-              <h2 className="mt-5 max-w-3xl text-4xl font-semibold leading-[1.02] tracking-[-.045em] text-[#16211e] sm:text-6xl">A capable machine begins with a considered choice.</h2>
-            </div>
-            <p className="max-w-md text-base leading-7 text-[#58625c]">Explore our core equipment categories. Every recommendation starts with your application, operating conditions, and technical requirements.</p>
+      <section id="equipment" className="section scroll-mt-24">
+        <div className="container">
+          <div className="mb-10 grid gap-6 md:grid-cols-12 md:items-end">
+            <h2 className="md:col-span-7">Three groups: engines, gearboxes, machines.</h2>
+            <p className="max-w-md text-base leading-7 text-muted md:col-span-5">
+              Explore our core equipment categories. Every recommendation starts with your application, operating conditions, and technical requirements.
+            </p>
           </div>
 
-          <div className="grid grid-flow-dense grid-cols-2 grid-rows-[minmax(220px,1fr)_minmax(220px,1fr)] gap-3 sm:gap-5 lg:grid-cols-4 lg:grid-rows-[minmax(230px,1fr)_minmax(230px,1fr)]">
-            {equipmentCards.map(({ id, href, productId, title, note, description, image, icon: Icon, className, imageClass }, index) => (
-              <Link key={id} href={href} className={`group relative isolate min-h-[280px] overflow-hidden bg-[#dfe2dc] ${className} ${index === 0 ? 'min-h-[440px] lg:min-h-[470px]' : ''}`}>
-                <div className={cn(
-                  "relative w-full h-full",
-                  index === 0 ? "aspect-[4/3] lg:aspect-auto" : "aspect-video"
-                )}>
-                  <CatalogImage productId={productId} src={image} alt="" sizes="(max-width: 767px) 50vw, (max-width: 1023px) 70vw, 50vw" className={`${imageClass} transition-transform duration-700 ease-out group-hover:scale-105`} loading="lazy" />
-                </div>
-                <div className="absolute inset-0 -z-0 bg-gradient-to-t from-[#121c19]/90 via-[#121c19]/15 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-5 text-white sm:p-7">
-                  <div className="mb-5 flex items-center justify-between"><span className="text-[11px] uppercase tracking-[.18em] text-white/75">{note}</span><Icon className="h-5 w-5 text-[#dfc99d]" strokeWidth={1.5} /></div>
-                  <div className="flex items-end justify-between gap-4"><div><h3 className="text-2xl font-medium tracking-tight sm:text-3xl">{title}</h3><p className="mt-2 max-w-md text-sm leading-6 text-white/75">{description}</p></div><ArrowUpRight className="mb-1 h-5 w-5 shrink-0 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" /></div>
-                </div>
-              </Link>
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-12">
+            <EquipmentCard card={equipmentCards[0]} lead />
+            <div className="flex flex-col gap-5 lg:col-span-5">
+              {equipmentCards.slice(1).map((card) => (
+                <EquipmentCard key={card.id} card={card} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section--s band border-y border-rule-2" aria-label="Equipment brands">
+        <div className="container">
+          <div className="grid grid-cols-2 border-l border-t border-rule-2 sm:grid-cols-5">
+            {brands.map((brand) => (
+              <div key={brand.name} className="brand-cell">
+                <BrandLogo name={brand.name} src={brand.logo} />
+                <span className="text-ink-2">{brand.name}</span>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="overflow-hidden border-y border-[#e2e0d8] bg-[#f8f7f3] py-4" aria-label="Equipment brands">
-        <div className="brand-marquee flex w-max items-center gap-6 sm:gap-10" aria-hidden="true">
-          {[...brands, ...brands].map((brand, index) => (
-            <span key={`${brand.name}-${index}`} className="flex items-center gap-6 sm:gap-10">
-              <span className="inline-flex items-center gap-2 whitespace-nowrap">
-                <BrandLogo name={brand.name} src={brand.logo} />
-                <span className="text-sm font-semibold tracking-[-.03em] text-[#38433d] sm:text-base">{brand.name}</span>
-              </span>
-              <span className="h-1 w-1 rounded-full bg-[#a78b5f]" />
-            </span>
-          ))}
-        </div>
-        <ul className="sr-only">{brands.map(({ name }) => <li key={name}>{name}</li>)}</ul>
-      </section>
-
       <PinnedEquipmentStory models={[featuredMarineEngine, featuredMarineGearbox, featuredHeavyMachinery]} />
       <EquipmentCarousel models={[...marineEngineModels, ...marineGearboxModels, ...heavyMachineryModels]} />
 
-      <section className="border-y border-[#e2e0d8] bg-[#f4f2ec] py-20 sm:py-24">
-        <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
-          <div className="mb-10 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-2xl">
-              <p className="section-kicker">Parts by system</p>
-              <h2 className="mt-4 text-3xl font-semibold tracking-[-.045em] text-[#17221f] sm:text-5xl">Keep the equipment working.</h2>
-            </div>
-            <Link href="/categories" prefetch={false} className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#6f5a32] transition-colors hover:text-[#17221f]">
-              All categories <ArrowRight className="h-4 w-4" />
+      <section className="section--s border-y border-rule-2">
+        <div className="container">
+          <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <h2>Keep the equipment working.</h2>
+            <Link href="/categories" prefetch={false} className="link">
+              All categories <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
-          <div className="grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
-            {partCategoryCards.map((category) => {
-              const image = getCategoryImageSource(category);
+          <ol className="border-t border-rule">
+            {partCategoryCards.map((category, index) => {
               const count = getCategoryProducts(category).length;
-
               return (
-                <Link
-                  key={category.slug}
-                  href={`/categories/${category.slug}`}
-                  prefetch={false}
-                  className="group flex items-center gap-4 border-t border-[#d8d5cc] py-4"
-                >
-                  <div className="relative h-14 w-14 shrink-0 overflow-hidden bg-[#e7e3d8]">
-                    <CatalogImage
-                      productId={image.productId}
-                      src={image.src}
-                      alt=""
-                      sizes="56px"
-                      className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
-                    />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <h3 className="text-base font-semibold text-[#17221f] transition-colors group-hover:text-[#6f5a32]">{category.label}</h3>
-                    <p className="mt-0.5 text-xs text-[#777b72]">{count} {count === 1 ? 'part' : 'parts'}</p>
-                  </div>
-                  <ArrowUpRight className="h-4 w-4 shrink-0 text-[#a78b5f] transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                </Link>
+                <li key={category.slug} className="border-b border-rule-2">
+                  <Link
+                    href={`/categories/${category.slug}`}
+                    prefetch={false}
+                    className="grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-4 py-4 transition-colors hover:bg-paper-2 sm:grid-cols-[3rem_1fr_2fr_auto]"
+                  >
+                    <span className="font-outlier text-xs text-muted">{String(index + 1).padStart(2, '0')}</span>
+                    <h3 className="text-lg font-medium text-ink">{category.label}</h3>
+                    <span className="col-start-2 text-sm leading-6 text-muted sm:col-start-3">{cleanDash(category.description)}</span>
+                    <span className="col-start-3 row-start-1 flex items-center gap-3 font-outlier text-xs text-muted sm:col-start-4">
+                      {count} {count === 1 ? 'part' : 'parts'}
+                      <ArrowUpRight className="h-4 w-4 text-accent" aria-hidden="true" />
+                    </span>
+                  </Link>
+                </li>
               );
             })}
-          </div>
+          </ol>
         </div>
       </section>
 
-      <section id="about" className="bg-[#17221f] py-24 text-white sm:py-32 lg:py-40">
-        <div className="mx-auto grid max-w-[1440px] gap-14 px-5 sm:px-8 lg:grid-cols-[.9fr_1.1fr] lg:gap-24 lg:px-12">
-          <div>
-            <p className="section-kicker section-kicker-light">How we work</p>
-            <h2 className="mt-5 max-w-xl text-4xl font-medium leading-[1.05] tracking-[-.04em] sm:text-6xl">Good advice starts with the details.</h2>
-              <ScrollRevealedText>Tell us what the equipment needs to do. We’ll help identify suitable options, clarify the specifications, and map out the next step.</ScrollRevealedText>
-            <Link href="#contact" className="mt-9 inline-flex min-h-12 items-center gap-3 border-b border-[#d7bd8d] pb-2 text-sm font-semibold text-[#e6d3ac] transition-colors hover:text-white">Discuss a requirement <ArrowRight className="h-4 w-4" /></Link>
+      <section id="about" className="section band">
+        <div className="container">
+          <div className="grid gap-6 md:grid-cols-12 md:items-end">
+            <h2 className="md:col-span-7">Four checks before you order.</h2>
+            <p className="max-w-md text-base leading-7 text-muted md:col-span-5">
+              Tell us what the equipment needs to do. We will help identify suitable options, clarify the specifications, and map out the next step.
+            </p>
           </div>
-          <div className="grid gap-px bg-white/15 sm:grid-cols-2">
+
+          <div className="plate mt-10 aspect-[21/9]">
+            <Image
+              src="/photos/engine-room.jpg"
+              alt="Engine room of the RV Southern Surveyor"
+              fill
+              sizes="(max-width: 1023px) 100vw, 1312px"
+              quality={70}
+              className="object-cover"
+            />
+          </div>
+          <p className="mt-3 font-outlier text-xs text-muted">
+            Photo: Simon Torok / CSIRO, CC BY 3.0
+          </p>
+
+          <ol className="mt-12 grid gap-6 border-t border-rule pt-8 sm:grid-cols-2 lg:grid-cols-4">
             {[
               ['Understand the job', 'Start with the vessel, machine, operating conditions, and work ahead.'],
               ['Match the equipment', 'Compare model details and technical requirements with your application.'],
               ['Check compatibility', 'Confirm the engine, gearbox, dimensions, and part numbers before ordering.'],
               ['Plan the next step', 'Discuss availability, compatible parts, and the information needed to proceed.'],
             ].map(([title, description], index) => (
-              <article key={title} className="bg-[#17221f] p-7 sm:p-9">
-                <span className="font-mono text-xs text-[#d7bd8d]">0{index + 1}</span>
-                <h3 className="mt-8 text-xl font-medium">{title}</h3>
-                <p className="mt-3 text-sm leading-6 text-white/60">{description}</p>
-              </article>
+              <li key={title} className="min-w-0">
+                <span className="font-outlier text-xs text-accent">{String(index + 1).padStart(2, '0')}</span>
+                <h3 className="mt-3 text-xl text-ink">{title}</h3>
+                <p className="mt-2 text-sm leading-6 text-muted">{description}</p>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
-      <section id="contact" className="scroll-mt-20 bg-[#e7e3d8] py-24 sm:py-32 lg:py-40">
-        <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
-          <div className="grid gap-14 lg:grid-cols-[.85fr_1.15fr] lg:gap-24">
-            <div>
-              <p className="section-kicker">Start a conversation</p>
-              <h2 className="mt-5 max-w-2xl text-4xl font-semibold leading-[1.02] tracking-[-.045em] text-[#17221f] sm:text-6xl">Let’s find the right fit for the work.</h2>
-              <p className="mt-6 max-w-lg text-base leading-7 text-[#59615c]">Send the equipment model and the specifications you have. Our team can help you take the next step.</p>
-              <div className="mt-9 space-y-4 text-sm">
-                <a href={toBangladeshTel('01728-079359')} className="flex items-center gap-3 text-[#17221f] hover:underline"><PhoneCall className="h-4 w-4" />{formatBangladeshPhone('01728-079359')}</a>
-                <a href="mailto:noornoobi80@gmail.com" className="flex items-center gap-3 text-[#17221f] hover:underline">noornoobi80@gmail.com</a>
+      <section id="contact" className="section scroll-mt-24">
+        <div className="container">
+          <div className="grid gap-12 lg:grid-cols-12 lg:gap-14">
+            <div className="lg:col-span-5">
+              <h2>Tell us the machine and the job.</h2>
+              <p className="mt-5 max-w-lg text-base leading-7 text-muted">
+                Send the equipment model and the specifications you have. Our team can help you take the next step.
+              </p>
+              <div className="mt-7 space-y-3 text-sm">
+                <a href={toBangladeshTel('01728-079359')} className="flex items-center gap-3 text-ink hover:text-accent">
+                  <PhoneCall className="h-4 w-4" aria-hidden="true" />{formatBangladeshPhone('01728-079359')}
+                </a>
+                <a href="mailto:noornoobi80@gmail.com" className="flex items-center gap-3 text-ink hover:text-accent">
+                  noornoobi80@gmail.com
+                </a>
               </div>
-              <div className="mt-12 border-t border-[#c5c1b7] pt-7">
-                <p className="mb-5 text-xs font-semibold uppercase tracking-[.18em] text-[#71756d]">Visit our locations</p>
+
+              <div className="mt-10 border-t border-rule-2 pt-6">
+                <p className="mb-4 text-sm font-medium text-ink">Visit our locations</p>
                 <div className="space-y-5">
-                  {BRANCHES.map((branch) => <div key={branch.name} className="flex gap-3 text-sm text-[#4b554f]"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#88714b]" /><p><span className="font-semibold text-[#1b2521]">{branch.name}</span><br />{branch.address.join(', ')}</p></div>)}
+                  {BRANCHES.map((branch) => {
+                    const [place, city] = splitMeta(branch.name);
+                    return (
+                      <div key={branch.name} className="flex gap-3 text-sm text-muted">
+                        <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                        <p className="m-0 max-w-none">
+                          <span className="block font-medium text-ink">{place}</span>
+                          {city && <span className="block text-ink-2">{city}</span>}
+                          <span className="block leading-6">{branch.address.join(', ')}</span>
+                        </p>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
-            <div className="grid overflow-hidden bg-[#18231f] text-white lg:grid-cols-[1fr_.85fr]">
-              <div className="p-6 sm:p-9"><ContactForm /></div>
-              <div className="relative min-h-[260px] bg-[#d6d4cd] lg:min-h-full">
-                <iframe title="Map to Noor Alam Machineries main showroom in Dhaka" src={`https://www.google.com/maps?q=${encodeURIComponent(showroomMapQuery)}&z=17&output=embed`} className="absolute inset-0 h-full w-full border-0" loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
-                <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(showroomMapQuery)}`} target="_blank" rel="noreferrer" className="absolute bottom-3 right-3 z-10 bg-white px-3 py-2 text-xs font-semibold text-[#17221f] shadow-md hover:bg-[#f1efe8]">Open in Google Maps</a>
+
+            <div className="self-start border border-rule-2 lg:col-span-7">
+              <div className="grid lg:grid-cols-[1.3fr_.7fr]">
+                <div className="p-5 sm:p-7"><ContactForm /></div>
+                <div className="flex min-h-[320px] flex-col border-t border-rule-2 lg:border-l lg:border-t-0">
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-rule-2 bg-paper-2 px-4 py-2.5">
+                    <p className="font-outlier text-xs text-muted">Main showroom, Dhaka</p>
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(showroomMapQuery)}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-outlier text-xs text-accent hover:text-ink"
+                    >
+                      Open in Google Maps
+                    </a>
+                  </div>
+                  <iframe
+                    title="Map to Noor Alam Machineries main showroom in Dhaka"
+                    src={`https://www.google.com/maps?q=${encodeURIComponent(showroomMapQuery)}&z=17&output=embed`}
+                    className="min-h-0 w-full flex-1 border-0"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    allowFullScreen
+                  />
+                </div>
               </div>
             </div>
           </div>
-          <div className="mt-20 flex flex-col justify-between gap-6 border-t border-[#c5c1b7] pt-7 text-xs uppercase tracking-[.16em] text-[#74796f] sm:flex-row"><span>Noor Alam Machineries</span><span>Dhaka · Chittagong · Bangladesh</span><Link href="/products" className="inline-flex items-center gap-2 text-[#17221f]">Browse engine parts <ArrowRight className="h-3.5 w-3.5" /></Link></div>
+
+          <div className="mt-16 flex flex-col justify-between gap-3 border-t border-rule-2 pt-5 font-outlier text-xs text-muted sm:flex-row">
+            <span>Noor Alam Machineries</span>
+            <span>Dhaka and Chittagong, Bangladesh</span>
+            <Link href="/products" className="inline-flex items-center gap-2 text-ink hover:text-accent">
+              Browse engine parts <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </Link>
+          </div>
         </div>
       </section>
     </main>
+  );
+}
+
+function EquipmentCard({ card, lead = false }: { card: (typeof equipmentCards)[number]; lead?: boolean }) {
+  const { href, productId, title, note, description, image, icon: Icon, imageClass } = card;
+  const category = CATEGORY_LANDINGS.find((entry) => entry.slug === href.replace('/categories/', ''));
+  const count = category ? getCategoryProducts(category).length : 0;
+
+  const meta = (
+    <div className="flex items-center justify-between gap-4">
+      <span className="flex items-center gap-2 font-outlier text-xs text-muted">
+        <Icon className="h-4 w-4 text-accent" aria-hidden="true" />
+        {note}
+      </span>
+      <span className="font-outlier text-xs text-muted">{count} products</span>
+    </div>
+  );
+
+  if (lead) {
+    return (
+      <Link
+        href={href}
+        prefetch={false}
+        className="plate-link group flex min-w-0 flex-col border border-rule-2 lg:col-span-7"
+      >
+        <div className="plate aspect-[4/3]">
+          <CatalogImage
+            productId={productId}
+            src={image}
+            alt=""
+            sizes="(max-width: 1023px) 100vw, 58vw"
+            className={`h-full w-full ${imageClass}`}
+            loading="eager"
+          />
+        </div>
+        <div className="flex flex-1 flex-col border-t border-rule-2 p-5 sm:p-6">
+          {meta}
+          <div className="mt-4 flex items-end justify-between gap-4">
+            <div>
+              <h3 className="text-2xl text-ink sm:text-3xl">{title}</h3>
+              <p className="mt-2 max-w-md text-sm leading-6 text-muted">{description}</p>
+            </div>
+            <ArrowUpRight className="mb-1 h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
+          </div>
+        </div>
+      </Link>
+    );
+  }
+
+  return (
+    <Link
+      href={href}
+      prefetch={false}
+      className="plate-link group grid min-w-0 flex-1 grid-cols-1 border border-rule-2 sm:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)]"
+    >
+      <div className="plate aspect-[4/3] border-b border-rule-2 sm:aspect-auto sm:min-h-[200px] sm:border-b-0 sm:border-r">
+        <CatalogImage
+          productId={productId}
+          src={image}
+          alt=""
+          sizes="(max-width: 639px) 100vw, (max-width: 1023px) 40vw, 24vw"
+          className="h-full w-full object-contain p-5"
+          loading="lazy"
+        />
+      </div>
+      <div className="flex flex-1 flex-col justify-between gap-4 p-5">
+        {meta}
+        <div>
+          <h3 className="text-xl text-ink">{title}</h3>
+          <p className="mt-2 text-sm leading-6 text-muted">{description}</p>
+        </div>
+        <span className="inline-flex items-center gap-2 font-outlier text-xs text-accent">
+          View category <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+        </span>
+      </div>
+    </Link>
   );
 }

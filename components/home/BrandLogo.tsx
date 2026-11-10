@@ -9,7 +9,7 @@ export function BrandLogo({ name, src }: BrandLogoProps) {
   const [failed, setFailed] = useState(false);
 
   if (failed) {
-    return <span aria-hidden="true" className="inline-flex h-7 w-16 shrink-0 items-center justify-center border border-[#d8d5cc] bg-white px-1.5 text-center text-[10px] font-bold tracking-wide text-[#38433d] sm:h-8 sm:w-20 sm:px-2 sm:text-xs">{name}</span>;
+    return <span aria-hidden="true" className="inline-flex h-7 w-16 shrink-0 items-center justify-center border border-rule-2 bg-paper-2 px-1.5 text-center text-[10px] font-medium text-ink-2 sm:h-8 sm:w-20 sm:px-2 sm:text-xs">{name}</span>;
   }
 
   return <Image src={src} alt={`${name} logo`} width={128} height={48} loading="lazy" decoding="async" sizes="(min-width: 640px) 80px, 64px" className="h-7 w-16 shrink-0 object-contain sm:h-8 sm:w-20" />;

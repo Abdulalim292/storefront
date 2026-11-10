@@ -1,9 +1,9 @@
 export default function Loading() {
   return (
-    <div className="mx-auto max-w-[1440px] px-5 py-24 sm:px-8 lg:px-12">
-      <div className="flex flex-col items-center justify-center gap-4 text-center">
-        <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#dfddd5] border-t-[#a78b5f]" />
-        <p className="text-base font-medium text-[#59615c]">Loading product details…</p>
+    <div className="sheet-light">
+      <div className="container flex min-h-[60vh] flex-col items-center justify-center gap-4 py-24 text-center">
+        <div className="h-12 w-12 animate-spin border border-rule-2 border-t-accent" aria-hidden="true" />
+        <p className="font-outlier text-xs text-muted">Loading product details</p>
       </div>
     </div>
   );

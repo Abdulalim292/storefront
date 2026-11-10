@@ -13,55 +13,52 @@ interface ProductCardProps {
   product: Product;
   eager?: boolean;
   preload?: boolean;
+  aspect?: 'square' | 'wide';
 }
 
-export function ProductCard({ product, eager = false, preload = false }: ProductCardProps) {
+export function ProductCard({ product, eager = false, preload = false, aspect = 'square' }: ProductCardProps) {
   const { addToCart } = useCart();
   const price = formatPrice(product.price);
 
   return (
-    <div className="group relative flex flex-col overflow-hidden border border-[#dfddd5] bg-[#f8f7f3] transition-all hover:border-[#a78b5f] hover:shadow-[0_16px_40px_rgba(30,37,32,.09)]">
+    <article className="flex min-w-0 flex-col border border-rule-2 bg-paper">
       <Link
         href={`/products/${product.id}`}
         prefetch={false}
-        className="relative aspect-square overflow-hidden bg-[#eeece5]"
+        className="plate-link"
       >
-        <div className="relative h-full w-full">
+        <div className={`plate ${aspect === 'wide' ? 'aspect-[2/1]' : 'aspect-square'}`}>
           <CatalogImage
             productId={product.id}
             src={product.images[0]}
             alt={product.name}
             sizes="(max-width: 639px) calc(100vw - 2rem), (max-width: 1023px) calc((100vw - 3rem) / 2), (max-width: 1279px) calc((100vw - 5rem) / 4), 300px"
-            className="object-contain p-3 transition-transform duration-700 ease-out group-hover:scale-105"
+            className="h-full w-full object-contain p-4"
             loading={eager ? 'eager' : 'lazy'}
             preload={preload}
           />
         </div>
       </Link>
 
-      <div className="flex flex-col p-4">
-        <div className="mb-1 flex items-center justify-between">
-          <span className="text-[10px] font-semibold uppercase tracking-[.15em] text-[#8b806b]">
-            {product.category.replaceAll('-', ' ')}
-          </span>
-        </div>
-        <Link
-          href={`/products/${product.id}`}
-          prefetch={false}
-          className={`text-base font-semibold text-[#17221f] ${price ? 'mb-2' : 'mb-4'}`}
-        >
-          {product.name}
-        </Link>
-        {price && <p className="mb-3 text-sm font-semibold text-[#8d754d]">{price}</p>}
+      <div className="flex flex-1 flex-col border-t border-rule-2 p-4">
+        <p className="mb-2 font-outlier text-xs text-muted">{product.category.replaceAll('-', ' ')}</p>
+        <h3 className="text-base font-medium leading-snug text-ink">
+          <Link href={`/products/${product.id}`} prefetch={false} className="hover:text-accent">
+            {product.name}
+          </Link>
+        </h3>
+        {price && <p className="mt-2 font-outlier text-sm font-medium text-accent">{price}</p>}
 
         <Button
+          variant="secondary"
+          size="sm"
           onClick={() => addToCart(product)}
-          className="mt-auto w-full gap-2"
+          className="mt-auto w-full"
         >
-          <ClipboardList className="h-4 w-4" />
+          <ClipboardList className="h-4 w-4" aria-hidden="true" />
           Add to inquiry list
         </Button>
       </div>
-    </div>
+    </article>
   );
 }

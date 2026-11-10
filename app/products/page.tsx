@@ -38,9 +38,11 @@ function buildProductsHref({
 
 export default function ProductsPage({ searchParams }: PageProps<'/products'>) {
   return (
-    <Suspense fallback={<div className="mx-auto max-w-[1440px] px-5 py-24 text-center text-[#59615c] sm:px-8 lg:px-12">Loading products…</div>}>
-      <ProductsResults searchParams={searchParams} />
-    </Suspense>
+    <main className="sheet-light">
+      <Suspense fallback={<div className="container py-24 text-center text-muted">Loading products</div>}>
+        <ProductsResults searchParams={searchParams} />
+      </Suspense>
+    </main>
   );
 }
 
@@ -76,49 +78,65 @@ async function ProductsResults({ searchParams }: Pick<PageProps<'/products'>, 's
   const visibleProducts = filteredProducts.slice(start, start + PAGE_SIZE);
 
   return (
-    <div className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 sm:py-24 lg:px-12 lg:py-28">
-      <div className="mb-10 flex flex-col gap-8 border-b border-[#dfddd5] pb-9 sm:mb-14 md:flex-row md:items-end md:justify-between">
-        <div>
-          <p className="section-kicker">Parts and components</p>
-          <h1 className="mt-4 text-4xl font-semibold tracking-[-.045em] text-[#17221f] sm:text-6xl">Find the part for the job.</h1>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-[#59615c]">Browse engine components and request pricing and fitment confirmation.</p>
-          {rawQuery && <p className="mt-3 text-sm text-[#8b806b]">Search results for “{rawQuery}”</p>}
+    <div className="container py-12 sm:py-16 lg:py-20">
+      <header className="index-head border-b border-rule pb-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-8">
+            <h1 className="text-ink">Find the part for the job.</h1>
+            <p className="mt-4 max-w-2xl text-base leading-7 text-ink-2">
+              Browse engine components and request pricing and fitment confirmation.
+            </p>
+            {rawQuery && <p className="mt-3 font-outlier text-sm text-muted">Search results for “{rawQuery}”</p>}
+          </div>
+          <div className="grid grid-cols-2 border border-rule-2 lg:col-span-4">
+            <div className="border-r border-rule-2 p-4">
+              <p className="font-outlier text-xs text-muted">Records</p>
+              <p className="mt-1 font-outlier text-2xl font-medium text-ink">{total}</p>
+            </div>
+            <div className="p-4">
+              <p className="font-outlier text-xs text-muted">Page</p>
+              <p className="mt-1 font-outlier text-2xl font-medium text-ink">{page} / {pageCount}</p>
+            </div>
+          </div>
         </div>
 
-        <ProductsControls
-          categories={CATEGORIES}
-          category={category}
-          query={rawQuery}
-          sort={sort}
-        />
-      </div>
+        <div className="mt-10">
+          <ProductsControls
+            categories={CATEGORIES}
+            category={category}
+            query={rawQuery}
+            sort={sort}
+          />
+        </div>
+      </header>
 
       {total > 0 ? (
         <>
-          <p role="status" className="mb-6 text-sm text-[#777b72]">
-            Showing {start + 1}–{start + visibleProducts.length} of {total} results
+          <p role="status" className="mt-8 border-b border-rule-2 pb-3 font-outlier text-xs text-muted">
+            Showing {start + 1} to {start + visibleProducts.length} of {total} results
           </p>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
             {visibleProducts.map((product, index) => (
               <ProductCard
                 key={product.id}
                 product={product}
                 eager={index < 4}
                 preload={index === 0}
+                aspect="wide"
               />
             ))}
           </div>
 
           {pageCount > 1 && (
-            <nav aria-label="Product pages" className="mt-12 flex flex-wrap items-center justify-center gap-3 border-t border-[#dfddd5] pt-8">
+            <nav aria-label="Product pages" className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-rule pt-6">
               <PageLink
                 href={page > 1 ? buildProductsHref({ category, query: rawQuery, sort, page: page - 1 }) : undefined}
                 label="Previous page"
               >
                 Previous
               </PageLink>
-              <span className="px-2 text-sm text-[#59615c]" aria-current="page">Page {page} of {pageCount}</span>
+              <span className="font-outlier text-sm text-muted" aria-current="page">Page {page} of {pageCount}</span>
               <PageLink
                 href={page < pageCount ? buildProductsHref({ category, query: rawQuery, sort, page: page + 1 }) : undefined}
                 label="Next page"
@@ -129,13 +147,10 @@ async function ProductsResults({ searchParams }: Pick<PageProps<'/products'>, 's
           )}
         </>
       ) : (
-        <div className="flex h-64 flex-col items-center justify-center border border-dashed border-[#c9c8be] px-5 text-center">
-          <p className="text-lg font-medium text-[#17221f]">No parts found</p>
-          <p className="text-[#667068]">Try another search term or category.</p>
-          <Link
-            href="/products"
-            className="mt-4 inline-flex min-h-11 items-center justify-center rounded-sm border border-[#b9b8ae] px-4 py-2 text-base font-medium text-[#26332d] transition-colors hover:bg-[#eeece4] focus:outline-none focus:ring-2 focus:ring-[#a78b5f] focus:ring-offset-2"
-          >
+        <div className="mt-8 flex min-h-64 flex-col items-center justify-center border border-rule-2 px-5 py-16 text-center">
+          <p className="font-display text-xl font-semibold uppercase text-ink">No parts found</p>
+          <p className="mt-2 text-muted">Try another search term or category.</p>
+          <Link href="/products" className="btn btn--quiet mt-6">
             Clear all filters
           </Link>
         </div>
@@ -145,18 +160,16 @@ async function ProductsResults({ searchParams }: Pick<PageProps<'/products'>, 's
 }
 
 function PageLink({ href, label, children }: { href?: string; label: string; children: React.ReactNode }) {
-  const className = 'inline-flex min-h-11 items-center justify-center rounded-sm border border-[#b9b8ae] px-4 py-2 text-sm font-medium transition-colors';
-
   if (!href) {
     return (
-      <span aria-disabled="true" aria-label={label} className={`${className} cursor-not-allowed border-[#dfddd5] text-[#9a9d96]`}>
+      <span aria-disabled="true" aria-label={label} className="btn btn--quiet cursor-not-allowed opacity-50">
         {children}
       </span>
     );
   }
 
   return (
-    <Link href={href} prefetch={false} aria-label={label} className={`${className} text-[#26332d] hover:bg-[#eeece4]`}>
+    <Link href={href} prefetch={false} aria-label={label} className="btn btn--quiet">
       {children}
     </Link>
   );
