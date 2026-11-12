@@ -34,11 +34,19 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   useEffect(() => {
     if (!isOpen) return;
     const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    const previousOverflow = document.body.style.overflow;
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    const previousGutter = document.documentElement.style.scrollbarGutter;
     document.body.style.overflow = 'hidden';
+    // `html { overflow-x: clip }` keeps the body from locking the viewport,
+    // so lock the root too; the stable gutter stops the page shifting sideways.
+    document.documentElement.style.overflow = 'hidden';
+    document.documentElement.style.scrollbarGutter = 'stable';
     closeButtonRef.current?.focus();
     return () => {
-      document.body.style.overflow = previousOverflow;
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+      document.documentElement.style.scrollbarGutter = previousGutter;
       previouslyFocused?.focus();
     };
   }, [isOpen]);
@@ -122,7 +130,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
         aria-hidden={!isOpen}
         tabIndex={isOpen ? 0 : -1}
         className={cn(
-          "fixed inset-0 z-[70] bg-paper-3/80 transition-opacity duration-300",
+          "fixed inset-0 z-[var(--z-modal)] bg-paper-3/80 transition-opacity duration-300",
           isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         )}
         onClick={onClose}
@@ -130,7 +138,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
       {/* Drawer */}
       <div ref={drawerRef} role="dialog" aria-modal={isOpen || undefined} aria-hidden={!isOpen || isInquiryOpen || undefined} inert={!isOpen || isInquiryOpen} aria-labelledby="inquiry-drawer-title" className={cn(
-        "sheet-light fixed right-0 top-0 z-[70] flex h-full w-full max-w-md flex-col border-l border-rule-2 transition-transform duration-300 ease-in-out",
+        "sheet-light fixed right-0 top-0 z-[var(--z-modal)] flex h-full w-full max-w-md flex-col border-l border-rule-2 transition-transform duration-300 ease-in-out",
         isOpen ? "translate-x-0" : "translate-x-full"
       )}>
         <div className="flex h-full flex-col">
@@ -220,7 +228,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
       {/* Contact Modal */}
       {isInquiryOpen && (
-        <div className="fixed inset-0 z-[80] flex items-center justify-center bg-paper-3/90 p-4">
+        <div className="fixed inset-0 z-[var(--z-toast)] flex items-center justify-center bg-paper-3/90 p-4">
           <div ref={modalRef} role="dialog" aria-modal="true" aria-labelledby="inquiry-modal-title" className="sheet-light max-h-[calc(100dvh-2rem)] w-full max-w-md overflow-y-auto border border-rule-2 p-4 sm:p-6">
             <div className="mb-4 flex items-center justify-between">
               <h3 id="inquiry-modal-title" className="text-xl text-ink">Prepare a parts inquiry</h3>
