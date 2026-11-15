@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { isGeneratedImage, showIllustrativeNote, ILLUSTRATIVE_NOTE } from '../lib/product-image-note.ts';
-import { renderPrompt, validateCurated, generatedIds } from './product-images.mjs';
+import { renderPrompt, validateCurated, generatedIds, verifyCatalog } from './product-images.mjs';
 
 const generated = { imageSourceUrl: '', images: ['/images/products/clutch-pack-0.webp'] };
 const curated = { imageSourceUrl: 'https://commons.wikimedia.org/wiki/File:X.jpg', images: ['/images/products/sun-gear-0.webp'] };
@@ -49,4 +49,34 @@ test('generated ids exclude curated ids and keep catalog order', () => {
 test('a public-domain entry may have no licence link', () => {
   const entries = [{ productId: 'a', file: 'A.jpg', credit: 'X', license: 'Public domain', licenseUrl: '' }];
   assert.doesNotThrow(() => validateCurated(entries, ['a']));
+});
+
+const DUPES = new Set(['Flywheel', 'Vibration Damper', 'Oil Filter', 'Oil Cooler', 'Hydraulic Pump']);
+
+test('a product pointing at a missing file fails verification', () => {
+  const products = [{ id: 'a', name: 'Sun Gear', category: 'gearbox-parts', images: ['/images/products/a-0.webp'] }];
+  assert.throws(() => verifyCatalog(products, () => false), /missing/i);
+});
+
+test('a remote part image fails verification', () => {
+  const products = [{ id: 'a', name: 'Sun Gear', category: 'gearbox-parts', images: ['https://example.com/x.jpg'] }];
+  assert.throws(() => verifyCatalog(products, () => true), /remote/i);
+});
+
+test('two products may not share a file unless they share a duplicate name', () => {
+  const shared = '/images/products/shared-0.webp';
+  assert.throws(() => verifyCatalog([
+    { id: 'a', name: 'Sun Gear', category: 'gearbox-parts', images: [shared] },
+    { id: 'b', name: 'Ring Gear', category: 'gearbox-parts', images: [shared] },
+  ], () => true), /shared/i);
+
+  assert.doesNotThrow(() => verifyCatalog([
+    { id: 'a', name: 'Flywheel', category: 'engine-components', images: [shared] },
+    { id: 'b', name: 'Flywheel', category: 'gearbox-parts', images: [shared] },
+  ], () => true));
+});
+
+test('equipment entries are out of scope for verification', () => {
+  const products = [{ id: 'eq', name: 'Cummins KTA19', category: 'equipment', images: ['https://example.com/x.jpg'] }];
+  assert.doesNotThrow(() => verifyCatalog(products, () => false));
 });

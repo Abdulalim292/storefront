@@ -136,10 +136,47 @@ async function curated() {
   }
 }
 
+async function normalize() {
+  const catalog = readCatalog();
+  const parts = partProducts(catalog);
+  const byId = new Map(parts.map((product) => [product.id, product]));
+  const raw = fs
+    .readdirSync(IMAGE_ROOT)
+    .filter((name) => /\.(png|jpe?g)$/i.test(name))
+    .map((name) => ({ name, id: name.replace(/-0\.(png|jpe?g)$/i, '') }))
+    .filter(({ id, name }) => /-0\./i.test(name) && byId.has(id));
+
+  let converted = 0;
+  for (const { name, id } of raw) {
+    const product = byId.get(id);
+    if (product.imageSourceUrl !== '') continue; // a curated photograph owns this product
+
+    const source = path.join(IMAGE_ROOT, name);
+    const target = path.join(IMAGE_ROOT, `${id}-0.webp`);
+    await convertToWebp(source, target, { width: 1000, height: 1000, quality: 78 });
+    fs.rmSync(source, { force: true });
+    applyGenerated(product, `/images/products/${id}-0.webp`);
+    converted += 1;
+  }
+
+  writeCatalog(catalog);
+  console.log(`Converted ${converted} generated images to WebP.`);
+}
+
+async function verify() {
+  const catalog = readCatalog();
+  verifyCatalog(catalog.products, (absolutePath) => fs.existsSync(absolutePath));
+  const remaining = partProducts(catalog).filter((product) => !product.imageSourceUrl && !product.images[0]);
+  if (remaining.length) throw new Error(`${remaining.length} part products have no image`);
+  console.log('Catalog images verified.');
+}
+
 if (import.meta.main) {
   const command = process.argv[2];
   if (command === 'plan') await plan();
   else if (command === 'curated') await curated();
+  else if (command === 'normalize') await normalize();
+  else if (command === 'verify') await verify();
   else {
     console.error('Usage: node scripts/product-images.mjs <plan|curated|normalize|verify>');
     process.exitCode = 1;
