@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { PRODUCTS } from '@/data/products';
 import { EQUIPMENT_PRODUCTS } from '@/data/equipment';
 import { cleanDash } from '@/lib/copy';
+import { isGeneratedImage } from '@/lib/product-image-note';
 
 export const metadata: Metadata = {
   title: 'Image credits',
@@ -29,7 +30,7 @@ function safeHttpUrl(value: string) {
 // Many catalog entries share the same source photograph. Grouping keeps the
 // attribution page small while still naming every product that uses it.
 const creditGroups = (() => {
-  const products = [...PRODUCTS, ...EQUIPMENT_PRODUCTS];
+  const products = [...PRODUCTS, ...EQUIPMENT_PRODUCTS].filter((product) => !isGeneratedImage(product));
   const groups = new Map<string, CreditGroup>();
 
   for (const product of products) {
@@ -80,9 +81,10 @@ export default function ImageCreditsPage() {
             <p className="font-outlier text-xs text-muted">Attribution</p>
             <h1 className="mt-4 text-ink">Image credits</h1>
             <p className="mt-5 max-w-2xl text-base leading-7 text-ink-2">
-              Product photography is shown for reference and remains the property of its respective owners. Where a photograph
-              comes from Wikimedia Commons or another source, the creator, license, and original page are listed below.
-              Manufacturer logos are credited in the brand assets README in the project repository.
+              Some product images are generated illustrations, not photographs of the actual part; they are marked on the
+              product page and are not listed here. Every photograph below is credited to its creator and shown converted to
+              WebP and otherwise unmodified. Manufacturer logos are credited in the brand assets README in the project
+              repository.
             </p>
             <p className="mt-4 font-outlier text-xs text-muted">
               {PRODUCTS.length + EQUIPMENT_PRODUCTS.length} catalog items across {creditGroups.length} image sources
