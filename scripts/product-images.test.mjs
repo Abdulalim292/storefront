@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { isGeneratedImage, showIllustrativeNote, ILLUSTRATIVE_NOTE } from '../lib/product-image-note.ts';
+import { renderPrompt, validateCurated, generatedIds } from './product-images.mjs';
 
 const generated = { imageSourceUrl: '', images: ['/images/products/clutch-pack-0.webp'] };
 const curated = { imageSourceUrl: 'https://commons.wikimedia.org/wiki/File:X.jpg', images: ['/images/products/sun-gear-0.webp'] };
@@ -24,4 +25,28 @@ test('the note never shows for a real photograph', () => {
 
 test('the note copy names the fitment check', () => {
   assert.match(ILLUSTRATIVE_NOTE, /engine or gearbox model/);
+});
+
+test('a prompt always contains the part name verbatim', () => {
+  const p = { id: 'gearbox-parts-shift-rail', name: 'Shift Rail', category: 'gearbox-parts' };
+  assert.match(renderPrompt(p), /Shift Rail/);
+  assert.match(renderPrompt(p), /gearbox/);
+});
+
+test('a curated entry without a licence is rejected', () => {
+  assert.throws(() => validateCurated([{ productId: 'a', file: 'A.jpg', credit: 'X', license: '', licenseUrl: '' }], ['a']), /licence/i);
+});
+
+test('a curated entry for an unknown product is rejected', () => {
+  assert.throws(() => validateCurated([{ productId: 'nope', file: 'A.jpg', credit: 'X', license: 'CC0', licenseUrl: 'https://x' }], ['a']), /unknown product/i);
+});
+
+test('generated ids exclude curated ids and keep catalog order', () => {
+  const products = [{ id: 'a' }, { id: 'b' }, { id: 'c' }];
+  assert.deepEqual(generatedIds(products, new Set(['b'])), ['a', 'c']);
+});
+
+test('a public-domain entry may have no licence link', () => {
+  const entries = [{ productId: 'a', file: 'A.jpg', credit: 'X', license: 'Public domain', licenseUrl: '' }];
+  assert.doesNotThrow(() => validateCurated(entries, ['a']));
 });

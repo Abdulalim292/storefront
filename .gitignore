@@ -6,6 +6,5 @@ dist/
 *.tsbuildinfo
 .env*
 !.env.example
-public/images/products/
 .hallmark/shots/
 .hallmark/before/

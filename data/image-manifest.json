@@ -1,0 +1,1634 @@
+[
+  {
+    "id": "turbocharger-assembly",
+    "name": "Turbocharger Assembly",
+    "category": "turbocharging",
+    "prompt": "Studio product photograph of a single turbocharging part: Turbocharger Assembly. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "turbocharger-cartridge",
+    "name": "Turbocharger Cartridge",
+    "category": "turbocharging",
+    "prompt": "Studio product photograph of a single turbocharging part: Turbocharger Cartridge. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "cylinder-liner",
+    "name": "Cylinder Liner",
+    "category": "cylinder-assembly",
+    "prompt": "Studio product photograph of a single cylinder assembly part: Cylinder Liner. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "valve-guide",
+    "name": "Valve Guide",
+    "category": "valve-train",
+    "prompt": "Studio product photograph of a single valve train part: Valve Guide. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "head-valve",
+    "name": "Head Valve",
+    "category": "valve-train",
+    "prompt": "Studio product photograph of a single valve train part: Head Valve. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "fuel-injector-nozzle",
+    "name": "Fuel Injector Nozzle",
+    "category": "fuel-system",
+    "prompt": "Studio product photograph of a single fuel system part: Fuel Injector Nozzle. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "cylinder-head-gasket",
+    "name": "Cylinder Head Gasket",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Cylinder Head Gasket. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-cylinder-liner-kit",
+    "name": "Cylinder Liner Kit",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Cylinder Liner Kit. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-piston-pin",
+    "name": "Piston Pin",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Piston Pin. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-piston-and-ring-kit",
+    "name": "Piston and Ring Kit",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Piston and Ring Kit. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-crankshaft",
+    "name": "Crankshaft",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Crankshaft. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-camshaft",
+    "name": "Camshaft",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Camshaft. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-oversize-main-bearing-set",
+    "name": "Oversize Main Bearing Set",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Oversize Main Bearing Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-connecting-rod-bearing-set",
+    "name": "Connecting Rod Bearing Set",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Connecting Rod Bearing Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-thrust-washer-set",
+    "name": "Thrust Washer Set",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Thrust Washer Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-top-overhaul-gasket-set",
+    "name": "Top Overhaul Gasket Set",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Top Overhaul Gasket Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-oil-pan-gasket",
+    "name": "Oil Pan Gasket",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Oil Pan Gasket. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-inlet-valve",
+    "name": "Inlet Valve",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Inlet Valve. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-rocker-shaft",
+    "name": "Rocker Shaft",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Rocker Shaft. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-valve-bridge",
+    "name": "Valve Bridge",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Valve Bridge. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-valve-rotator",
+    "name": "Valve Rotator",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Valve Rotator. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-push-rod",
+    "name": "Push Rod",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Push Rod. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-timing-gear",
+    "name": "Timing Gear",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Timing Gear. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-flywheel",
+    "name": "Flywheel",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Flywheel. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-flywheel-ring-gear",
+    "name": "Flywheel Ring Gear",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Flywheel Ring Gear. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-crankshaft-pulley",
+    "name": "Crankshaft Pulley",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Crankshaft Pulley. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-vibration-damper",
+    "name": "Vibration Damper",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Vibration Damper. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-oil-pump",
+    "name": "Oil Pump",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Oil Pump. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-water-pump",
+    "name": "Water Pump",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Water Pump. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-water-pump-assembly",
+    "name": "Water Pump Assembly",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Water Pump Assembly. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-coolant-hose",
+    "name": "Coolant Hose",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Coolant Hose. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-radiator",
+    "name": "Radiator",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Radiator. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-fuel-lift-pump",
+    "name": "Fuel Lift Pump",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Fuel Lift Pump. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-turbocharger-oil-line",
+    "name": "Turbocharger Oil Line",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Turbocharger Oil Line. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-turbocharger-rebuild-kit",
+    "name": "Turbocharger Rebuild Kit",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Turbocharger Rebuild Kit. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-alternator",
+    "name": "Alternator",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Alternator. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-engine-mount",
+    "name": "Engine Mount",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Engine Mount. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-engine-overhaul-gasket-set",
+    "name": "Engine Overhaul Gasket Set",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Engine Overhaul Gasket Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-input-shaft",
+    "name": "Input Shaft",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Input Shaft. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-output-shaft",
+    "name": "Output Shaft",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Output Shaft. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-intermediate-shaft",
+    "name": "Intermediate Shaft",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Intermediate Shaft. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-reverse-idler-gear",
+    "name": "Reverse Idler Gear",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Reverse Idler Gear. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-reverse-gear-set",
+    "name": "Reverse Gear Set",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Reverse Gear Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-reduction-gear-set",
+    "name": "Reduction Gear Set",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Reduction Gear Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-clutch-pack",
+    "name": "Clutch Pack",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Clutch Pack. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-forward-clutch-plate",
+    "name": "Forward Clutch Plate",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Forward Clutch Plate. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-reverse-clutch-plate",
+    "name": "Reverse Clutch Plate",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Reverse Clutch Plate. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-friction-disc",
+    "name": "Friction Disc",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Friction Disc. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-separator-plate",
+    "name": "Separator Plate",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Separator Plate. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-clutch-hub",
+    "name": "Clutch Hub",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Clutch Hub. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-clutch-drum",
+    "name": "Clutch Drum",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Clutch Drum. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-clutch-piston",
+    "name": "Clutch Piston",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Clutch Piston. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-clutch-return-spring",
+    "name": "Clutch Return Spring",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Clutch Return Spring. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-hydraulic-pump",
+    "name": "Hydraulic Pump",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Hydraulic Pump. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-oil-pump-drive",
+    "name": "Oil Pump Drive",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Oil Pump Drive. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-pressure-regulator-valve",
+    "name": "Pressure Regulator Valve",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Pressure Regulator Valve. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-control-valve-body",
+    "name": "Control Valve Body",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Control Valve Body. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-selector-valve",
+    "name": "Selector Valve",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Selector Valve. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-shift-fork",
+    "name": "Shift Fork",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Shift Fork. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-shift-rail",
+    "name": "Shift Rail",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Shift Rail. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-shift-linkage",
+    "name": "Shift Linkage",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Shift Linkage. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-control-cable",
+    "name": "Control Cable",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Control Cable. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-gear-selector",
+    "name": "Gear Selector",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Gear Selector. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-planetary-carrier",
+    "name": "Planetary Carrier",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Planetary Carrier. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-sun-gear",
+    "name": "Sun Gear",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Sun Gear. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-ring-gear",
+    "name": "Ring Gear",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Ring Gear. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-planet-gear",
+    "name": "Planet Gear",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Planet Gear. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-thrust-washer",
+    "name": "Thrust Washer",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Thrust Washer. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-needle-bearing",
+    "name": "Needle Bearing",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Needle Bearing. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-tapered-roller-bearing",
+    "name": "Tapered Roller Bearing",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Tapered Roller Bearing. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-ball-bearing",
+    "name": "Ball Bearing",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Ball Bearing. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-thrust-bearing",
+    "name": "Thrust Bearing",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Thrust Bearing. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-bearing-race",
+    "name": "Bearing Race",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Bearing Race. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-input-shaft-seal",
+    "name": "Input Shaft Seal",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Input Shaft Seal. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-output-shaft-seal",
+    "name": "Output Shaft Seal",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Output Shaft Seal. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-gasket-set",
+    "name": "Gasket Set",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Gasket Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-suction-strainer",
+    "name": "Suction Strainer",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Suction Strainer. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-cooler-hose",
+    "name": "Cooler Hose",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Cooler Hose. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-oil-pressure-switch",
+    "name": "Oil Pressure Switch",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Oil Pressure Switch. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-speed-sensor",
+    "name": "Speed Sensor",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Speed Sensor. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-gearbox-mounting-bracket",
+    "name": "Gearbox Mounting Bracket",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Gearbox Mounting Bracket. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-clutch-plate",
+    "name": "Clutch Plate",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Clutch Plate. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-pressure-plate",
+    "name": "Pressure Plate",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Pressure Plate. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-internal-gear-ring",
+    "name": "Internal Gear Ring",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Internal Gear Ring. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-flywheel",
+    "name": "Flywheel",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Flywheel. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-clutch-release-bearing",
+    "name": "Clutch Release Bearing",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Clutch Release Bearing. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-clutch-cover",
+    "name": "Clutch Cover",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Clutch Cover. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-pilot-bearing",
+    "name": "Pilot Bearing",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Pilot Bearing. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-gearbox-main-shaft",
+    "name": "Gearbox Main Shaft",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Gearbox Main Shaft. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-counter-shaft",
+    "name": "Counter Shaft",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Counter Shaft. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-synchronizer-ring",
+    "name": "Synchronizer Ring",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Synchronizer Ring. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-synchronizer-hub",
+    "name": "Synchronizer Hub",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Synchronizer Hub. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-sleeve",
+    "name": "Sleeve",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Sleeve. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-shift-collar",
+    "name": "Shift Collar",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Shift Collar. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-selector-fork",
+    "name": "Selector Fork",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Selector Fork. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-valve-body-gasket",
+    "name": "Valve Body Gasket",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Valve Body Gasket. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-stator",
+    "name": "Stator",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Stator. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-turbine",
+    "name": "Turbine",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Turbine. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-impeller-blade",
+    "name": "Impeller Blade",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Impeller Blade. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-lock-up-clutch",
+    "name": "Lock-up Clutch",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Lock-up Clutch. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-oil-pan",
+    "name": "Oil Pan",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Oil Pan. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-sump-plug",
+    "name": "Sump Plug",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Sump Plug. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-oil-gallery-plug",
+    "name": "Oil Gallery Plug",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Oil Gallery Plug. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-filter-housing",
+    "name": "Filter Housing",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Filter Housing. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-pressure-relief-valve",
+    "name": "Pressure Relief Valve",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Pressure Relief Valve. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-torsion-spring",
+    "name": "Torsion Spring",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Torsion Spring. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-shift-detent-ball",
+    "name": "Shift Detent Ball",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Shift Detent Ball. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-detent-spring",
+    "name": "Detent Spring",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Detent Spring. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-output-spline",
+    "name": "Output Spline",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Output Spline. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-thrust-collar",
+    "name": "Thrust Collar",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Thrust Collar. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-bearing-shell",
+    "name": "Bearing Shell",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Bearing Shell. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-shim-kit",
+    "name": "Shim Kit",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Shim Kit. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-seal-ring",
+    "name": "Seal Ring",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Seal Ring. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-gearbox-vent",
+    "name": "Gearbox Vent",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Gearbox Vent. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-oil-filler-cap",
+    "name": "Oil Filler Cap",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Oil Filler Cap. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-magnetic-drain-plug",
+    "name": "Magnetic Drain Plug",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Magnetic Drain Plug. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-gear-oil-cooler",
+    "name": "Gear Oil Cooler",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Gear Oil Cooler. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-oil-feed-line",
+    "name": "Oil Feed Line",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Oil Feed Line. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-clutch-actuator",
+    "name": "Clutch Actuator",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Clutch Actuator. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-slave-cylinder",
+    "name": "Slave Cylinder",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Slave Cylinder. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-clutch-line",
+    "name": "Clutch Line",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Clutch Line. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-clutch-pedal-kit",
+    "name": "Clutch Pedal Kit",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Clutch Pedal Kit. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-flywheel-bolt",
+    "name": "Flywheel Bolt",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Flywheel Bolt. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-pressure-plate-bolt",
+    "name": "Pressure Plate Bolt",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Pressure Plate Bolt. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-clutch-disc-spring",
+    "name": "Clutch Disc Spring",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Clutch Disc Spring. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-gear-tooth-seal",
+    "name": "Gear Tooth Seal",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Gear Tooth Seal. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-shaft-key",
+    "name": "Shaft Key",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Shaft Key. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-bearing-race-set",
+    "name": "Bearing Race Set",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Bearing Race Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-tapered-roller-set",
+    "name": "Tapered Roller Set",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Tapered Roller Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-ball-bearing-kit",
+    "name": "Ball Bearing Kit",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Ball Bearing Kit. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-needle-bearing-set",
+    "name": "Needle Bearing Set",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Needle Bearing Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-thrust-washer-kit",
+    "name": "Thrust Washer Kit",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Thrust Washer Kit. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-internal-ring-gear",
+    "name": "Internal Ring Gear",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Internal Ring Gear. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-planet-gear-set",
+    "name": "Planet Gear Set",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Planet Gear Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-sun-gear-assembly",
+    "name": "Sun Gear Assembly",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Sun Gear Assembly. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-carrier-bearing",
+    "name": "Carrier Bearing",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Carrier Bearing. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-planetary-pin",
+    "name": "Planetary Pin",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Planetary Pin. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-gearbox-mounting-pad",
+    "name": "Gearbox Mounting Pad",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Gearbox Mounting Pad. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-vibration-damper",
+    "name": "Vibration Damper",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Vibration Damper. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-input-coupling",
+    "name": "Input Coupling",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Input Coupling. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-output-coupling",
+    "name": "Output Coupling",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Output Coupling. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-drive-flange",
+    "name": "Drive Flange",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Drive Flange. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-gearbox-case-bolt",
+    "name": "Gearbox Case Bolt",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Gearbox Case Bolt. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-case-gasket",
+    "name": "Case Gasket",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Case Gasket. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-oil-seal-kit",
+    "name": "Oil Seal Kit",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Oil Seal Kit. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-internal-oil-filter",
+    "name": "Internal Oil Filter",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Internal Oil Filter. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-hydraulic-valve",
+    "name": "Hydraulic Valve",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Hydraulic Valve. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-shift-linkage-pin",
+    "name": "Shift Linkage Pin",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Shift Linkage Pin. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-control-cable-end",
+    "name": "Control Cable End",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Control Cable End. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-selector-lever",
+    "name": "Selector Lever",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Selector Lever. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-shift-rail-spring",
+    "name": "Shift Rail Spring",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Shift Rail Spring. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-shift-fork-pin",
+    "name": "Shift Fork Pin",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Shift Fork Pin. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-clutch-disc-rivet",
+    "name": "Clutch Disc Rivet",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Clutch Disc Rivet. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-friction-lining",
+    "name": "Friction Lining",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Friction Lining. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-separator-disc",
+    "name": "Separator Disc",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Separator Disc. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-pressure-spring",
+    "name": "Pressure Spring",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Pressure Spring. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-clutch-plate-kit",
+    "name": "Clutch Plate Kit",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Clutch Plate Kit. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-gearbox-lapped-ring",
+    "name": "Gearbox lapped ring",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Gearbox lapped ring. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-gearbox-shim-set",
+    "name": "Gearbox shim set",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Gearbox shim set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-input-shaft-bearing",
+    "name": "Input shaft bearing",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Input shaft bearing. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-output-shaft-bearing",
+    "name": "Output shaft bearing",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Output shaft bearing. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-intermediate-shaft-bearing",
+    "name": "Intermediate shaft bearing",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Intermediate shaft bearing. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-main-shaft-seal",
+    "name": "Main shaft seal",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Main shaft seal. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-counter-shaft-seal",
+    "name": "Counter shaft seal",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Counter shaft seal. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-housing-seal",
+    "name": "Housing seal",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Housing seal. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-gearbox-oil-pump-gear",
+    "name": "Gearbox oil pump gear",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Gearbox oil pump gear. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-oil-pump-housing",
+    "name": "Oil pump housing",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Oil pump housing. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-transmission-fluid-cooler",
+    "name": "Transmission fluid cooler",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Transmission fluid cooler. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-fluid-line-fitting",
+    "name": "Fluid line fitting",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Fluid line fitting. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-oil-pressure-sensor",
+    "name": "Oil pressure sensor",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Oil pressure sensor. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-speedometer-gear",
+    "name": "Speedometer gear",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Speedometer gear. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-reverse-idler-shaft",
+    "name": "Reverse idler shaft",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Reverse idler shaft. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-gearbox-torque-converter",
+    "name": "Gearbox torque converter",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Gearbox torque converter. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-clutch-pressure-spring",
+    "name": "Clutch pressure spring",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Clutch pressure spring. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-clutch-release-fork",
+    "name": "Clutch release fork",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Clutch release fork. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-clutch-pivot-ball",
+    "name": "Clutch pivot ball",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Clutch pivot ball. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-flywheel-ring-gear",
+    "name": "Flywheel ring gear",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Flywheel ring gear. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-gearbox-internal-gasket",
+    "name": "Gearbox internal gasket",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Gearbox internal gasket. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-oil-pan-gasket",
+    "name": "Oil pan gasket",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Oil pan gasket. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-sealant-kit",
+    "name": "Sealant kit",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Sealant kit. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-gearbox-overhaul-kit",
+    "name": "Gearbox overhaul kit",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Gearbox overhaul kit. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-transmission-service-set",
+    "name": "Transmission service set",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Transmission service set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-water-jacket-cover",
+    "name": "Water Jacket Cover",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Water Jacket Cover. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-cylinder-head-bolt-set",
+    "name": "Cylinder Head Bolt Set",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Cylinder Head Bolt Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-crankshaft-seal",
+    "name": "Crankshaft Seal",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Crankshaft Seal. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-camshaft-bushing-set",
+    "name": "Camshaft Bushing Set",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Camshaft Bushing Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-connecting-rod-bolt-set",
+    "name": "Connecting Rod Bolt Set",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Connecting Rod Bolt Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-wrist-pin-bushing",
+    "name": "Wrist Pin Bushing",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Wrist Pin Bushing. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-piston-cooling-nozzle",
+    "name": "Piston Cooling Nozzle",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Piston Cooling Nozzle. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-valve-stem-seal-set",
+    "name": "Valve Stem Seal Set",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Valve Stem Seal Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-valve-collet-set",
+    "name": "Valve Collet Set",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Valve Collet Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-rocker-cover",
+    "name": "Rocker Cover",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Rocker Cover. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-rocker-cover-gasket",
+    "name": "Rocker Cover Gasket",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Rocker Cover Gasket. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-manifold-gasket-set",
+    "name": "Manifold Gasket Set",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Manifold Gasket Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-turbocharger-gasket-kit",
+    "name": "Turbocharger Gasket Kit",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Turbocharger Gasket Kit. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-exhaust-elbow",
+    "name": "Exhaust Elbow",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Exhaust Elbow. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-engine-mounting-bracket",
+    "name": "Engine Mounting Bracket",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Engine Mounting Bracket. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-front-engine-support",
+    "name": "Front Engine Support",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Front Engine Support. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-rear-engine-support",
+    "name": "Rear Engine Support",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Rear Engine Support. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-engine-control-unit",
+    "name": "Engine Control Unit",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Engine Control Unit. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-engine-wiring-harness",
+    "name": "Engine Wiring Harness",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Engine Wiring Harness. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-oil-pressure-sensor",
+    "name": "Oil Pressure Sensor",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Oil Pressure Sensor. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-coolant-temperature-sensor",
+    "name": "Coolant Temperature Sensor",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Coolant Temperature Sensor. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-crankshaft-position-sensor",
+    "name": "Crankshaft Position Sensor",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Crankshaft Position Sensor. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-speed-pickup-sensor",
+    "name": "Speed Pickup Sensor",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Speed Pickup Sensor. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-intake-air-heater",
+    "name": "Intake Air Heater",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Intake Air Heater. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-exhaust-flex-connector",
+    "name": "Exhaust Flex Connector",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Exhaust Flex Connector. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-expansion-tank",
+    "name": "Expansion Tank",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Expansion Tank. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-coolant-level-sensor",
+    "name": "Coolant Level Sensor",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Coolant Level Sensor. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-fuel-rail",
+    "name": "Fuel Rail",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Fuel Rail. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-high-pressure-fuel-pipe-set",
+    "name": "High Pressure Fuel Pipe Set",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: High Pressure Fuel Pipe Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-fuel-return-pipe-set",
+    "name": "Fuel Return Pipe Set",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Fuel Return Pipe Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-fuel-water-separator",
+    "name": "Fuel Water Separator",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Fuel Water Separator. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-air-intake-silencer",
+    "name": "Air Intake Silencer",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Air Intake Silencer. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "engine-components-engine-service-kit",
+    "name": "Engine Service Kit",
+    "category": "engine-components",
+    "prompt": "Studio product photograph of a single engine components part: Engine Service Kit. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-marine-gearbox-assembly",
+    "name": "Marine Gearbox Assembly",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Marine Gearbox Assembly. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-reversing-gearbox-assembly",
+    "name": "Reversing Gearbox Assembly",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Reversing Gearbox Assembly. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-reduction-gearbox-assembly",
+    "name": "Reduction Gearbox Assembly",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Reduction Gearbox Assembly. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-transmission-input-coupling",
+    "name": "Transmission Input Coupling",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Transmission Input Coupling. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-flexible-drive-coupling",
+    "name": "Flexible Drive Coupling",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Flexible Drive Coupling. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-torsional-damper",
+    "name": "Torsional Damper",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Torsional Damper. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-propeller-shaft-flange",
+    "name": "Propeller Shaft Flange",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Propeller Shaft Flange. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-output-flange",
+    "name": "Output Flange",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Output Flange. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-gearbox-oil-pump",
+    "name": "Gearbox Oil Pump",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Gearbox Oil Pump. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-oil-pump-cover",
+    "name": "Oil Pump Cover",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Oil Pump Cover. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-hydraulic-control-pump",
+    "name": "Hydraulic Control Pump",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Hydraulic Control Pump. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-clutch-friction-plate-set",
+    "name": "Clutch Friction Plate Set",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Clutch Friction Plate Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-clutch-steel-plate-set",
+    "name": "Clutch Steel Plate Set",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Clutch Steel Plate Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-clutch-disc-hub",
+    "name": "Clutch Disc Hub",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Clutch Disc Hub. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-clutch-release-piston",
+    "name": "Clutch Release Piston",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Clutch Release Piston. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-reverse-clutch-drum",
+    "name": "Reverse Clutch Drum",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Reverse Clutch Drum. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-gear-shift-lever",
+    "name": "Gear Shift Lever",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Gear Shift Lever. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-gear-selector-cable",
+    "name": "Gear Selector Cable",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Gear Selector Cable. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-neutral-safety-switch",
+    "name": "Neutral Safety Switch",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Neutral Safety Switch. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-direction-control-valve",
+    "name": "Direction Control Valve",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Direction Control Valve. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-oil-cooler-core",
+    "name": "Oil Cooler Core",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Oil Cooler Core. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-oil-cooler-gasket",
+    "name": "Oil Cooler Gasket",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Oil Cooler Gasket. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-dipstick-assembly",
+    "name": "Dipstick Assembly",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Dipstick Assembly. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-breather-assembly",
+    "name": "Breather Assembly",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Breather Assembly. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-gear-tooth-set",
+    "name": "Gear Tooth Set",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Gear Tooth Set. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-planetary-gear-carrier",
+    "name": "Planetary Gear Carrier",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Planetary Gear Carrier. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-reduction-gear-pinion",
+    "name": "Reduction Gear Pinion",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Reduction Gear Pinion. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "gearbox-parts-marine-transmission-service-kit",
+    "name": "Marine Transmission Service Kit",
+    "category": "gearbox-parts",
+    "prompt": "Studio product photograph of a single gearbox parts part: Marine Transmission Service Kit. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-track-shoe",
+    "name": "Track Shoe",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Track Shoe. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-track-link",
+    "name": "Track Link",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Track Link. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-track-roller",
+    "name": "Track Roller",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Track Roller. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-carrier-roller",
+    "name": "Carrier Roller",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Carrier Roller. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-track-idler",
+    "name": "Track Idler",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Track Idler. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-track-chain",
+    "name": "Track Chain",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Track Chain. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-final-drive-motor",
+    "name": "Final Drive Motor",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Final Drive Motor. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-travel-motor",
+    "name": "Travel Motor",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Travel Motor. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-swing-motor",
+    "name": "Swing Motor",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Swing Motor. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-hydraulic-pump",
+    "name": "Hydraulic Pump",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Hydraulic Pump. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-lift-cylinder",
+    "name": "Lift Cylinder",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Lift Cylinder. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-boom-cylinder",
+    "name": "Boom Cylinder",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Boom Cylinder. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-bucket-cylinder",
+    "name": "Bucket Cylinder",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Bucket Cylinder. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-hydraulic-hose",
+    "name": "Hydraulic Hose",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Hydraulic Hose. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-hydraulic-control-valve",
+    "name": "Hydraulic Control Valve",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Hydraulic Control Valve. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-hydraulic-relief-valve",
+    "name": "Hydraulic Relief Valve",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Hydraulic Relief Valve. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-swing-bearing",
+    "name": "Swing Bearing",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Swing Bearing. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-slew-ring",
+    "name": "Slew Ring",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Slew Ring. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-boom-pin",
+    "name": "Boom Pin",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Boom Pin. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-bucket-pin",
+    "name": "Bucket Pin",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Bucket Pin. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-bucket-bushing",
+    "name": "Bucket Bushing",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Bucket Bushing. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-bucket-cutting-edge",
+    "name": "Bucket Cutting Edge",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Bucket Cutting Edge. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-bucket-tooth",
+    "name": "Bucket Tooth",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Bucket Tooth. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-bucket-side-cutter",
+    "name": "Bucket Side Cutter",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Bucket Side Cutter. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-quick-coupler",
+    "name": "Quick Coupler",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Quick Coupler. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-loader-tire",
+    "name": "Loader Tire",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Loader Tire. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-wheel-hub",
+    "name": "Wheel Hub",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Wheel Hub. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-axle-shaft",
+    "name": "Axle Shaft",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Axle Shaft. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  },
+  {
+    "id": "heavy-equipment-parts-brake-assembly",
+    "name": "Brake Assembly",
+    "category": "heavy-equipment-parts",
+    "prompt": "Studio product photograph of a single heavy equipment parts part: Brake Assembly. Isolated on a warm off-white seamless sweep, soft even studio light, engineering catalogue style, clean machined metal with visible detail, no text, no watermark, no branding, no hands, square 1:1."
+  }
+]

@@ -35,7 +35,11 @@ export async function downloadImage(url, localPath) {
   }
 
   try {
-    const response = await fetch(url, { signal: AbortSignal.timeout(30_000) });
+    // Wikimedia answers 429 to requests without an identifying user agent.
+    const response = await fetch(url, {
+      headers: { 'User-Agent': 'storefront-image-pipeline/1.0 (https://nooralammachineries.com)' },
+      signal: AbortSignal.timeout(30_000),
+    });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const contentType = response.headers.get('content-type') ?? '';
     if (!contentType.startsWith('image/')) {
