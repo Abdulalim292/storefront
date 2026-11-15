@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/Button';
 import { CatalogImage } from '@/components/ui/CatalogImage';
 import { Breadcrumbs, type BreadcrumbEntry } from '@/components/ui/Breadcrumbs';
 import { useCart } from '@/context/CartContext';
+import { useProductImage } from '@/context/ProductImageContext';
+import { ILLUSTRATIVE_NOTE, showIllustrativeNote } from '@/lib/product-image-note';
 import { ClipboardList, Ruler, Settings2, Ship, MessageCircle } from 'lucide-react';
 import { formatPrice } from '@/lib/utils';
 import { trackEvent } from '@/lib/analytics';
@@ -44,6 +46,8 @@ export default function ProductDetailClient({
 }) {
   const { addToCart } = useCart();
   const price = formatPrice(product.price);
+  // Resolving here (not inside CatalogImage) keeps the note and the picture in step.
+  const renderedSrc = useProductImage(product.id, product.images[0]);
 
   useEffect(() => {
     trackEvent('view_item', {
@@ -69,7 +73,7 @@ export default function ProductDetailClient({
             <div className="plate aspect-square lg:aspect-auto lg:min-h-[420px] lg:flex-1">
               <CatalogImage
                 productId={product.id}
-                src={product.images[0]}
+                src={renderedSrc}
                 alt={product.name}
                 sizes="(max-width: 1023px) calc(100vw - 2rem), (max-width: 1312px) 50vw, 640px"
                 loading="eager"
@@ -82,6 +86,9 @@ export default function ProductDetailClient({
               <span className="dim" aria-hidden="true" />
               <span className="font-outlier text-xs text-muted">{product.id}</span>
             </div>
+            {showIllustrativeNote(product, renderedSrc) && (
+              <p className="mt-3 text-xs text-muted">{ILLUSTRATIVE_NOTE}</p>
+            )}
           </div>
 
           <div className="flex flex-col lg:col-span-6 lg:justify-center">
