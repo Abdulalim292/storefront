@@ -35,6 +35,11 @@ test('a curated entry for an unknown product is rejected', () => {
   assert.throws(() => validateCurated([{ productId: 'nope', file: 'A.jpg', credit: 'X', license: 'CC0', licenseUrl: 'https://x' }], ['a']), /unknown product/i);
 });
 
+test('a curated entry for an equipment product is rejected', () => {
+  const entries = [{ productId: 'eq', file: 'A.jpg', credit: 'X', license: 'CC0', licenseUrl: 'https://x' }];
+  assert.throws(() => validateCurated(entries, [{ id: 'eq', category: 'equipment' }]), /out of scope/i);
+});
+
 test('generated ids exclude curated ids and keep catalog order', () => {
   const products = [{ id: 'a' }, { id: 'b' }, { id: 'c' }];
   assert.deepEqual(generatedIds(products, new Set(['b'])), ['a', 'c']);
@@ -62,6 +67,11 @@ test('two products may not share a file unless they share a duplicate name', () 
     { id: 'b', name: 'Ring Gear', category: 'gearbox-parts', images: [shared] },
   ], () => true), /shared/i);
 
+  assert.throws(() => verifyCatalog([
+    { id: 'a', name: 'Sun Gear', category: 'gearbox-parts', images: [shared] },
+    { id: 'b', name: 'Flywheel', category: 'engine-components', images: [shared] },
+  ], () => true), /shared/i);
+
   assert.doesNotThrow(() => verifyCatalog([
     { id: 'a', name: 'Flywheel', category: 'engine-components', images: [shared] },
     { id: 'b', name: 'Flywheel', category: 'gearbox-parts', images: [shared] },
@@ -83,11 +93,16 @@ test('equipment entries are out of scope for verification', () => {
 
 test('a plate names the part and its category', () => {
   const svg = plateSvg({ id: 'a', name: 'Sun Gear', category: 'gearbox-parts' });
-  assert.match(svg, /Sun Gear/);
+  assert.match(svg, />Sun Gear</);
   assert.match(svg, /gearbox parts/i);
 });
 
 test('a plate escapes markup in the part name', () => {
   const svg = plateSvg({ id: 'a', name: 'Bolt & Nut', category: 'engine-components' });
   assert.match(svg, /Bolt &amp; Nut/);
+});
+
+test('a plate measures line width before escaping', () => {
+  const svg = plateSvg({ id: 'a', name: 'Valve & Seal Kit', category: 'engine-components' });
+  assert.match(svg, />Valve &amp; Seal Kit</);
 });

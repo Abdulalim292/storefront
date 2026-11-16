@@ -78,12 +78,13 @@ was abandoned rather than left as a blocked step. Every remaining product gets a
 **part plate** instead: a square 1000x1000 SVG drawn by `scripts/product-images.mjs` and
 converted to WebP, containing
 
-- the part name, set large in the site's display style,
+- the part name, set large in DejaVu Sans — the site's display face is not installed where the
+  plates are rendered, and DejaVu is the only usable local sans,
 - the category, small and letter-spaced, in the register's label voice,
 - a simple line glyph for the category (gear for gearbox parts, piston for engine parts, track
   segment for heavy equipment, and so on),
-- a hairline frame, on the warm plate tone (`oklch(95.4% 0.008 90)` ~ `#efece6`) that matches
-  `--color-plate`.
+- a hairline frame on a white ground (`#ffffff`), because `.plate img { mix-blend-mode: multiply }`
+  in `app/base.css` would darken a plate-tone ground under the image.
 
 No photograph, no AI, no outside service, nothing to license. The plate is obviously a
 typographic record rather than a part, which is exactly what the "Illustrative image" label

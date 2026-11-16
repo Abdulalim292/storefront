@@ -17,10 +17,14 @@ export const GENERATED_CREDIT = 'Generated illustration';
 // Same part type listed under two categories may share one photograph.
 const DUPES = new Set(['Flywheel', 'Vibration Damper', 'Oil Filter', 'Oil Cooler', 'Hydraulic Pump']);
 
-export function validateCurated(entries, productIds) {
-  const known = new Set(productIds);
+export function validateCurated(entries, products) {
+  // Ids or product objects: a bare id carries no category, so only real products can be screened.
+  const known = new Map(products.map((item) => (typeof item === 'string' ? [item] : [item.id, item.category])));
   for (const entry of entries) {
     if (!known.has(entry.productId)) throw new Error(`curated entry for unknown product ${entry.productId}`);
+    if (known.get(entry.productId) === 'equipment') {
+      throw new Error(`curated entry ${entry.productId} is an equipment product and is out of scope`);
+    }
     if (!entry.file) throw new Error(`curated entry ${entry.productId} is missing a file`);
     if (!entry.credit || !entry.license || !entry.licenseUrl) {
       throw new Error(`curated entry ${entry.productId} is missing a licence, credit or licence link`);
@@ -62,7 +66,7 @@ export function verifyCatalog(products, exists) {
       throw new Error(`missing image file for ${product.id}: ${src}`);
     }
     const other = seen.get(src);
-    if (other && !DUPES.has(product.name)) {
+    if (other && !(DUPES.has(product.name) && other.name === product.name)) {
       throw new Error(`image shared by ${other.id} and ${product.id}: ${src}`);
     }
     seen.set(src, product);
@@ -90,7 +94,7 @@ async function plan() {
 
 async function curated() {
   const catalog = readCatalog();
-  const entries = validateCurated(readCurated(), catalog.products.map((product) => product.id));
+  const entries = validateCurated(readCurated(), catalog.products);
   const failed = [];
   let applied = 0;
 
@@ -99,29 +103,32 @@ async function curated() {
     // Same shape localImagePath() produces, built directly because that helper needs a URL.
     const localPath = `/images/products/${entry.productId}-0.webp`;
     const target = path.join(IMAGE_ROOT, path.basename(localPath));
+    const downloadPath = `${localPath.slice(0, -'.webp'.length)}${path.extname(entry.file) || '.jpg'}`;
+    const temp = path.join(IMAGE_ROOT, path.basename(downloadPath));
 
-    // A plate already exists for this id: replace it rather than stamp "curated" metadata
-    // onto generated art.
-    const stalePlate = !product.images[0]?.startsWith('/images/products/') || product.imageSourceUrl === '';
-    if (!fs.existsSync(target) || stalePlate) {
-      const downloadPath = `${localPath.slice(0, -'.webp'.length)}${path.extname(entry.file) || '.jpg'}`;
-      const url = `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(entry.file)}?width=1400`;
-      if (!(await downloadImage(url, downloadPath))) {
-        failed.push(entry.productId);
-        continue;
+    try {
+      // A plate already exists for this id: replace it rather than stamp "curated" metadata
+      // onto generated art.
+      const stalePlate = !product.images[0]?.startsWith('/images/products/') || product.imageSourceUrl === '';
+      if (!fs.existsSync(target) || stalePlate) {
+        const url = `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(entry.file)}?width=1400`;
+        if (!(await downloadImage(url, downloadPath))) throw new Error('download failed');
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        // Native aspect: only the format changes.
+        await convertToWebp(temp, target, { quality: 82 });
+        fs.rmSync(temp, { force: true });
       }
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      // Native aspect: only the format changes.
-      await convertToWebp(path.join(IMAGE_ROOT, path.basename(downloadPath)), target, { quality: 82 });
-      fs.rmSync(path.join(IMAGE_ROOT, path.basename(downloadPath)), { force: true });
-    }
 
-    product.images = [localPath];
-    product.imageSourceUrl = `https://commons.wikimedia.org/wiki/File:${entry.file}`;
-    product.imageCredit = entry.credit;
-    product.imageLicense = entry.license;
-    product.imageLicenseUrl = entry.licenseUrl;
-    applied += 1;
+      product.images = [localPath];
+      product.imageSourceUrl = `https://commons.wikimedia.org/wiki/File:${entry.file}`;
+      product.imageCredit = entry.credit;
+      product.imageLicense = entry.license;
+      product.imageLicenseUrl = entry.licenseUrl;
+      applied += 1;
+    } catch (error) {
+      fs.rmSync(temp, { force: true });
+      failed.push(`${entry.productId} (${error.message})`);
+    }
   }
 
   writeCatalog(catalog);
@@ -172,9 +179,9 @@ const escapeXml = (value) => value.replaceAll('&', '&amp;').replaceAll('<', '&lt
 
 export function plateSvg({ name, category }) {
   const label = escapeXml(category.replaceAll('-', ' ').toUpperCase());
-  const lines = wrap(escapeXml(name));
+  const lines = wrap(name).map(escapeXml);
   const fontSize = lines.length > 2 ? 72 : 86;
-  const top = 470 - ((lines.length - 1) * fontSize * 0.58) / 1;
+  const top = 470 - ((lines.length - 1) * fontSize * 0.58);
   const text = lines
     .map((line, i) => `<text x="500" y="${top + i * fontSize * 1.18}" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="${fontSize}" font-weight="600" fill="#1f2a26">${line}</text>`)
     .join('');
