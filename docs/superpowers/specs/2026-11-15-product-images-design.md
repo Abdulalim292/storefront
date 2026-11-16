@@ -79,7 +79,7 @@ was abandoned rather than left as a blocked step. Every remaining product gets a
 converted to WebP, containing
 
 - the part name, set large in DejaVu Sans — the site's display face is not installed where the
-  plates are rendered, and DejaVu is the only usable local sans,
+  plates are rendered, so DejaVu Sans is used,
 - the category, small and letter-spaced, in the register's label voice,
 - a simple line glyph for the category (gear for gearbox parts, piston for engine parts, track
   segment for heavy equipment, and so on),

@@ -68,13 +68,13 @@ for download and path conventions.
   `showIllustrativeNote(product: { imageSourceUrl: string; images: string[] }, renderedSrc: string): boolean`,
   `ILLUSTRATIVE_NOTE: string` — all from `@/lib/product-image-note`. Tasks 2 and 3 use them.
 
-- [ ] **Step 1: Add the test runner and the encoder dependency**
+- [x] **Step 1: Add the test runner and the encoder dependency**
 
 In `package.json` add `"test": "node --test scripts/*.test.mjs"` to `scripts`, and
 `"sharp": "0.35.5"` to `devDependencies` (it is currently only present transitively through
 `next`).
 
-- [ ] **Step 2: Write the failing test**
+- [x] **Step 2: Write the failing test**
 
 Create `scripts/product-images.test.mjs`:
 
@@ -108,12 +108,12 @@ test('the note copy names the fitment check', () => {
 });
 ```
 
-- [ ] **Step 3: Run the test to verify it fails**
+- [x] **Step 3: Run the test to verify it fails**
 
 Run: `npm test`
 Expected: FAIL — `Cannot find module '../lib/product-image-note.ts'`.
 
-- [ ] **Step 4: Implement `lib/product-image-note.ts`**
+- [x] **Step 4: Implement `lib/product-image-note.ts`**
 
 No imports from `@/types` — the parameter shapes are inline so `node --test` can load the file
 directly.
@@ -134,12 +134,12 @@ export function showIllustrativeNote(
 }
 ```
 
-- [ ] **Step 5: Run the test to verify it passes**
+- [x] **Step 5: Run the test to verify it passes**
 
 Run: `npm test`
 Expected: PASS, 5 tests.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add package.json package-lock.json lib/product-image-note.ts scripts/product-images.test.mjs
@@ -158,7 +158,7 @@ git commit -m "feat: identify generated product images"
   `useProductImage(productId, fallback)` from `@/context/ProductImageContext`.
 - Produces: nothing importable.
 
-- [ ] **Step 1: Render the note**
+- [x] **Step 1: Render the note**
 
 Import `useProductImage` and the two helpers. In the component body resolve
 `const renderedSrc = useProductImage(product.id, product.images[0]);` and pass
@@ -170,13 +170,13 @@ one line when `showIllustrativeNote(product, renderedSrc)` is true:
 <p className="mt-3 text-xs text-muted">{ILLUSTRATIVE_NOTE}</p>
 ```
 
-- [ ] **Step 2: Check it renders both ways**
+- [x] **Step 2: Check it renders both ways**
 
 Run: `npm run dev`, open a product (any part product — every one is generated until the
 catalogue work lands), confirm the line appears under the part record. Then open an equipment
 product (`/products/cummins-kta19`), confirm it does not.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add "app/products/[id]/ProductDetailClient.tsx"
@@ -194,7 +194,7 @@ git commit -m "feat: label generated product images as illustrative"
 - Consumes: `isGeneratedImage` from `@/lib/product-image-note`.
 - Produces: nothing importable.
 
-- [ ] **Step 1: Filter and explain**
+- [x] **Step 1: Filter and explain**
 
 Skip products where `isGeneratedImage(product)` is true before grouping — the file already
 falls back to `'Credit not recorded'` for empty credits, but a generated entry has no
@@ -202,12 +202,12 @@ photograph to credit. Add one sentence to the page intro stating that some produ
 generated illustrations, not photographs of the actual part, and that photographs are shown
 converted to WebP and otherwise unmodified.
 
-- [ ] **Step 2: Verify**
+- [x] **Step 2: Verify**
 
 Run: `npm run build`, then `npm run dev` and open `/image-credits`.
 Expected: only real photographers listed, each with a licence link.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add app/image-credits/page.tsx
@@ -230,7 +230,7 @@ git commit -m "feat: credit only real photographs on the image credits page"
   `... verify`. Exported pure helpers `renderPrompt(product)`, `validateCurated(entries, productIds)`,
   `generatedIds(products, curatedIds)`, `GENERATED_CREDIT` — Task 5 extends the same file.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Append to `scripts/product-images.test.mjs`, importing from `./product-images.mjs`:
 
@@ -255,12 +255,12 @@ test('generated ids exclude curated ids and keep catalog order', () => {
 });
 ```
 
-- [ ] **Step 2: Run the tests to verify they fail**
+- [x] **Step 2: Run the tests to verify they fail**
 
 Run: `npm test`
 Expected: FAIL — `Cannot find module './product-images.mjs'`.
 
-- [ ] **Step 3: Implement the script skeleton, `plan` and `curated`**
+- [x] **Step 3: Implement the script skeleton, `plan` and `curated`**
 
 `scripts/product-images.mjs` exports the four helpers above and dispatches on
 `process.argv[2]`. `GENERATED_CREDIT = 'Generated illustration'`.
@@ -290,7 +290,7 @@ diagram, GIF or render), the named part as the subject, licence CC0/PD/CC BY/CC 
 endpoint rate-limits after ~10 requests — and record the term searched in a comment-free
 one-line entry per product.
 
-- [ ] **Step 4: Run the tests to verify they pass, then run both subcommands**
+- [x] **Step 4: Run the tests to verify they pass, then run both subcommands**
 
 Run: `npm test` — PASS.
 Run: `node scripts/product-images.mjs curated` — expected: downloaded or already present for
@@ -298,7 +298,7 @@ every curated entry, failures listed.
 Run: `node scripts/product-images.mjs plan` — expected: the number of part products with no
 local image, and `data/image-manifest.json` written.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add scripts/product-images.mjs scripts/product-images.test.mjs data/curated-sources.json data/image-manifest.json data/catalog.json public/images/products
@@ -318,7 +318,7 @@ git commit -m "feat: source real photographs for part types that have one"
 - Produces: subcommands `normalize`, `verify`; exported pure helper
   `verifyCatalog(products, exists)` where `exists: (localPath: string) => boolean`.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 ```js
 const DUPES = new Set(['Flywheel', 'Vibration Damper', 'Oil Filter', 'Oil Cooler', 'Hydraulic Pump']);
@@ -352,12 +352,12 @@ test('equipment entries are out of scope for verification', () => {
 });
 ```
 
-- [ ] **Step 2: Run the tests to verify they fail**
+- [x] **Step 2: Run the tests to verify they fail**
 
 Run: `npm test`
 Expected: FAIL — `verifyCatalog is not a function`.
 
-- [ ] **Step 3: Implement `normalize` and `verify`**
+- [x] **Step 3: Implement `normalize` and `verify`**
 
 - `normalize`: for every `.png`/`.jpg`/`.jpeg` file in `public/images/products/` whose name
   starts with a product id of a part product, encode with sharp to
@@ -371,12 +371,12 @@ Expected: FAIL — `verifyCatalog is not a function`.
   `missing image file <path>` if `exists` is false, and throws `image shared by <a> and <b>` when
   two part products share a path and their names differ and neither name is in `DUPES`.
 
-- [ ] **Step 4: Run the tests to verify they pass**
+- [x] **Step 4: Run the tests to verify they pass**
 
 Run: `npm test`
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add scripts/product-images.mjs scripts/product-images.test.mjs
@@ -400,7 +400,7 @@ git commit -m "feat: normalize generated images and verify the catalog"
 empty, so no AI images exist. Pass 2 is a rendered typographic plate instead (see the spec's
 "Pass 2" section). `normalize` is dropped with it — plates are written straight to WebP.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```js
 test('a plate names the part and its category', () => {
@@ -415,11 +415,11 @@ test('a plate escapes markup in the part name', () => {
 });
 ```
 
-- [ ] **Step 2: Run it, watch it fail**
+- [x] **Step 2: Run it, watch it fail**
 
 Run: `npm test` — FAIL, no export named `plateSvg`.
 
-- [ ] **Step 3: Implement `plateSvg` and the `plates` subcommand**
+- [x] **Step 3: Implement `plateSvg` and the `plates` subcommand**
 
 `plateSvg({ id, name, category })` returns a 1000x1000 SVG string: plate-tone background,
 hairline inner frame, category label in upper case, part name wrapped at most two lines, and
@@ -427,12 +427,12 @@ the category glyph. Escape `&`, `<`, `>` in the name. The `plates` command rende
 manifest entry through `sharp(Buffer.from(svg)).webp({ quality: 88 })` to
 `public/images/products/<id>-0.webp`, applies the generated fields, and writes the catalog once.
 
-- [ ] **Step 4: Run it, watch it pass, then render**
+- [x] **Step 4: Run it, watch it pass, then render**
 
 Run: `npm test` — PASS. Then `node scripts/product-images.mjs plates` and
 `node scripts/product-images.mjs verify` — both clean.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add scripts data public/images/products
@@ -451,12 +451,12 @@ git commit -m "feat: render part plates for products without a photograph"
 - Consumes: `verify` from Task 5.
 - Produces: nothing.
 
-- [ ] **Step 1: Remove the dead files**
+- [x] **Step 1: Remove the dead files**
 
 List what `catalog.json` references, delete every other file in `public/images/products/`
 (38 files, 6.3 MB today, e.g. `image-1.jpg`). Deleting a referenced file is caught by `verify`.
 
-- [ ] **Step 2: Run everything**
+- [x] **Step 2: Run everything**
 
 Run: `npm test` — PASS.
 Run: `node scripts/product-images.mjs verify` — PASS.
@@ -465,20 +465,20 @@ Run: `npm run build` — succeeds.
 Expected: 313 part products with local images, 20 equipment entries with their original remote
 URLs.
 
-- [ ] **Step 3: Spot check by eye**
+- [x] **Step 3: Spot check by eye**
 
 Open 10 random category pages and confirm the images are distinct and plausible, and read the
 four most-visited part types: cylinder head gasket, track roller, input shaft, turbocharger
 cartridge. Then open one product whose photo was changed in `/admin/products` and confirm the
 illustrative note is absent.
 
-- [ ] **Step 4: Report which photographs are real**
+- [x] **Step 4: Report which photographs are real**
 
 Give the human partner the list from `data/curated-sources.json` — product name, Commons file
 and licence — as the record of which products carry a real photograph and which carry an
 illustration, per the spec's decision to show that list at the end rather than gate on it.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add -A public/images/products
