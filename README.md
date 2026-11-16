@@ -4,9 +4,9 @@ A product and equipment storefront built with Next.js App Router, React, and Tai
 
 ## Requirements
 
-- Node.js 20.9 or newer (required by Next.js 16)
+- Node.js 22.18 or newer (Next.js 16 needs 20.9; the image scripts import TypeScript directly)
 - npm (the repository includes `package-lock.json`)
-- Internet access to load the externally hosted equipment and product images, and the embedded Google Maps view
+- Internet access to load the externally hosted equipment images and the embedded Google Maps view
 
 ## Setup
 
@@ -63,6 +63,17 @@ The catalog currently references some images on external hosts. Two helper scrip
 | `node scripts/connect-images.mjs` | Download the images and rewrite the catalog to use the local paths |
 
 Both scripts skip files that already exist. Review the printed failures before committing, and make sure the remote hosts are allowed in `next.config.ts` if you keep any remote URLs.
+
+Part images are already local and need no downloading. To change them:
+
+| Command | Purpose |
+| --- | --- |
+| `node scripts/product-images.mjs plan` | List the part products that have no photograph and write `data/image-manifest.json` |
+| `node scripts/product-images.mjs curated` | Download and apply the Wikimedia Commons picks in `data/curated-sources.json` |
+| `node scripts/product-images.mjs plates` | Render a typographic plate for every product in the manifest |
+| `node scripts/product-images.mjs verify` | Fail if a part image is remote, missing, shared between different parts, or miscredited |
+
+The 20 `equipment` entries keep their manufacturer URLs; everything else is a local WebP in `public/images/products/` that is committed with the code.
 
 ## Catalog browsing
 

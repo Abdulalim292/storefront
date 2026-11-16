@@ -40,12 +40,10 @@ test('generated ids exclude curated ids and keep catalog order', () => {
   assert.deepEqual(generatedIds(products, new Set(['b'])), ['a', 'c']);
 });
 
-test('a public-domain entry may have no licence link', () => {
+test('a curated entry without a licence link is rejected', () => {
   const entries = [{ productId: 'a', file: 'A.jpg', credit: 'X', license: 'Public domain', licenseUrl: '' }];
-  assert.doesNotThrow(() => validateCurated(entries, ['a']));
+  assert.throws(() => validateCurated(entries, ['a']), /licence/i);
 });
-
-const DUPES = new Set(['Flywheel', 'Vibration Damper', 'Oil Filter', 'Oil Cooler', 'Hydraulic Pump']);
 
 test('a product pointing at a missing file fails verification', () => {
   const products = [{ id: 'a', name: 'Sun Gear', category: 'gearbox-parts', images: ['/images/products/a-0.webp'] }];
@@ -68,6 +66,14 @@ test('two products may not share a file unless they share a duplicate name', () 
     { id: 'a', name: 'Flywheel', category: 'engine-components', images: [shared] },
     { id: 'b', name: 'Flywheel', category: 'gearbox-parts', images: [shared] },
   ], () => true));
+});
+
+test('a shared file is only allowed for the five duplicate part names', () => {
+  const shared = '/images/products/shared-0.webp';
+  assert.throws(() => verifyCatalog([
+    { id: 'a', name: 'Sun Gear', category: 'gearbox-parts', images: [shared] },
+    { id: 'b', name: 'Sun Gear', category: 'gear-parts', images: [shared] },
+  ], () => true), /shared/i);
 });
 
 test('equipment entries are out of scope for verification', () => {

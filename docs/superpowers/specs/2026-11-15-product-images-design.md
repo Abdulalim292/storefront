@@ -91,7 +91,6 @@ says, so the label stays. Distinctness comes from the name and category line, so
 products share a file.
 
 ### 2. Files and data
-### 2. Files and data
 
 - Images live at `public/images/products/<product-id>-0.webp`, the path and naming already
   produced by `scripts/download-images.mjs` / `scripts/connect-images.mjs`, one per product,
@@ -163,8 +162,9 @@ enforces exactly that.
   entries still point at their original remote URLs.
 - Every generated entry has `imageSourceUrl: ""` and the "Generated illustration" credit;
   every curated entry still has a Commons source and a licence.
-- `/image-credits` lists only entries with a real source, and every listed entry links to a
-  licence.
+- `/image-credits` lists only entries with a real source. Every curated entry links to its
+  licence; equipment entries carry their supplier listing as the source instead, since no
+  licence applies to them.
 - `npm run build` and `npm run lint` pass.
 - Spot check: 10 random category pages render distinct, plausible images; the four
   highest-traffic part types (cylinder head gasket, track roller, input shaft, turbocharger

@@ -82,12 +82,13 @@ export default function ImageCreditsPage() {
             <h1 className="mt-4 text-ink">Image credits</h1>
             <p className="mt-5 max-w-2xl text-base leading-7 text-ink-2">
               Some product images are generated illustrations, not photographs of the actual part; they are marked on the
-              product page and are not listed here. Every photograph below is credited to its creator and shown converted to
-              WebP and otherwise unmodified. Manufacturer logos are credited in the brand assets README in the project
+              product page and are not listed here. Photographs are credited to their creators; the curated ones are resized
+              for the web and converted to WebP. Manufacturer logos are credited in the brand assets README in the project
               repository.
             </p>
             <p className="mt-4 font-outlier text-xs text-muted">
-              {PRODUCTS.length + EQUIPMENT_PRODUCTS.length} catalog items across {creditGroups.length} image sources
+              {creditGroups.reduce((total, group) => total + group.productNames.length, 0)} catalog items across{' '}
+              {creditGroups.length} image sources
             </p>
           </div>
 

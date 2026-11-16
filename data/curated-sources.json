@@ -2,7 +2,7 @@
   {
     "productId": "engine-components-engine-block",
     "file": "Cylinder_block_for_V6_Diesel.jpg",
-    "credit": "160SX (talk)",
+    "credit": "160SX",
     "license": "CC BY-SA 3.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
@@ -23,7 +23,7 @@
   {
     "productId": "valve-seat",
     "file": "Valve_seat_inserts_(NPR).jpg",
-    "credit": "160SX (talk)",
+    "credit": "160SX",
     "license": "CC BY-SA 3.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
   },
@@ -44,9 +44,9 @@
   {
     "productId": "engine-components-connecting-rod",
     "file": "Master_connecting_rod_(Montagu,_Cars_and_Motor-Cycles,_1928).jpg",
-    "credit": "Various, uncredited except where statedAndy Dingley (scanner)",
+    "credit": "Andy Dingley (scanner)",
     "license": "Public domain",
-    "licenseUrl": ""
+    "licenseUrl": "https://commons.wikimedia.org/wiki/File:Master_connecting_rod_(Montagu,_Cars_and_Motor-Cycles,_1928).jpg"
   },
   {
     "productId": "main-bearing-set",
@@ -60,28 +60,28 @@
     "file": "Nockenwellenantrieb.jpg",
     "credit": "Kolossos",
     "license": "CC BY-SA 3.0",
-    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
   },
   {
     "productId": "engine-components-timing-belt",
     "file": "Timing_belt_RB30E.jpg",
     "credit": "RB30DE",
     "license": "Public domain",
-    "licenseUrl": ""
+    "licenseUrl": "https://commons.wikimedia.org/wiki/File:Timing_belt_RB30E.jpg"
   },
   {
     "productId": "engine-components-oil-filter",
     "file": "Engine_oil_filter_cutaway.JPG",
     "credit": "Harrikkamies",
     "license": "Public domain",
-    "licenseUrl": ""
+    "licenseUrl": "https://commons.wikimedia.org/wiki/File:Engine_oil_filter_cutaway.JPG"
   },
   {
     "productId": "gearbox-parts-oil-filter",
     "file": "Engine_oil_filter_cutaway.JPG",
     "credit": "Harrikkamies",
     "license": "Public domain",
-    "licenseUrl": ""
+    "licenseUrl": "https://commons.wikimedia.org/wiki/File:Engine_oil_filter_cutaway.JPG"
   },
   {
     "productId": "engine-components-oil-cooler",
@@ -102,19 +102,19 @@
     "file": "Bosch_A-type_injection_pump_001.jpg",
     "credit": "Tennen-Gas",
     "license": "CC BY-SA 3.0",
-    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
   },
   {
     "productId": "engine-components-injector-nozzle",
     "file": "Unit_injector_late_prod.jpg",
     "credit": "Panoha",
     "license": "CC BY-SA 3.0",
-    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
   },
   {
     "productId": "engine-components-fuel-filter",
     "file": "Fuel_filter.jpg",
-    "credit": "http://en.wikipedia.org/wiki/User:Phasmatisnox",
+    "credit": "Phasmatisnox",
     "license": "CC BY 3.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
   },
@@ -123,7 +123,7 @@
     "file": "Manifold_(Toyota_3A-U).JPG",
     "credit": "user:Yones",
     "license": "Public domain",
-    "licenseUrl": ""
+    "licenseUrl": "https://commons.wikimedia.org/wiki/File:Manifold_(Toyota_3A-U).JPG"
   },
   {
     "productId": "engine-components-intake-manifold",
@@ -135,23 +135,23 @@
   {
     "productId": "engine-components-starter-motor",
     "file": "Automobile_starter.JPG",
-    "credit": "Willdre 00:20, 8 February 2007 (UTC)",
+    "credit": "Willdre",
     "license": "CC BY-SA 3.0",
-    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
   },
   {
     "productId": "engine-components-glow-plug-set",
     "file": "Gluehk3.jpg",
     "credit": "Ulfbastel",
     "license": "CC BY-SA 3.0",
-    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
   },
   {
     "productId": "gearbox-parts-clutch-pressure-plate",
     "file": "Pull_type_clutch.jpg",
     "credit": "Panoha",
     "license": "CC BY-SA 3.0",
-    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
   },
   {
     "productId": "gearbox-parts-master-cylinder",
@@ -177,9 +177,9 @@
   {
     "productId": "gearbox-parts-helical-gear-pair",
     "file": "Helical_Gears.jpg",
-    "credit": "Arthur Clarke at English Wikipedia",
+    "credit": "Arthur Clarke",
     "license": "Public domain",
-    "licenseUrl": ""
+    "licenseUrl": "https://commons.wikimedia.org/wiki/File:Helical_Gears.jpg"
   },
   {
     "productId": "gearbox-parts-bevel-gear-set",
@@ -240,14 +240,14 @@
   {
     "productId": "gearbox-parts-o-ring-kit",
     "file": "Oring_gr.jpg",
-    "credit": "de:User:Ilja (Gert Wrigge &amp; Ilja Gerhardt)",
+    "credit": "Gert Wrigge & Ilja Gerhardt",
     "license": "CC BY-SA 3.0",
-    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
   },
   {
     "productId": "gearbox-parts-snap-ring",
     "file": "Snap-ring_hg.jpg",
-    "credit": "Hannes Grobe 08:02, 27 October 2007 (UTC)",
+    "credit": "Hannes Grobe",
     "license": "CC BY-SA 2.5",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5"
   },
@@ -263,7 +263,7 @@
     "file": "Cylinder_head_from_Toyota_Diesel_Engine_Coaster.jpg",
     "credit": "Ll1324",
     "license": "CC0",
-    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en"
   },
   {
     "productId": "engine-components-thermostat",

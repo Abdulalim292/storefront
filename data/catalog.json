@@ -134,7 +134,7 @@
       "description": "Replacement valve seat for cylinder head repair. Share the engine model and seat dimensions for fitment checking.",
       "category": "valve-train",
       "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Valve_seat_inserts_(NPR).jpg",
-      "imageCredit": "160SX (talk)",
+      "imageCredit": "160SX",
       "imageLicense": "CC BY-SA 3.0",
       "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
       "images": [
@@ -265,7 +265,7 @@
         "/images/products/engine-components-engine-block-0.webp"
       ],
       "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Cylinder_block_for_V6_Diesel.jpg",
-      "imageCredit": "160SX (talk)",
+      "imageCredit": "160SX",
       "imageLicense": "CC BY-SA 3.0",
       "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
       "price": null
@@ -281,7 +281,7 @@
       "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Cylinder_head_from_Toyota_Diesel_Engine_Coaster.jpg",
       "imageCredit": "Ll1324",
       "imageLicense": "CC0",
-      "imageLicenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "imageLicenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
       "price": null
     },
     {
@@ -335,9 +335,9 @@
         "/images/products/engine-components-connecting-rod-0.webp"
       ],
       "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Master_connecting_rod_(Montagu,_Cars_and_Motor-Cycles,_1928).jpg",
-      "imageCredit": "Various, uncredited except where statedAndy Dingley (scanner)",
+      "imageCredit": "Andy Dingley (scanner)",
       "imageLicense": "Public domain",
-      "imageLicenseUrl": "",
+      "imageLicenseUrl": "https://commons.wikimedia.org/wiki/File:Master_connecting_rod_(Montagu,_Cars_and_Motor-Cycles,_1928).jpg",
       "price": null
     },
     {
@@ -575,7 +575,7 @@
       "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Nockenwellenantrieb.jpg",
       "imageCredit": "Kolossos",
       "imageLicense": "CC BY-SA 3.0",
-      "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
       "price": null
     },
     {
@@ -589,7 +589,7 @@
       "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Timing_belt_RB30E.jpg",
       "imageCredit": "RB30DE",
       "imageLicense": "Public domain",
-      "imageLicenseUrl": "",
+      "imageLicenseUrl": "https://commons.wikimedia.org/wiki/File:Timing_belt_RB30E.jpg",
       "price": null
     },
     {
@@ -673,7 +673,7 @@
       "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Engine_oil_filter_cutaway.JPG",
       "imageCredit": "Harrikkamies",
       "imageLicense": "Public domain",
-      "imageLicenseUrl": "",
+      "imageLicenseUrl": "https://commons.wikimedia.org/wiki/File:Engine_oil_filter_cutaway.JPG",
       "price": null
     },
     {
@@ -771,7 +771,7 @@
       "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Bosch_A-type_injection_pump_001.jpg",
       "imageCredit": "Tennen-Gas",
       "imageLicense": "CC BY-SA 3.0",
-      "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
       "price": null
     },
     {
@@ -799,7 +799,7 @@
       "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Unit_injector_late_prod.jpg",
       "imageCredit": "Panoha",
       "imageLicense": "CC BY-SA 3.0",
-      "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
       "price": null
     },
     {
@@ -811,7 +811,7 @@
         "/images/products/engine-components-fuel-filter-0.webp"
       ],
       "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Fuel_filter.jpg",
-      "imageCredit": "http://en.wikipedia.org/wiki/User:Phasmatisnox",
+      "imageCredit": "Phasmatisnox",
       "imageLicense": "CC BY 3.0",
       "imageLicenseUrl": "https://creativecommons.org/licenses/by/3.0",
       "price": null
@@ -869,7 +869,7 @@
       "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Manifold_(Toyota_3A-U).JPG",
       "imageCredit": "user:Yones",
       "imageLicense": "Public domain",
-      "imageLicenseUrl": "",
+      "imageLicenseUrl": "https://commons.wikimedia.org/wiki/File:Manifold_(Toyota_3A-U).JPG",
       "price": null
     },
     {
@@ -909,9 +909,9 @@
         "/images/products/engine-components-starter-motor-0.webp"
       ],
       "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Automobile_starter.JPG",
-      "imageCredit": "Willdre 00:20, 8 February 2007 (UTC)",
+      "imageCredit": "Willdre",
       "imageLicense": "CC BY-SA 3.0",
-      "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
       "price": null
     },
     {
@@ -1077,9 +1077,9 @@
         "/images/products/gearbox-parts-helical-gear-pair-0.webp"
       ],
       "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Helical_Gears.jpg",
-      "imageCredit": "Arthur Clarke at English Wikipedia",
+      "imageCredit": "Arthur Clarke",
       "imageLicense": "Public domain",
-      "imageLicenseUrl": "",
+      "imageLicenseUrl": "https://commons.wikimedia.org/wiki/File:Helical_Gears.jpg",
       "price": null
     },
     {
@@ -1539,9 +1539,9 @@
         "/images/products/gearbox-parts-o-ring-kit-0.webp"
       ],
       "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Oring_gr.jpg",
-      "imageCredit": "de:User:Ilja (Gert Wrigge &amp; Ilja Gerhardt)",
+      "imageCredit": "Gert Wrigge & Ilja Gerhardt",
       "imageLicense": "CC BY-SA 3.0",
-      "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
       "price": null
     },
     {
@@ -1569,7 +1569,7 @@
       "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Engine_oil_filter_cutaway.JPG",
       "imageCredit": "Harrikkamies",
       "imageLicense": "Public domain",
-      "imageLicenseUrl": "",
+      "imageLicenseUrl": "https://commons.wikimedia.org/wiki/File:Engine_oil_filter_cutaway.JPG",
       "price": null
     },
     {
@@ -2141,7 +2141,7 @@
         "/images/products/gearbox-parts-snap-ring-0.webp"
       ],
       "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Snap-ring_hg.jpg",
-      "imageCredit": "Hannes Grobe 08:02, 27 October 2007 (UTC)",
+      "imageCredit": "Hannes Grobe",
       "imageLicense": "CC BY-SA 2.5",
       "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
       "price": null
@@ -3459,7 +3459,7 @@
       "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Gluehk3.jpg",
       "imageCredit": "Ulfbastel",
       "imageLicense": "CC BY-SA 3.0",
-      "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
       "price": null
     },
     {
@@ -3809,7 +3809,7 @@
       "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Pull_type_clutch.jpg",
       "imageCredit": "Panoha",
       "imageLicense": "CC BY-SA 3.0",
-      "imageLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "imageLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
       "price": null
     },
     {

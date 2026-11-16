@@ -1,6 +1,8 @@
 // Sourcing and layout for product imagery.
-//   node scripts/product-images.mjs plan      → data/image-manifest.json (what still needs generating)
+//   node scripts/product-images.mjs plan      → data/image-manifest.json (products without a photograph)
 //   node scripts/product-images.mjs curated   → download + apply data/curated-sources.json
+//   node scripts/product-images.mjs plates    → render a typographic plate for every manifest product
+//   node scripts/product-images.mjs verify    → fail if any part image is missing, remote or miscredited
 import fs from 'node:fs';
 import path from 'node:path';
 import sharp from 'sharp';
@@ -20,8 +22,8 @@ export function validateCurated(entries, productIds) {
   for (const entry of entries) {
     if (!known.has(entry.productId)) throw new Error(`curated entry for unknown product ${entry.productId}`);
     if (!entry.file) throw new Error(`curated entry ${entry.productId} is missing a file`);
-    if (!entry.credit || !entry.license) {
-      throw new Error(`curated entry ${entry.productId} is missing a licence or credit`);
+    if (!entry.credit || !entry.license || !entry.licenseUrl) {
+      throw new Error(`curated entry ${entry.productId} is missing a licence, credit or licence link`);
     }
   }
   return entries;
@@ -60,7 +62,7 @@ export function verifyCatalog(products, exists) {
       throw new Error(`missing image file for ${product.id}: ${src}`);
     }
     const other = seen.get(src);
-    if (other && other.name !== product.name) {
+    if (other && !DUPES.has(product.name)) {
       throw new Error(`image shared by ${other.id} and ${product.id}: ${src}`);
     }
     seen.set(src, product);
@@ -98,7 +100,10 @@ async function curated() {
     const localPath = `/images/products/${entry.productId}-0.webp`;
     const target = path.join(IMAGE_ROOT, path.basename(localPath));
 
-    if (!fs.existsSync(target)) {
+    // A plate already exists for this id: replace it rather than stamp "curated" metadata
+    // onto generated art.
+    const stalePlate = !product.images[0]?.startsWith('/images/products/') || product.imageSourceUrl === '';
+    if (!fs.existsSync(target) || stalePlate) {
       const downloadPath = `${localPath.slice(0, -'.webp'.length)}${path.extname(entry.file) || '.jpg'}`;
       const url = `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(entry.file)}?width=1400`;
       if (!(await downloadImage(url, downloadPath))) {
@@ -173,8 +178,10 @@ export function plateSvg({ name, category }) {
   const text = lines
     .map((line, i) => `<text x="500" y="${top + i * fontSize * 1.18}" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="${fontSize}" font-weight="600" fill="#1f2a26">${line}</text>`)
     .join('');
+  // White ground, not the plate tone: `.plate img` multiplies, so white lets the sheet's own
+  // tone through and the plate has no visible inner rectangle on any surface.
   return `<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">
-<rect width="1000" height="1000" fill="#efece6"/>
+<rect width="1000" height="1000" fill="#ffffff"/>
 <rect x="40" y="40" width="920" height="920" fill="none" stroke="#1f2a26" stroke-opacity="0.22" stroke-width="1.5"/>
 <text x="500" y="210" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="26" letter-spacing="7" fill="#4a5551">${label}</text>
 <line x1="330" y1="246" x2="670" y2="246" stroke="#1f2a26" stroke-opacity="0.18" stroke-width="1.5"/>
@@ -192,7 +199,7 @@ async function plates() {
   let rendered = 0;
   for (const entry of manifest) {
     const product = byId.get(entry.id);
-    if (!product || product.images[0]?.startsWith('/images/products/')) continue;
+    if (!product || product.imageSourceUrl !== '') continue;
     const localPath = `/images/products/${entry.id}-0.webp`;
     const svg = Buffer.from(plateSvg(entry));
     await sharp(svg).webp({ quality: 88 }).toFile(path.join(IMAGE_ROOT, `${entry.id}-0.webp`));
@@ -207,8 +214,17 @@ async function plates() {
 async function verify() {
   const catalog = readCatalog();
   verifyCatalog(catalog.products, (absolutePath) => fs.existsSync(absolutePath));
-  const remaining = partProducts(catalog).filter((product) => !product.imageSourceUrl && !product.images[0]);
-  if (remaining.length) throw new Error(`${remaining.length} part products have no image`);
+
+  for (const product of partProducts(catalog)) {
+    if (product.imageSourceUrl === '') {
+      if (product.imageCredit !== GENERATED_CREDIT || product.imageLicense || product.imageLicenseUrl) {
+        throw new Error(`plate ${product.id} has photograph credits: ${product.imageCredit}`);
+      }
+    } else if (!product.imageLicense || !product.imageCredit) {
+      throw new Error(`photograph ${product.id} has no licence or credit`);
+    }
+  }
+
   console.log('Catalog images verified.');
 }
 
