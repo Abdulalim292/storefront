@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { ResilientImage } from '@/components/ui/ResilientImage';
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { PRODUCTS } from '@/data/products';
 import { EQUIPMENT_PRODUCTS } from '@/data/equipment';
@@ -175,7 +175,7 @@ export function ProductPhotoManager() {
               onChange={(event) => { setFile(event.target.files?.[0] ?? null); setMessage(''); }}
               className="mt-2 block w-full text-sm text-ink-2 file:mr-4 file:min-h-11 file:border-0 file:bg-paper-3 file:px-4 file:font-medium file:text-ink"
             />
-            <p className="mt-2 text-xs leading-5 text-muted">JPG, PNG, or WebP. Maximum 4 MB.</p>
+            <p className="mt-2 text-xs leading-5 text-muted">JPG, PNG, or WebP. Maximum 4 MB and 40 megapixels.</p>
             {message && <p role="status" className="mt-4 text-sm text-ink-2">{message}</p>}
             <button disabled={busy || !file || !product} className="btn mt-5 w-full">
               {busy ? 'Uploading…' : 'Save new photo'}
@@ -186,9 +186,9 @@ export function ProductPhotoManager() {
             <p className="label">{file ? 'New photo preview' : 'Current photo'}</p>
             <div className="plate mt-2 aspect-square">
               {preview ? (
-                <img src={preview} alt={product?.name ?? 'Product photo'} className="h-full w-full object-contain p-5" />
+                <ResilientImage key={preview} src={preview} alt={product?.name ?? 'Product photo'} sizes="(min-width: 768px) 400px, 100vw" className="object-contain p-5" />
               ) : currentImage ? (
-                <Image src={currentImage} alt={product?.name ?? 'Product photo'} fill sizes="(min-width: 768px) 400px, 100vw" className="object-contain p-5" unoptimized={currentImage.startsWith('http')} />
+                <ResilientImage key={currentImage} src={currentImage} alt={product?.name ?? 'Product photo'} sizes="(min-width: 768px) 400px, 100vw" className="object-contain p-5" />
               ) : (
                 <span className="absolute inset-0 grid place-items-center text-sm text-muted">No photo selected</span>
               )}

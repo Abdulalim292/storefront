@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { randomUUID } from 'node:crypto';
 
 export const CATALOG_PATH = path.join(process.cwd(), 'data', 'catalog.json');
 const IMAGE_ROOT = path.join(process.cwd(), 'public', 'images', 'products');
@@ -10,7 +11,13 @@ export function readCatalog() {
 }
 
 export function writeCatalog(catalog) {
-  fs.writeFileSync(CATALOG_PATH, `${JSON.stringify(catalog, null, 2)}\n`);
+  const temporaryPath = `${CATALOG_PATH}.${randomUUID()}.tmp`;
+  try {
+    fs.writeFileSync(temporaryPath, `${JSON.stringify(catalog, null, 2)}\n`);
+    fs.renameSync(temporaryPath, CATALOG_PATH);
+  } finally {
+    fs.rmSync(temporaryPath, { force: true });
+  }
 }
 
 function extensionFor(url) {

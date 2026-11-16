@@ -261,7 +261,3 @@ export function getCategoryImageSource(category: CategoryLanding): { productId: 
   }
   return { productId: firstProduct.id, src: firstProduct.images[0] ?? featuredMarineEngine.image };
 }
-
-export function getCategoryImage(category: CategoryLanding): string {
-  return getCategoryImageSource(category).src;
-}

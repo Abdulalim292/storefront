@@ -70,7 +70,7 @@ async function replyTo(question: string): Promise<Omit<Message, 'role'>> {
       })
     },
     {
-      pattern: /\b(compatib|fit|which|recommend|match|model|serial)\b/i,
+      pattern: /\b(compatib\w*|fit|which|recommend|match|model|serial)\b/i,
       response: () => ({
         text: 'I can help you prepare a fitment check. Please provide the engine name and model, serial number, and the part number or dimensions if available. A branch can confirm compatibility before you order.',
         suggestions: ['Find a part', 'Ask about pricing', 'Find a branch'],

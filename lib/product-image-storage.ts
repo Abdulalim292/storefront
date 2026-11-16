@@ -10,6 +10,7 @@ type OverrideCache = {
 
 let overridesCache: OverrideCache | null = null;
 let overridesInFlight: Promise<Record<string, string>> | null = null;
+let overridesVersion = 0;
 
 function config() {
   const baseUrl = process.env.SUPABASE_URL?.replace(/\/+$/, '');
@@ -66,7 +67,9 @@ async function deleteImageObjects(paths: string[]) {
 }
 
 export function invalidateProductImageOverrides() {
+  overridesVersion += 1;
   overridesCache = null;
+  overridesInFlight = null;
 }
 
 export async function getProductImageOverrides(): Promise<Record<string, string>> {
@@ -74,6 +77,7 @@ export async function getProductImageOverrides(): Promise<Record<string, string>
   if (overridesCache && overridesCache.expiresAt > now) return overridesCache.value;
   if (overridesInFlight) return overridesInFlight;
 
+  const version = overridesVersion;
   let request: Promise<Record<string, string>>;
   request = (async () => {
     const response = await supabaseRequest('/rest/v1/product_images?select=product_id,image_url');
@@ -91,7 +95,9 @@ export async function getProductImageOverrides(): Promise<Record<string, string>
       }
     }
 
-    overridesCache = { value, expiresAt: Date.now() + OVERRIDES_TTL_MS };
+    if (version === overridesVersion) {
+      overridesCache = { value, expiresAt: Date.now() + OVERRIDES_TTL_MS };
+    }
     return value;
   })().finally(() => {
     if (overridesInFlight === request) overridesInFlight = null;
@@ -109,29 +115,6 @@ export async function saveProductImage(productId: string, image: File) {
   const { baseUrl } = config();
   const extension = image.type === 'image/png' ? 'png' : image.type === 'image/webp' ? 'webp' : 'jpg';
   const path = `${productId}/${Date.now()}-${crypto.randomUUID()}.${extension}`;
-
-  // Remember the current photo so it can be removed after a successful replace.
-  let previousPath: string | null = null;
-  try {
-    const existing = await supabaseRequest(
-      `/rest/v1/product_images?select=image_url&product_id=eq.${encodeURIComponent(productId)}`,
-    );
-    if (existing.ok) {
-      const rows = await existing.json() as { image_url: string }[];
-      const previousUrl = rows[0]?.image_url;
-      const prefix = publicUrlPrefix(baseUrl);
-      if (previousUrl?.startsWith(prefix)) {
-        try {
-          const candidate = decodeURIComponent(previousUrl.slice(prefix.length));
-          if (candidate.startsWith(`${productId}/`)) previousPath = candidate;
-        } catch {
-          // Ignore a malformed stored URL; the old object will simply remain.
-        }
-      }
-    }
-  } catch {
-    // A failed lookup must not block the upload; the old file will simply remain.
-  }
 
   const upload = await supabaseRequest(`/storage/v1/object/${BUCKET}/${path}`, {
     method: 'POST',
@@ -153,9 +136,7 @@ export async function saveProductImage(productId: string, image: File) {
 
   invalidateProductImageOverrides();
 
-  if (previousPath && previousPath !== path) {
-    await deleteImageObjects([previousPath]);
-  }
+  // shortcut: retain old photos for cached URLs; add cleanup when storage usage requires it.
 
   return imageUrl;
 }

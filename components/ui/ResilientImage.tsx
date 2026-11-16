@@ -18,7 +18,7 @@ export function ResilientImage({ src, alt, sizes, className = '', loading = 'laz
   const [useOriginalSource, setUseOriginalSource] = useState(false);
   // These sources are already rendered unoptimized, so retrying the original
   // source would re-request the exact same URL. Treat their first failure as final.
-  const alreadyUnoptimized = src.includes('wikimedia.org') || src.includes('/storage/v1/object/public/product-images/');
+  const alreadyUnoptimized = src.includes('wikimedia.org') || src.startsWith('blob:') || src.startsWith('data:');
 
   if (hasFailed) {
     return (

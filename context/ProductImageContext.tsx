@@ -11,6 +11,7 @@ const STORAGE_KEY = 'product-image-overrides-v1';
 let cachedImages: ImageMap | null = null;
 let cachedAt = 0;
 let inFlight: Promise<ImageMap> | null = null;
+let fetchVersion = 0;
 
 function normalizeImages(value: unknown): ImageMap {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return {};
@@ -51,11 +52,13 @@ function rememberImages(images: ImageMap) {
 async function fetchImages(force = false): Promise<ImageMap> {
   if (!force && inFlight) return inFlight;
 
+  const version = ++fetchVersion;
   let request: Promise<ImageMap>;
   request = fetch('/api/product-images', { cache: 'no-store' })
     .then(async (response) => {
       if (!response.ok) throw new Error(`Image overrides request failed (${response.status}).`);
       const images = normalizeImages(await response.json());
+      if (version !== fetchVersion) return inFlight ?? cachedImages ?? images;
       rememberImages(images);
       return images;
     })

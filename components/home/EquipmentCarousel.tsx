@@ -39,7 +39,6 @@ export function EquipmentCarousel({ models }: { models: EquipmentModel[] }) {
                 alt={model.name}
                 fill
                 sizes="(max-width: 1023px) 100vw, 55vw"
-                unoptimized={image.includes('/storage/v1/object/public/product-images/')}
                 className="object-contain p-8 sm:p-12"
               />
             </div>

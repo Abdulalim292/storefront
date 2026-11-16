@@ -12,7 +12,7 @@ import {
   featuredHeavyMachinery,
 } from '@/data/equipment';
 import { BRANCHES } from '@/data/branches';
-import { CATEGORY_LANDINGS, getCategoryImageSource, getCategoryProducts } from '@/data/categories';
+import { CATEGORY_LANDINGS, getCategoryProducts } from '@/data/categories';
 import { formatBangladeshPhone, toBangladeshTel } from '@/lib/phone';
 import { cleanDash, splitMeta } from '@/lib/copy';
 import { PinnedEquipmentStory } from '@/components/home/PinnedEquipmentStory';

@@ -92,15 +92,27 @@ export async function notifyInquiry(inquiry: Inquiry): Promise<boolean> {
   const text = notificationText(inquiry);
 
   try {
-    const response = await fetch(url, {
+    const webhook = new URL(url);
+    const discord = /(^|\.)discord(?:app)?\.com$/.test(webhook.hostname);
+    if (discord) webhook.searchParams.set('wait', 'true');
+
+    const needsAttachment = discord && text.length > 2_000;
+    const payload = discord ? {
+      content: needsAttachment
+        ? `New storefront inquiry\nName: ${inquiry.name}\nPhone: ${inquiry.phone}\n\nFull inquiry attached.`
+        : text,
+      allowed_mentions: { parse: [] },
+    } : { text, content: text, inquiry };
+    const form = needsAttachment ? new FormData() : null;
+    if (form) {
+      form.set('payload_json', JSON.stringify(payload));
+      form.set('files[0]', new Blob([text], { type: 'text/plain;charset=utf-8' }), 'inquiry.txt');
+    }
+
+    const response = await fetch(webhook, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        // `text` works with Slack-style hooks and `content` with Discord.
-        text,
-        content: text,
-        inquiry,
-      }),
+      ...(form ? {} : { headers: { 'Content-Type': 'application/json' } }),
+      body: form ?? JSON.stringify(payload),
       cache: 'no-store',
       signal: AbortSignal.timeout(5_000),
     });
@@ -108,6 +120,11 @@ export async function notifyInquiry(inquiry: Inquiry): Promise<boolean> {
     if (!response.ok) {
       console.error('Inquiry webhook failed with status', response.status);
       return false;
+    }
+    if (discord) {
+      const message: unknown = await response.json();
+      return Boolean(message && typeof message === 'object' && 'id' in message
+        && typeof message.id === 'string' && message.id.length > 0);
     }
     return true;
   } catch (error) {

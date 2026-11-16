@@ -3,6 +3,7 @@ import { PRODUCTS } from '@/data/products';
 import { EQUIPMENT_PRODUCTS } from '@/data/equipment';
 import { notifyInquiry, saveInquiry, type Inquiry, type InquiryItem } from '@/lib/inquiries';
 import { consumeRateLimit, loginClientKey } from '@/lib/rate-limit';
+import { readLimitedText } from '@/lib/request-body';
 
 const NO_STORE = { 'Cache-Control': 'no-store' };
 const MAX_BODY_BYTES = 24 * 1024;
@@ -17,33 +18,6 @@ const productNames = new Map(
 
 function json(body: Record<string, unknown>, status = 200, headers: Record<string, string> = {}) {
   return NextResponse.json(body, { status, headers: { ...NO_STORE, ...headers } });
-}
-
-async function readLimitedText(request: Request, maxBytes: number): Promise<string | null> {
-  if (!request.body) return '';
-
-  const reader = request.body.getReader();
-  const decoder = new TextDecoder();
-  let total = 0;
-  let result = '';
-
-  try {
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      if (!value) continue;
-
-      total += value.byteLength;
-      if (total > maxBytes) {
-        await reader.cancel();
-        return null;
-      }
-      result += decoder.decode(value, { stream: true });
-    }
-    return result + decoder.decode();
-  } catch {
-    return null;
-  }
 }
 
 function sameOrigin(request: Request) {
@@ -123,7 +97,9 @@ export async function POST(request: Request) {
   const message = text(data.message, 2_000);
 
   if (name.length < 2) return json({ error: 'Please enter your name.' }, 400);
-  if (!/^[0-9+().\-\s]{6,30}$/.test(phone)) return json({ error: 'Please enter a valid phone number.' }, 400);
+  if (!/^\+?[0-9().\-\s]{6,30}$/.test(phone) || phone.replace(/\D/g, '').length < 6) {
+    return json({ error: 'Please enter a valid phone number.' }, 400);
+  }
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return json({ error: 'Please enter a valid email address.' }, 400);
   }

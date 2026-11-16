@@ -9,9 +9,7 @@ interface CartContextType {
   cart: CartItem[];
   addToCart: (product: Product) => void;
   removeFromCart: (productId: string) => void;
-  updateQuantity: (productId: string, quantity: number) => void;
   changeQuantity: (productId: string, delta: number) => void;
-  clearCart: () => void;
   cartCount: number;
 }
 
@@ -175,17 +173,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setCart((prev) => prev.filter((item) => item.id !== productId));
   };
 
-  const updateQuantity = (productId: string, quantity: number) => {
-    const nextQuantity = Math.floor(quantity);
-    if (!Number.isFinite(nextQuantity) || nextQuantity <= 0) {
-      removeFromCart(productId);
-      return;
-    }
-    setCart((prev) =>
-      prev.map((item) => (item.id === productId ? { ...item, quantity: Math.min(MAX_ITEM_QUANTITY, nextQuantity) } : item))
-    );
-  };
-
   const changeQuantity = (productId: string, delta: number) => {
     if (!Number.isFinite(delta) || delta === 0) return;
     const step = Math.trunc(delta);
@@ -198,12 +185,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }));
   };
 
-  const clearCart = () => setCart([]);
-
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, changeQuantity, clearCart, cartCount }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, changeQuantity, cartCount }}>
       {children}
     </CartContext.Provider>
   );

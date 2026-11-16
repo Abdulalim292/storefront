@@ -41,6 +41,7 @@ A product and equipment storefront built with Next.js App Router, React, and Tai
 | `npm run build` | Create a production build |
 | `npm run start` | Serve the production build (run `npm run build` first) |
 | `npm run lint` | Run ESLint |
+| `npm test` | Run imagery and audit regression tests |
 
 ## Project structure
 
@@ -92,10 +93,11 @@ Only the current page of products is sent to the browser. The public storefront 
 
 - Every response includes clickjacking, MIME-sniffing, referrer, permissions, and HSTS headers. Production builds also send a Content Security Policy that only allows same-origin scripts, styles, and API calls.
 - Admin requests must come from the same origin and carry a signed, `HttpOnly`, `SameSite=Strict` session cookie. Password comparisons are constant time, and sessions expire after 12 hours.
-- Sign-in failures are limited to eight per IP address and 60 globally per 15 minutes. Counters are shared through a Vercel KV or Upstash Redis REST store when `KV_REST_API_URL`/`KV_REST_API_TOKEN` (or `UPSTASH_REDIS_REST_URL`/`UPSTASH_REDIS_REST_TOKEN`) is configured. Without a shared store, each server process keeps its own counters, so configure one when running more than one instance.
+- Sign-in attempts are reserved before password comparison and limited to eight per IP address and 60 globally per 15 minutes. A successful sign-in clears that client's counter; the global counter expires with its window. Counters use atomic transactions in a Vercel KV or Upstash Redis REST store when `KV_REST_API_URL`/`KV_REST_API_TOKEN` (or `UPSTASH_REDIS_REST_URL`/`UPSTASH_REDIS_REST_TOKEN`) is configured. Without a shared store, or when it fails, each server process keeps its own counters, so configure one when running more than one instance.
+- Rate limits use `x-forwarded-for`, which the hosting ingress must overwrite with the client's IP address. Vercel does this automatically. Other IP headers are ignored; requests without a valid forwarded IP share an `unknown` bucket.
 - Unknown product URLs return a real HTTP 404 before rendering; `proxy.ts` rejects ids that are not in the catalog.
 - Inquiry submissions are capped at 24 KB and five per IP address per 10 minutes, with a honeypot field and `no-store` responses. The same KV/Upstash store shares these counters across instances when configured.
-- Uploads must be JPG, PNG, or WebP files no larger than 4 MB. Both the declared MIME type and the file's leading bytes are checked before the image is stored.
+- Uploads must be JPG, PNG, or WebP files of at most 4 MB. Each dimension is limited to 12,000 pixels, with at most 40 megapixels across all frames. The server checks the declared MIME type against the actual format and fully decodes the image before storing it.
 - The image optimizer follows at most one redirect, caps remote responses at 15 MB, and refuses private network addresses.
 - Home-page reveal animations use CSS scroll-driven animation with a reduced-motion fallback. `framer-motion` and `gsap` are not part of the client bundle.
 
@@ -127,10 +129,12 @@ Product photos can be changed from the deployed site using the protected photo m
 1. Open `https://your-site-address/admin/products` in a browser.
 2. Sign in with the `ADMIN_PASSWORD` you configured above.
 3. Search for the product by name, then select it from the catalog list. Equipment models are listed there too.
-4. Choose a JPG, PNG, or WebP photo that is no larger than 4 MB. The preview shows the selected file before upload. The server verifies the file's actual format before accepting it.
+4. Choose a JPG, PNG, or WebP photo of at most 4 MB and 40 megapixels. The preview shows the selected file before upload. The server verifies the file's actual format and image data before accepting it.
 5. Select **Save new photo** and wait for the success message. The new photo appears on the product card, product detail page, cart, and relevant equipment sections.
 
-Sign out when finished. The photo manager does not change product names, descriptions, prices, or other catalog details. If Supabase or the required environment variables are not configured, the storefront keeps showing its existing catalog photos and uploads will not work. Sign-in attempts are throttled after eight failures from the same IP address within 15 minutes.
+Sign out when finished. The photo manager does not change product names, descriptions, prices, or other catalog details. If Supabase or the required environment variables are not configured, the storefront keeps showing its existing catalog photos and uploads will not work. Sign-in attempts are throttled after eight attempts from the same IP address within 15 minutes.
+
+Set `SUPABASE_URL` during the build as well as at runtime so Next.js can resize photos from that project's public `product-images` bucket. Previous photo files remain stored so cached pages and open tabs can still load their URLs. Storage usage therefore grows with photo replacements.
 
 ## Inquiries and analytics
 
@@ -140,7 +144,7 @@ To store inquiries:
 
 1. In Supabase, run [`scripts/inquiries.sql`](scripts/inquiries.sql) in the SQL editor. The table has RLS enabled and no public policies; only the server-side service role can write to it.
 2. Set `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`. These are the same variables used by the photo manager.
-3. Optionally set `INQUIRY_WEBHOOK_URL` to a Slack, Discord, Zapier, or Make webhook. Each accepted inquiry posts a JSON payload containing `text`, `content`, and the structured `inquiry` object.
+3. Optionally set `INQUIRY_WEBHOOK_URL` to a Slack, Discord, Zapier, or Make webhook. Generic webhooks receive a JSON payload containing `text`, `content`, and the structured `inquiry` object. Discord receives a message with confirmation enabled; inquiries longer than its 2,000-character message limit include the complete text as an attachment.
 
 If neither Supabase nor a webhook is available, the API returns a clear error and the form offers a prefilled WhatsApp fallback instead of silently losing the lead. Inquiries are limited to five per IP address per 10 minutes. Configure the optional KV/Upstash variables to share that limit across instances.
 

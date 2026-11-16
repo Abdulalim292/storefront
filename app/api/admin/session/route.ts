@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { adminCookie, adminSessionSeconds, createAdminSession, hasValidOrigin, isAdminRequest, passwordsMatch } from '@/lib/admin-auth';
-import { clearLoginFailures, loginClientKey, loginRetryAfter, recordLoginFailure } from '@/lib/rate-limit';
+import { clearLoginAttempts, consumeLoginAttempt, loginClientKey } from '@/lib/rate-limit';
+import { readLimitedText } from '@/lib/request-body';
 
 const NO_STORE = { 'Cache-Control': 'no-store' };
 const MAX_BODY_BYTES = 4 * 1024;
@@ -10,48 +11,8 @@ function json(body: Record<string, unknown>, status = 200, headers: Record<strin
   return NextResponse.json(body, { status, headers: { ...NO_STORE, ...headers } });
 }
 
-// Route handlers do not cap request bodies for us. Read at most the configured
-// number of bytes so a chunked request cannot force the process to buffer an
-// arbitrarily large JSON document before parsing it.
-async function readLimitedText(request: Request, maxBytes: number): Promise<string | null> {
-  if (!request.body) return '';
-
-  const reader = request.body.getReader();
-  const decoder = new TextDecoder();
-  let total = 0;
-  let result = '';
-
-  try {
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      if (!value) continue;
-
-      total += value.byteLength;
-      if (total > maxBytes) {
-        await reader.cancel();
-        return null;
-      }
-      result += decoder.decode(value, { stream: true });
-    }
-    return result + decoder.decode();
-  } catch {
-    return null;
-  }
-}
-
 export async function POST(request: Request) {
   if (!hasValidOrigin(request)) return json({ error: 'Request not allowed.' }, 403);
-
-  const clientKey = loginClientKey(request);
-  const retryAfter = await loginRetryAfter(clientKey);
-  if (retryAfter) {
-    return json(
-      { error: 'Too many sign-in attempts. Try again later.' },
-      429,
-      { 'Retry-After': String(retryAfter) },
-    );
-  }
 
   const contentType = request.headers.get('content-type')?.split(';')[0]?.trim().toLowerCase();
   if (contentType !== 'application/json') {
@@ -82,21 +43,29 @@ export async function POST(request: Request) {
     return json({ error: 'Enter the admin password.' }, 400);
   }
 
+  const clientKey = loginClientKey(request) ?? 'unknown';
+  const limit = await consumeLoginAttempt(clientKey);
+  if (!limit.allowed) {
+    return json(
+      { error: 'Too many sign-in attempts. Try again later.' },
+      429,
+      { 'Retry-After': String(limit.retryAfter) },
+    );
+  }
+
   try {
     if (!passwordsMatch(password)) {
-      await recordLoginFailure(clientKey);
       return json({ error: 'Incorrect password.' }, 401);
     }
   } catch (error) {
     // Configuration failures must not disclose which environment variable is
     // missing or how the comparison works.
     console.error('Admin login is not configured:', error);
-    await recordLoginFailure(clientKey);
     return json({ error: 'Admin sign-in is temporarily unavailable.' }, 503);
   }
 
   try {
-    await clearLoginFailures(clientKey);
+    await clearLoginAttempts(clientKey);
     const session = createAdminSession();
     const response = json({ ok: true });
     response.cookies.set(adminCookie, session.value, {

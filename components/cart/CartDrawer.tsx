@@ -84,7 +84,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   const inquiryText = [
     'Parts inquiry for Noor Alam Machineries',
     '',
-    ...cart.map((item) => `${item.quantity} × ${item.name}`),
+    ...cart.map((item) => `${item.quantity} × ${item.name} (ID: ${item.id})`),
     '',
     `Engine name / model / serial: ${engineDetails || 'To be provided'}`,
   ].join('\n');

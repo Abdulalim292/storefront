@@ -63,7 +63,6 @@ function EquipmentStoryCard({ model, index }: { model: EquipmentModel; index: nu
           fill
           sizes="(max-width: 767px) 100vw, 44vw"
           quality={70}
-          unoptimized={image.includes('/storage/v1/object/public/product-images/')}
           className="object-contain p-6 sm:p-8"
         />
       </div>

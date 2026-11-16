@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const isProduction = process.env.NODE_ENV === 'production';
+const storageUrl = process.env.SUPABASE_URL?.replace(/\/+$/, '');
+const storageImagePattern = storageUrl && URL.canParse(storageUrl)
+  ? new URL(`${storageUrl}/storage/v1/object/public/product-images/**`)
+  : null;
 
 const securityHeaders = [
   { key: 'X-Content-Type-Options', value: 'nosniff' },
@@ -49,6 +53,7 @@ const nextConfig: NextConfig = {
     maximumResponseBody: 15_000_000,
     dangerouslyAllowLocalIP: false,
     remotePatterns: [
+      ...(storageImagePattern?.protocol === 'https:' ? [storageImagePattern] : []),
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',

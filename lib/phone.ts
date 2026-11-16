@@ -18,5 +18,5 @@ export function formatBangladeshPhone(phone: string): string {
 }
 
 export function toBangladeshTel(phone: string): string {
-  return `tel:${formatBangladeshPhone(phone).replace(/\D/g, '')}`;
+  return `tel:${formatBangladeshPhone(phone).replace(/[^\d+]/g, '')}`;
 }
