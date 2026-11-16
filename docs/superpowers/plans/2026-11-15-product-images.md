@@ -385,42 +385,59 @@ git commit -m "feat: normalize generated images and verify the catalog"
 
 ---
 
-### Task 6: Generate the images, one category at a time
+### Task 6: Render the part plates
 
 **Files:**
-- Create: ~250 files under `public/images/products/`
+- Create: 272 files under `public/images/products/`
 - Modify: `data/catalog.json`
 
 **Interfaces:**
-- Consumes: `data/image-manifest.json` from Task 4; `normalize` and `verify` from Task 5.
+- Consumes: `data/image-manifest.json` from Task 4; `plateSvg(product)` and the `plates`
+  subcommand added here; `verify` from Task 5.
 - Produces: the finished catalogue imagery.
 
-- [ ] **Step 1: Generate one category**
+**Amended 2026-11-16:** the harness image generator is billed pay-as-you-go and the balance is
+empty, so no AI images exist. Pass 2 is a rendered typographic plate instead (see the spec's
+"Pass 2" section). `normalize` is dropped with it — plates are written straight to WebP.
 
-For each manifest entry in the category, generate its image with the harness image tool using
-the entry's `prompt`, saving to `public/images/products/<id>-0` (the tool appends the real
-extension). Keep the prompt exactly as `renderPrompt` produced it; if a result is visibly the
-wrong part for its name, regenerate that one once with the part name repeated in the prompt.
+- [ ] **Step 1: Write the failing test**
 
-- [ ] **Step 2: Normalize and check the category**
+```js
+test('a plate names the part and its category', () => {
+  const svg = plateSvg({ id: 'a', name: 'Sun Gear', category: 'gearbox-parts' });
+  assert.match(svg, /Sun Gear/);
+  assert.match(svg, /gearbox parts/i);
+});
 
-Run: `node scripts/product-images.mjs normalize`, then
-`node scripts/product-images.mjs verify`.
-Expected: `verify` passes; no `.png`/`.jpg` left in `public/images/products/`.
-
-- [ ] **Step 3: Commit the category**
-
-```bash
-git add data/catalog.json public/images/products
-git commit -m "feat: generated product images for <category>"
+test('a plate escapes markup in the part name', () => {
+  const svg = plateSvg({ id: 'a', name: 'Bolt & Nut', category: 'engine-components' });
+  assert.match(svg, /Bolt &amp; Nut/);
+});
 ```
 
-- [ ] **Step 4: Repeat for the remaining categories**
+- [ ] **Step 2: Run it, watch it fail**
 
-`turbocharging`, `cylinder-assembly`, `pistons-rings`, `valve-train`, `fuel-system`,
-`engine-components`, `cooling-system`, `gearbox-parts`, `heavy-equipment-parts` — one pass of
-Steps 1–3 each, largest category last so the process settles on the small ones. `gearbox-parts`
-has 184 products; commit it in two halves if a single run is interrupted.
+Run: `npm test` — FAIL, no export named `plateSvg`.
+
+- [ ] **Step 3: Implement `plateSvg` and the `plates` subcommand**
+
+`plateSvg({ id, name, category })` returns a 1000x1000 SVG string: plate-tone background,
+hairline inner frame, category label in upper case, part name wrapped at most two lines, and
+the category glyph. Escape `&`, `<`, `>` in the name. The `plates` command renders each
+manifest entry through `sharp(Buffer.from(svg)).webp({ quality: 88 })` to
+`public/images/products/<id>-0.webp`, applies the generated fields, and writes the catalog once.
+
+- [ ] **Step 4: Run it, watch it pass, then render**
+
+Run: `npm test` — PASS. Then `node scripts/product-images.mjs plates` and
+`node scripts/product-images.mjs verify` — both clean.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add scripts data public/images/products
+git commit -m "feat: render part plates for products without a photograph"
+```
 
 ---
 

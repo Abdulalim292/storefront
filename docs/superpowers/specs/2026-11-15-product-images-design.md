@@ -72,41 +72,40 @@ to be declared. Product cards render with `fill`, so native aspect needs no layo
 The credits page states once, in its intro, that photographs are shown converted to WebP and
 otherwise unmodified.
 
-**Pass 2 — generated image per remaining product.** One image per product id, in a single
-house style:
+**Pass 2 — a part plate per remaining product (amended 2026-11-16).** The harness image
+generator turned out to be paid pay-as-you-go and the account balance was empty, so generation
+was abandoned rather than left as a blocked step. Every remaining product gets a rendered
+**part plate** instead: a square 1000x1000 SVG drawn by `scripts/product-images.mjs` and
+converted to WebP, containing
 
-- single part, centred, three-quarter view, isolated on a warm off-white sweep
-  (`oklch(95.4% 0.008 90)` ≈ `#efece6`) matching `--color-plate`,
-- soft even studio light, no hard colour cast, no text, no watermark, no branding,
-- engineering-catalogue restraint: clean metal, visible machining detail, no glamour
-  reflections, no hands, no workshop background,
-- square, 1:1, delivered at 1000×1000.
+- the part name, set large in the site's display style,
+- the category, small and letter-spaced, in the register's label voice,
+- a simple line glyph for the category (gear for gearbox parts, piston for engine parts, track
+  segment for heavy equipment, and so on),
+- a hairline frame, on the warm plate tone (`oklch(95.4% 0.008 90)` ~ `#efece6`) that matches
+  `--color-plate`.
 
-The prompt is built from the part name plus its category for context (e.g. "a marine gearbox
-input shaft …"), with a per-part line where the name is ambiguous ("Separator Plate" — clutch
-separator plate, not an oil-water separator).
+No photograph, no AI, no outside service, nothing to license. The plate is obviously a
+typographic record rather than a part, which is exactly what the "Illustrative image" label
+says, so the label stays. Distinctness comes from the name and category line, so no two
+products share a file.
 
-Generation uses the image generator built into this agent's harness: no API key, no account,
-no billing. All remaining images are produced in a single uninterrupted run — no per-batch
-approval — with the style fixed by the bullets above. A part type that comes back visibly
-wrong for its name is regenerated once with a more explicit prompt before moving on.
-
+### 2. Files and data
 ### 2. Files and data
 
 - Images live at `public/images/products/<product-id>-0.webp`, the path and naming already
   produced by `scripts/download-images.mjs` / `scripts/connect-images.mjs`, one per product,
-  1000×1000 for generated images and native aspect for curated ones.
+  1000×1000 for plates and native aspect for curated photographs.
 - `catalog.json` `images[0]` becomes that local path for every part product. The 20 equipment
   entries keep their remote URLs.
-- Generated entries: `imageSourceUrl: ""`, `imageCredit: "Generated illustration"`,
+- Plate entries: `imageSourceUrl: ""`, `imageCredit: "Generated illustration"`,
   `imageLicense: ""`, `imageLicenseUrl: ""`.
 - Curated entries keep source, credit, licence and licence URL exactly as they are today.
 - The five part names that appear in two categories each (`Flywheel`, `Vibration Damper`,
   `Oil Filter`, `Oil Cooler`, `Hydraulic Pump`) may share one curated photograph; they are the
   same part type. Every other product gets its own file.
-- Budget: ~150 KB per file, so roughly 45 MB added to the repository. Accepted deliberate cost
-  (user confirmed 2026-11-15); the images are the product of this change and committing them
-  keeps deploys reproducible.
+- Budget: plates are flat SVG-derived art, a few KB each, so the committed set is a couple of
+  megabytes rather than the 45 MB a photographic set would have cost.
 
 ### 3. Honesty on the page
 

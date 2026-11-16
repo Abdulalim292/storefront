@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { isGeneratedImage, showIllustrativeNote, ILLUSTRATIVE_NOTE } from '../lib/product-image-note.ts';
-import { renderPrompt, validateCurated, generatedIds, verifyCatalog } from './product-images.mjs';
+import { validateCurated, generatedIds, verifyCatalog, plateSvg } from './product-images.mjs';
 
 const generated = { imageSourceUrl: '', images: ['/images/products/clutch-pack-0.webp'] };
 const curated = { imageSourceUrl: 'https://commons.wikimedia.org/wiki/File:X.jpg', images: ['/images/products/sun-gear-0.webp'] };
@@ -25,12 +25,6 @@ test('the note never shows for a real photograph', () => {
 
 test('the note copy names the fitment check', () => {
   assert.match(ILLUSTRATIVE_NOTE, /engine or gearbox model/);
-});
-
-test('a prompt always contains the part name verbatim', () => {
-  const p = { id: 'gearbox-parts-shift-rail', name: 'Shift Rail', category: 'gearbox-parts' };
-  assert.match(renderPrompt(p), /Shift Rail/);
-  assert.match(renderPrompt(p), /gearbox/);
 });
 
 test('a curated entry without a licence is rejected', () => {
@@ -79,4 +73,15 @@ test('two products may not share a file unless they share a duplicate name', () 
 test('equipment entries are out of scope for verification', () => {
   const products = [{ id: 'eq', name: 'Cummins KTA19', category: 'equipment', images: ['https://example.com/x.jpg'] }];
   assert.doesNotThrow(() => verifyCatalog(products, () => false));
+});
+
+test('a plate names the part and its category', () => {
+  const svg = plateSvg({ id: 'a', name: 'Sun Gear', category: 'gearbox-parts' });
+  assert.match(svg, /Sun Gear/);
+  assert.match(svg, /gearbox parts/i);
+});
+
+test('a plate escapes markup in the part name', () => {
+  const svg = plateSvg({ id: 'a', name: 'Bolt & Nut', category: 'engine-components' });
+  assert.match(svg, /Bolt &amp; Nut/);
 });
